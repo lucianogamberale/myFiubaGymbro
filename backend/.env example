@@ -1,2 +1,2 @@
-DB_URL="http://localhost:5432"
-FRONTEND_URL="http://localhost:3000"
+DB_URL=http://localhost:5432
+FRONTEND_URL=http://localhost:3000

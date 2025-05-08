@@ -1,12 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import RedirectResponse
-from .config.api_metadata import FASTAPI_METADATA
 
+from .config.api_metadata import FASTAPI_METADATA
 from .routers.users import router as users_router
 
-
 app = FastAPI(**FASTAPI_METADATA)
+# app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
@@ -15,7 +14,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 app.include_router(users_router)
 

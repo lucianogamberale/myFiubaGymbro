@@ -1,6 +1,5 @@
 from sqlalchemy.orm import Session
-
-from backend.src.repositories.users import UsersRepository
+from src.repositories.users import UsersRepository
 
 
 class UsersService:
