@@ -3,18 +3,16 @@
 {
 	"name": "React + TypeScript + Vite",
 	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	// "image": "mcr.microsoft.com/devcontainers/node:18",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	"forwardPorts": [
+		8080
+	],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "./setup.sh",
 	// Configure tool-specific properties.
-	"forwardPorts": [
-		5173
-	],
 	"customizations": {
 		"vscode": {
 			"extensions": [
