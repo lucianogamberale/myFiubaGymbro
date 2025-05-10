@@ -148,16 +148,6 @@ http://localhost:8080
 
 ---
 
-## 🐳 Docker Compose Setup (without DevContainer)
-
-If not using DevContainers, you can run the full stack with:
-
-```bash
-docker-compose up --build
-```
-
----
-
 ## 🤝 Contributing
 
 1. Fork the repository
