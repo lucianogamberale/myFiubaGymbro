@@ -10,7 +10,7 @@ COPY ./backend/src /src
 
 EXPOSE 8080
 
-CMD ["fastapi", "run", "backend/src/main.py", "--port", "8000"]
+CMD ["fastapi", "run", "/src/main.py", "--port", "8000"]
 
 RUN apt-get update && apt-get install -y curl && apt-get clean
 
