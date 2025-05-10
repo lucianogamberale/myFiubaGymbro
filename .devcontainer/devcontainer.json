@@ -1,0 +1,39 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/python
+{
+	"name": "myFiubaGymbro",
+	// Use a Docker Compose file instead of a single container image.
+	"dockerComposeFile": "docker-compose.yml",
+	// Name of the service container to connect to.
+	"service": "devcontainer",
+	// Set the workspace folder inside the container.
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+	// Forward ports from inside the container.
+	"forwardPorts": [
+		8000,
+		8080,
+		5432
+	],
+	// Run commands after the container is started.
+	"postStartCommand": "./setup.sh; ./backend/setup.sh; ./frontend/setup.sh",
+	// Add custom VS Code extensions.
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-python.mypy-type-checker",
+				"ms-python.isort",
+				"ms-python.black-formatter",
+				"ms-azuretools.vscode-docker",
+				"docker.docker",
+				"eamodio.gitlens",
+				"dbaeumer.vscode-eslint"
+			]
+		}
+	},
+	// Environment variable useful for connecting to Postgres from app
+	"remoteEnv": {
+		"DATABASE_URL": "postgres://user:password@postgres:5432/mydatabase"
+	}
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}

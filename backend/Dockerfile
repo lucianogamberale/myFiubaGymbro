@@ -10,9 +10,9 @@ COPY ./backend/src /src
 
 EXPOSE 8080
 
-CMD ["fastapi", "run", "backend/src/main.py", "--port", "3000"]
+CMD ["fastapi", "run", "backend/src/main.py", "--port", "8000"]
 
 RUN apt-get update && apt-get install -y curl && apt-get clean
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=1 \
-    CMD curl -s --fail http://localhost:3000/api/health-check | grep '"healthy":true' > /dev/null || exit 1
+    CMD curl -s --fail http://localhost:8000/api/health-check | grep '"healthy":true' > /dev/null || exit 1

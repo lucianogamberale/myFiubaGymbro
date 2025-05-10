@@ -44,7 +44,7 @@ alembic upgrade head
 Start the server:
 
 ```bash
-fastapi run src/main.py --port 3000
+fastapi run src/main.py --port 8000
 ```
 
 ### Docker Setup
