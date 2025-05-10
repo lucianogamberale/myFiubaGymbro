@@ -18,9 +18,18 @@ services:
       dockerfile: ./backend/Dockerfile
     restart: always
     ports:
-      - "8080:8080"
+      - "3000:3000"
     depends_on:
       - db
     environment:
       DB_URL: 'postgresql+psycopg2://postgres:secret@db:5432/postgres'
-      FRONTEND_URL: 'http://localhost:3000'
+
+  frontend:
+    build:
+      context: ../
+      dockerfile: ./frontend/Dockerfile
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
