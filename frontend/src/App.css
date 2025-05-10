@@ -1,0 +1,31 @@
+@import url('https://fonts.googleapis.com/css2?family=Open Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM Sans:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    font-family: 'DM Sans', 'Open Sans', sans-serif;
+    scrollbar-width: thin;
+    scrollbar-color: #8d8a9c #f1f1f1;
+    /* scroll thumb and track */
+}
+
+/* App.css */
+
+.fade-in {
+    animation: fadeIn ease 0.5s;
+    animation-fill-mode: forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}

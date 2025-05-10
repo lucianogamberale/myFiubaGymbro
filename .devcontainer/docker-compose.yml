@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:14
+    restart: unless-stopped
+    command: >
+      -c ssl=on -c ssl_cert_file=/etc/ssl/certs/ssl-cert-snakeoil.pem -c ssl_key_file=/etc/ssl/private/ssl-cert-snakeoil.key
+    environment:
+      POSTGRES_PASSWORD: secret
+      POSTGRES_USER: postgres
+      POSTGRES_DB: myfiubagymbro
+    ports:
+      - "5432:5432"
+
+  devcontainer:
+    image: mcr.microsoft.com/devcontainers/python:3
+    volumes:
+      - ../..:/workspaces:cached
+    command: sleep infinity
+    depends_on:
+      - db
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
