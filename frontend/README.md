@@ -1,98 +1,72 @@
-# myFiubaBro Frontend
+# myFiubaGymbro Frontend
 
-## 📦 Devcontainer Ready
+This is the frontend for **myFiubaGymbro**, built using React, TypeScript, and Vite.
 
-This project is set up to be used with [DevContainers](https://containers.dev/). You can open it directly in Visual Studio Code using the "Reopen in Container" option.
+## 📦 Features
 
-## 🚀 How to Run in Developer Mode
+- React + TypeScript + Vite stack
+- Tailwind CSS for styling
+- Hot Module Replacement (HMR) enabled
+- DevContainer support for consistent development environments
+
+## 🧪 Requirements
+
+- Node.js (v18+)
+- npm (v9+)
+- VS Code with DevContainers extension (optional but recommended)
+
+## ⚙️ Development Setup
+
+### Open in DevContainer (Recommended)
+
+If you have Visual Studio Code with the Dev Containers extension:
+
+1. Open the project folder in VS Code.
+2. Click on “Reopen in Container” when prompted.
+
+### Run in Developer Mode
 
 ```bash
 npm install
 npm run dev
 ```
 
-This will launch the development server using Vite. By default, it should be available at:
+This will start the development server, typically on http://localhost:8080.
 
-```
-http://localhost:8080
-```
+## 🚀 Run Production Build
 
-## 🏁 How to Run (Production)
-
-To build and serve the app in production mode:
+1. Build the app:
 
 ```bash
-npm install
 npm run build
-npx serve dist
 ```
 
-## 🌐 How It Can Be Accessed from Outside
+2. Preview the production build:
 
-If running in a devcontainer, the port `8080` should be forwarded. In `.devcontainer/devcontainer.json`, ensure you have:
-
-```json
-"forwardPorts": [8080]
+```bash
+npm run preview
 ```
 
-Access from your host machine at:
+### Run via Docker (Custom)
+
+Use the included Dockerfile to build and serve the app via `serve`:
+
+```bash
+docker build -t myfiubagymbro-frontend .
+docker run -p 8080:8080 myfiubagymbro-frontend
+```
+
+## 🌐 Access from Outside
+
+If running inside a devcontainer or Docker, ensure the port 8080 is forwarded or exposed. You can then access the app from your host machine at:
 
 ```
 http://localhost:8080
 ```
 
-## 📚 API Documentation
+## 📑 APIs Documentation
 
-This frontend interfaces with the myFiubaBro backend API.
+The frontend consumes APIs exposed by the backend (FastAPI). You can access the API documentation at:
 
-Make sure the backend is running and accessible (typically on port `8080`).
-
-You can configure API endpoints by editing environment variables or by modifying the Axios base URL inside the frontend code.
-
-## 🛠 Tech Stack
-
-- **React 18**
-- **TypeScript**
-- **Vite**
-- **TailwindCSS**
-- **Radix UI**
-- **NextAuth**
-- **Zod**
-- **Axios**
-
-## 🧪 ESLint Setup
-
-This project uses ESLint with TypeScript:
-
-To enable type-aware lint rules in production:
-
-- Modify `parserOptions` in `.eslintrc`:
-  ```js
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  }
-  ```
-
-- Use the following plugins for stricter type checking:
-  ```json
-  "extends": [
-    "plugin:@typescript-eslint/recommended-type-checked",
-    "plugin:@typescript-eslint/strict-type-checked",
-    "plugin:@typescript-eslint/stylistic-type-checked",
-    "plugin:react/recommended",
-    "plugin:react/jsx-runtime"
-  ]
-  ```
-
----
-
-For any issues, please check logs with:
-
-```bash
-npm run dev
-```
-
-and ensure Tailwind content configuration includes your `src` folder.
+- Swagger UI: `http://localhost:8000/docs`
+- ReDoc: `http://localhost:8000/redoc`
