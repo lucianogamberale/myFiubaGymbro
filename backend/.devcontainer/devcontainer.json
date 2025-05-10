@@ -6,7 +6,7 @@
 	"image": "mcr.microsoft.com/devcontainers/python:3",
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	// "features": {},
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// Use 'forwardPorts' to make a list of ports inside the container availabl locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": "./setup.sh",
@@ -18,7 +18,8 @@
 				"ms-python.isort",
 				"ms-python.black-formatter",
 				"ms-azuretools.vscode-docker",
-				"docker.docker"
+				"docker.docker",
+				"eamodio.gitlens"
 			]
 		}
 	}
