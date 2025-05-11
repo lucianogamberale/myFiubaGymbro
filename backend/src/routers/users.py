@@ -7,7 +7,5 @@ router = APIRouter(prefix="/api", tags=["Users"])
 
 
 @router.get("/users", status_code=status.HTTP_200_OK)
-def test(
-    db: DBSessionDependency,
-):
-    yield
+def get_users():
+    return [{"id": 123, "name": "nombreDeUsuario"}]

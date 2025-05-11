@@ -8,4 +8,5 @@ class UsersRepository(BaseRepository):
     def save(self, user: User) -> User:
         self.db_session.add(user)
         self.db_session.commit()
+        self.db_session.refresh(user)
         return user

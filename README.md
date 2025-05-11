@@ -1,4 +1,3 @@
-
 # myFiubaGymbro 🏋️‍♂️
 
 This is the monorepo for **myFiubaGymbro**, an application to help FIUBA students stay fit and track healthy habits. It includes a **FastAPI backend**, a **React + TypeScript frontend**, and a shared **PostgreSQL database**, all running in a unified development container.
@@ -20,18 +19,18 @@ This is the monorepo for **myFiubaGymbro**, an application to help FIUBA student
 
 ## 🚀 Features
 
-- FastAPI backend with SQLAlchemy and Alembic
-- React + TypeScript frontend using Vite
-- Shared PostgreSQL database
-- DevContainer for a consistent dev environment
-- Docker Compose orchestration
+* FastAPI backend with SQLAlchemy and Alembic
+* React + TypeScript frontend using Vite
+* Shared PostgreSQL database
+* DevContainer for a consistent dev environment
+* Docker Compose orchestration
 
 ---
 
 ## 🧱 Prerequisites
 
-- [Docker](https://www.docker.com/)
-- [Visual Studio Code](https://code.visualstudio.com/) with the **Dev Containers** extension (optional, recommended)
+* [Docker](https://www.docker.com/)
+* [Visual Studio Code](https://code.visualstudio.com/) with the **Dev Containers** extension (optional, recommended)
 
 ---
 
@@ -40,9 +39,10 @@ This is the monorepo for **myFiubaGymbro**, an application to help FIUBA student
 1. Open the project in VS Code.
 2. When prompted, **"Reopen in Container"**.
 3. The services will spin up with:
-   - Backend accessible at `http://localhost:8000` (only when running)
-   - Frontend accessible at `http://localhost:8080` (only when running)
-   - PostgreSQL running internally
+
+   * Backend accessible at `http://localhost:8000` (only when running)
+   * Frontend accessible at `http://localhost:8080` (only when running)
+   * PostgreSQL running internally
 
 > If not prompted, use `Ctrl+Shift+P → Dev Containers: Reopen in Container`.
 
@@ -83,14 +83,30 @@ pip install -r requirements.txt
 
 ### API Docs
 
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+* Swagger UI: `http://localhost:8000/docs`
+* ReDoc: `http://localhost:8000/redoc`
 
 ### Run migrations:
 
 ```bash
 alembic upgrade head
 ```
+
+> This ensures your database schema is up-to-date with the models. You must run this:
+>
+> * When you **start the devcontainer** or **reset the DB**
+> * After you **pull changes** that include new migrations
+
+### Create a new migration after modifying models:
+
+```bash
+alembic revision --autogenerate -m "describe the change"
+alembic upgrade head
+```
+
+This will generate a new migration script based on your SQLAlchemy models and apply it to the DB.
+
+> ✅ Tip: You can include `alembic upgrade head` in your `start.sh` to ensure the DB is always in sync.
 
 ### Start the server:
 
@@ -128,15 +144,15 @@ The app will be live at: `http://localhost:8080`
 
 1. Build the app:
 
-    ```bash
-    npm run build
-    ```
+   ```bash
+   npm run build
+   ```
 
 2. Preview the production build:
 
-    ```bash
-    npm run preview
-    ```
+   ```bash
+   npm run preview
+   ```
 
 ### Access from Outside
 
@@ -171,17 +187,19 @@ In addition to the DevContainer setup, there's a **local-running** folder that p
 
 You can manage the entire stack using the provided scripts inside the `local-running` directory:
 
-- To start all services:
+* To start all services:
+
   ```bash
   ./start.sh
   ```
 
-- To stop all services:
+* To stop all services:
+
   ```bash
   ./stop.sh
   ```
 
 Access the app locally:
-- Frontend: [http://localhost:8080](http://localhost:8080)
-- Backend API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
 
+* Frontend: [http://localhost:8080](http://localhost:8080)
+* Backend API docs: [http://localhost:8000/docs](http://localhost:8000/docs)
