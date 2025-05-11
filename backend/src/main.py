@@ -16,7 +16,7 @@ async def lifespan(app: FastAPI):
     # Create tables on startup
     Base.metadata.create_all(bind=engine)
     
-    yield  # Startup complete
+    yield  # Startup completed
 
     # remove tables on shutdown
     Base.metadata.drop_all(bind=engine)
