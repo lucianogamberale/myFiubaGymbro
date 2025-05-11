@@ -1,1 +1,1 @@
-DB_URL=http://localhost:5432
+DB_URL=postgresql+psycopg2://postgres:secret@db:5432/myfiubagymbro
