@@ -15,6 +15,7 @@ engine = create_engine(DB_URL, echo=True)
 async def lifespan(app: FastAPI):
     # Create tables on startup
     Base.metadata.create_all(bind=engine)
+    
     yield  # Startup complete
 
     # remove tables on shutdown
