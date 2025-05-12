@@ -1,20 +1,18 @@
 import { useForm } from 'react-hook-form';
-import { foodOptions } from './Selects/foodOptions'; 
-import { foodCategories } from './Selects/foodCategories'; 
-import { useNavigate } from 'react-router-dom';
-
-import './user_food.css';
+import { exerciseOptions } from './Selects/exerciseOptions'; 
+import './user_exercise.css';
 import './BackButton.css';
+import { useNavigate } from 'react-router-dom';
 
 type FormData = {
   ID: number;
-  Comida: string;
-  Categoria: string;
+  Ejercicio: string;
+  duracion: number;
   Calorias: number;
   Date: string;
 };
 
-function UserFood() {
+function UserExercise() {
   const { register, handleSubmit, reset } = useForm<FormData>();
 
   const navigate = useNavigate();
@@ -25,12 +23,12 @@ function UserFood() {
 
   const onSubmit = async (data: FormData) => {
     const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/user-foods/${userId}`; // Se usa en la URL
+    const url = `http://localhost:8000/api/user-exercise/${userId}`; // Se usa en la URL
 
     // body del post
     const userFoodData = {
-      comida: data.Comida,
-      categoria: data.Categoria,
+      ejercicio: data.Ejercicio,
+      duracion: data.duracion,
       calorias: data.Calorias,
       date: data.Date,
     };
@@ -58,41 +56,38 @@ function UserFood() {
   return (
     <div className="user-food-container">
       <button className="back-button" onClick={handleBack}>Volver</button>
-      <h2 className="user-food-title">Registrar comida</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="user-food-form">
+      <h2 className="user-food-title">Registrar Ejercicio</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="user-exercise-form">
         <input
           placeholder="ID"
           type="number"
           {...register('ID', { required: true })}
         />
-        <select {...register('Comida', { required: true })}>
-          <option value="">Selecciona una comida</option>
-          {foodOptions.map((food) => (
-            <option key={food} value={food}>
-              {food}
+        <select {...register('Ejercicio', { required: true })}>
+          <option value="">Selecciona la actividad realizada</option>
+          {exerciseOptions.map((excercise) => (
+            <option key={excercise} value={excercise}>
+              {excercise}
             </option>
           ))}
         </select>
-        <select {...register('Categoria', { required: true })}>
-          <option value="">Selecciona una categoria</option>
-          {foodCategories.map((food) => (
-            <option key={food} value={food}>
-              {food}
-            </option>
-          ))}
-        </select>
+        <input
+          placeholder="Duracion"
+          type="number"
+          min={1}
+          {...register('duracion', { required: true,  min: 1 })}
+        />
         <input
           placeholder="Calorías"
           type="number"
           min={1}
           {...register('Calorias', { required: true, min: 1 })}
         />
-        <input type="date" {...register('Date', { required: true })} />
+        <input type="datetime-local" {...register('Date', { required: true })} />
         <button type="submit">Enviar</button>
       </form>
     </div>
   );
 }
 
-export default UserFood;
-
+export default UserExercise;

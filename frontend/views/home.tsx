@@ -10,6 +10,7 @@ function Home() {
         <div className="nav-links">
           <Link to="/users">Ver usuarios</Link>
           <Link to="/user_food">Cargar comida</Link>
+          <Link to="/user_exercise">Cargar ejercicio</Link>
           <Link to="/registro">Registrarse</Link>
           <Link to="/login">Iniciar sesión</Link>
         </div>
