@@ -29,10 +29,10 @@ function UserFood() {
 
     // body del post
     const userFoodData = {
-      comida: data.Comida,
-      categoria: data.Categoria,
-      calorias: data.Calorias,
-      date: data.Date,
+      food_name: data.Comida,
+      food_category: data.Categoria,
+      calories: data.Calorias,
+      date_eaten: data.Date,
     };
 
     try {

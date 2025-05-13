@@ -17,6 +17,4 @@ class UserFood(Base):
         ForeignKey("users.id", ondelete="CASCADE"), nullable=False
     )
 
-    user: Mapped["User"] = relationship(
-        back_populates="user_foods",
-    )
+    user: Mapped["User"] = relationship()
