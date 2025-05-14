@@ -6,16 +6,18 @@ from sqlalchemy import create_engine
 from .config.api_metadata import FASTAPI_METADATA
 from .config.env import DB_URL
 from .repositories.models.base_model import Base
+from .routers.user_excercises import router as user_excercises_router
 from .routers.user_foods import router as user_foods_router
 from .routers.users import router as users_router
 
 engine = create_engine(DB_URL, echo=True)
 
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Create tables on startup
     Base.metadata.create_all(bind=engine)
-    
+
     yield  # Startup completed
 
     # remove tables on shutdown
@@ -33,6 +35,7 @@ app.add_middleware(
 
 app.include_router(users_router)
 app.include_router(user_foods_router)
+app.include_router(user_excercises_router)
 
 # ==============================================================================
 

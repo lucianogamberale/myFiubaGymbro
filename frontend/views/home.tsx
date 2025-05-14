@@ -8,12 +8,13 @@ function Home() {
       <nav className="navbar">
         <h1 className="nav-title">My Fiuba GymBro</h1>
         <div className="nav-links">
-          <Link to="/users">Ver usuarios</Link>
+          {/* <Link to="/users">Ver usuarios</Link> */}
           <Link to="/user_food">Cargar comida</Link>
           <Link to="/My_user_food">Mis comidas</Link>
           <Link to="/user_exercise">Cargar ejercicio</Link>
-          <Link to="/registro">Registrarse</Link>
-          <Link to="/login">Iniciar sesión</Link>
+          <Link to="/My_user_exersice">Mis ejercicios</Link>
+          {/* <Link to="/registro">Registrarse</Link>
+          <Link to="/login">Iniciar sesión</Link> */}
         </div>
       </nav>
 
@@ -25,7 +26,7 @@ function Home() {
         <p className="main-description">
           Seguí tu progreso, controlá tus rutinas y conectá con otros estudiantes de la FIUBA.
         </p>
-        <Link to="/registro" className="cta-button">
+        <Link to="/" className="cta-button">
           Empezar ahora
         </Link>
       </main>

@@ -1,13 +1,14 @@
 import { useForm } from 'react-hook-form';
 import { exerciseOptions } from './Selects/exerciseOptions'; 
+import { useNavigate } from 'react-router-dom';
+
 import './user_exercise.css';
 import './BackButton.css';
-import { useNavigate } from 'react-router-dom';
 
 type FormData = {
   ID: number;
   Ejercicio: string;
-  duracion: number;
+  Duracion: number;
   Calorias: number;
   Date: string;
 };
@@ -23,14 +24,14 @@ function UserExercise() {
 
   const onSubmit = async (data: FormData) => {
     const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/user-exercise/${userId}`; // Se usa en la URL
+    const url = `http://localhost:8000/api/user-excercises/${userId}`; // Se usa en la URL
 
     // body del post
-    const userFoodData = {
-      ejercicio: data.Ejercicio,
-      duracion: data.duracion,
-      calorias: data.Calorias,
-      date: data.Date,
+    const userExcerciseData = {
+      excercise_name: data.Ejercicio,
+      duration: data.Duracion,
+      calories: data.Calorias,
+      date_done: data.Date,
     };
 
     try {
@@ -39,7 +40,7 @@ function UserExercise() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userFoodData),
+        body: JSON.stringify(userExcerciseData),
       });
 
       if (!response.ok) throw new Error('Error al enviar los datos');
@@ -72,10 +73,10 @@ function UserExercise() {
           ))}
         </select>
         <input
-          placeholder="Duracion"
+          placeholder="Duración"
           type="number"
           min={1}
-          {...register('duracion', { required: true,  min: 1 })}
+          {...register('Duracion', { required: true,  min: 1 })}
         />
         <input
           placeholder="Calorías"
@@ -83,7 +84,7 @@ function UserExercise() {
           min={1}
           {...register('Calorias', { required: true, min: 1 })}
         />
-        <input type="datetime-local" {...register('Date', { required: true })} />
+        <input type="date" {...register('Date', { required: true })} />
         <button type="submit">Enviar</button>
       </form>
     </div>
