@@ -1,8 +1,6 @@
 from sqlalchemy.orm import Session
 from src.dtos.user_food_dtos import UserFoodCreationDTO, UserFoodReponseDTO
-from src.repositories.models.user_food import UserFood
 from src.repositories.user_foods import UserFoodsRepository
-from src.repositories.users import UsersRepository
 
 
 class UserFoodsService:
