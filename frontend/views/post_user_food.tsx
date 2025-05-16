@@ -3,8 +3,8 @@ import { foodOptions } from './Selects/foodOptions';
 import { foodCategories } from './Selects/foodCategories'; 
 import { useNavigate } from 'react-router-dom';
 
-import './user_food.css';
-import './BackButton.css';
+import './Styles/user_excercise.css';
+import './Styles/BackButton.css';
 
 type FormData = {
   ID: number;
@@ -24,8 +24,8 @@ function UserFood() {
   };
 
   const onSubmit = async (data: FormData) => {
-    const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/user-foods/${userId}`; // Se usa en la URL
+    //const userId = data.ID;  // El ID del usuario se toma desde el formulario
+    const url = `http://localhost:8000/api/user-foods/${1}`; // Se usa en la URL
 
     // body del post
     const userFoodData = {
@@ -60,11 +60,11 @@ function UserFood() {
       <button className="back-button" onClick={handleBack}>Volver</button>
       <h2 className="user-food-title">Registrar comida</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="user-food-form">
-        <input
+        {/* <input
           placeholder="ID"
           type="number"
           {...register('ID', { required: true })}
-        />
+        /> */}
         <select {...register('Comida', { required: true })}>
           <option value="">Selecciona una comida</option>
           {foodOptions.map((food) => (

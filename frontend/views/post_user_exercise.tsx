@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form';
 import { exerciseOptions } from './Selects/exerciseOptions'; 
 import { useNavigate } from 'react-router-dom';
 
-import './user_exercise.css';
-import './BackButton.css';
+import './Styles/user_excercise.css';
+import './Styles/BackButton.css';
 
 type FormData = {
   ID: number;
@@ -23,8 +23,8 @@ function UserExercise() {
   };
 
   const onSubmit = async (data: FormData) => {
-    const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/user-excercises/${userId}`; // Se usa en la URL
+    //const userId = data.ID;  // El ID del usuario se toma desde el formulario
+    const url = `http://localhost:8000/api/user-excercises/${1}`; // Se usa en la URL
 
     // body del post
     const userExcerciseData = {
@@ -59,11 +59,11 @@ function UserExercise() {
       <button className="back-button" onClick={handleBack}>Volver</button>
       <h2 className="user-food-title">Registrar Ejercicio</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="user-exercise-form">
-        <input
+        {/* <input
           placeholder="ID"
           type="number"
           {...register('ID', { required: true })}
-        />
+        /> */}
         <select {...register('Ejercicio', { required: true })}>
           <option value="">Selecciona la actividad realizada</option>
           {exerciseOptions.map((excercise) => (

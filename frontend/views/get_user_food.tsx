@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './user_food.css';
-import './BackButton.css';
+import './Styles/user_food.css';
+import './Styles/BackButton.css';
 
 type FoodEntry = {
   id: number;
@@ -12,7 +12,8 @@ type FoodEntry = {
 };
 
 function UserFoodFetcher() {
-  const [userId, setUserId] = useState('');
+  // const [userId, setUserId] = useState('');
+  const userId = 1;
   const [foodList, setFoodList] = useState<FoodEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -57,12 +58,12 @@ function UserFoodFetcher() {
           fetchFoods();
         }}
       >
-        <input
+        {/* <input
           type="number"
           placeholder="ID del usuario"
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
-        />
+        /> */}
         <button type="submit">Buscar</button>
       </form>
 
