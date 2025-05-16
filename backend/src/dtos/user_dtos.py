@@ -12,3 +12,9 @@ class UserCreationDTO(BaseModel):
     username: str
     email: str
     password: str
+
+
+class HealthDataDTO(BaseModel):
+    weight: int
+    height: int
+    age: int

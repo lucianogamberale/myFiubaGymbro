@@ -12,7 +12,7 @@ type FormData = {
   password: string;
 };
 
-function UserExercise() {
+function Register() {
   const { register, handleSubmit, reset, setError, formState: { errors } } = useForm<FormData>();
   const [registroExitoso, setRegistroExitoso] = useState(false);
 
@@ -143,4 +143,4 @@ function UserExercise() {
   );
 }
 
-export default UserExercise;
+export default Register;

@@ -59,11 +59,6 @@ function UserExercise() {
       <button className="back-button" onClick={handleBack}>Volver</button>
       <h2 className="user-food-title">Registrar Ejercicio</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="user-exercise-form">
-        {/* <input
-          placeholder="ID"
-          type="number"
-          {...register('ID', { required: true })}
-        /> */}
         <select {...register('Ejercicio', { required: true })}>
           <option value="">Selecciona la actividad realizada</option>
           {exerciseOptions.map((excercise) => (
