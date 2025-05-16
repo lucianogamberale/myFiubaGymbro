@@ -26,8 +26,8 @@ function Home() {
         <p className="main-description">
           Seguí tu progreso, controlá tus rutinas y conectá con otros estudiantes de la FIUBA.
         </p>
-        <Link to="/" className="cta-button">
-          Empezar ahora
+        <Link to="/register" className="cta-button">
+          Registrarse
         </Link>
       </main>
     </div>

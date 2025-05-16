@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from '../views/home';
+import Register from '../views/register';
 import Users from '../views/users';
 import UserFood from '../views/post_user_food';
 import MyUserFood from '../views/get_user_food';
@@ -11,6 +12,7 @@ function App() {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/users" element={<Users />} />
         <Route path="/user_food" element={<UserFood />} />
         <Route path="/My_user_food" element={<MyUserFood />} />

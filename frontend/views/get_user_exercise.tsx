@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Styles/user_excercise.css'; // cambiar
 import './Styles/BackButton.css';
@@ -45,30 +45,16 @@ function UserExcersiceFetcher() {
     }
   };
 
+  useEffect(() => {
+    fetchExcercises(); 
+  }, []);
+
+
   return (
     <div className="user-food-container">
       <button className="back-button" onClick={handleBack}>Volver</button>
 
-      {/* <h2 className="user-food-title">Consultar ejercicios por ID de usuario</h2> */}
-
-      <form
-        className="user-food-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          fetchExcercises();
-        }}
-      >
-        {/* <input
-          type="number"
-          placeholder="ID del usuario"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-        /> */}
-        <button type="submit">Buscar</button>
-      </form>
-
-      {loading && <p>Cargando datos...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h2 className="user-food-title">Consultar ejercicios</h2>
 
       {ExerciseList.length > 0 && (
         <div className="user-food-table-container">

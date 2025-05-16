@@ -18,3 +18,14 @@
   .back-button:hover {
     background-color: #1d4ed8; /* azul más oscuro al hacer hover */
   }
+
+  .input-error {
+  border: 2px solid red;
+  background-color: #ffe5e5;
+}
+
+.error-message {
+  color: red;
+  font-size: 0.8rem;
+  margin: 0.2rem 0 1rem 0;
+}

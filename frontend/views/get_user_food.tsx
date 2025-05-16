@@ -1,5 +1,5 @@
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect  } from 'react';
 import './Styles/user_food.css';
 import './Styles/BackButton.css';
 
@@ -24,17 +24,18 @@ function UserFoodFetcher() {
     navigate(-1); // o navigate('/') si querés ir al menú principal
   };
 
+  
   const fetchFoods = async () => {
-    if (!userId) return;
-
+    // if (!userId) return;
+    
     setLoading(true);
     setError('');
     setFoodList([]);
-
+    
     try {
       const response = await fetch(`http://localhost:8000/api/user-foods/${userId}`);
       if (!response.ok) throw new Error('Error al obtener los datos');
-
+      
       const data = await response.json();
       setFoodList(data);
     } catch (err) {
@@ -44,31 +45,17 @@ function UserFoodFetcher() {
       setLoading(false);
     }
   };
+  
+  useEffect(() => {
+    fetchFoods(); 
+    }, []);
+
 
   return (
     <div className="user-food-container">
       <button className="back-button" onClick={handleBack}>Volver</button>
 
-      <h2 className="user-food-title">Consultar comidas por ID de usuario</h2>
-
-      <form
-        className="user-food-form"
-        onSubmit={(e) => {
-          e.preventDefault();
-          fetchFoods();
-        }}
-      >
-        {/* <input
-          type="number"
-          placeholder="ID del usuario"
-          value={userId}
-          onChange={(e) => setUserId(e.target.value)}
-        /> */}
-        <button type="submit">Buscar</button>
-      </form>
-
-      {loading && <p>Cargando datos...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      <h2 className="user-food-title">Consultar comidas</h2>
 
       {foodList.length > 0 && (
         <div className="user-food-table-container">
