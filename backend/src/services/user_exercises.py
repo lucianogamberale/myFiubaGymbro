@@ -1,10 +1,8 @@
-from sqlalchemy.orm import Session
+from typing import List
 
-from backend.src.dtos.user_exercise_dtos import (
-    UserExerciseCreationDTO,
-    UserExerciseResponseDTO,
-)
-from backend.src.repositories.user_exercises import UserExercisesRepository
+from sqlalchemy.orm import Session
+from src.dtos.user_exercise_dtos import UserExerciseCreationDTO, UserExerciseResponseDTO
+from src.repositories.user_exercises import UserExercisesRepository
 
 
 class UserExercisesService:
@@ -17,7 +15,7 @@ class UserExercisesService:
     ) -> None:
         self.user_exercises_repo.save_new_user_exercise(user_id, user_exercise_data)
 
-    def get_user_exercises(self, user_id: float) -> list[UserExerciseResponseDTO]:
+    def get_user_exercises(self, user_id: float) -> List[UserExerciseResponseDTO]:
         user_exercises = self.user_exercises_repo.get_all_user_exercises(user_id)
         return [
             UserExerciseResponseDTO(
@@ -25,7 +23,7 @@ class UserExercisesService:
                 exercise_name=user_exercise.exercise_name,
                 duration=user_exercise.duration,
                 calories=user_exercise.calories,
-                date_done=user_exercise.date_done,
+                date=user_exercise.date,
             )
             for user_exercise in user_exercises
         ]

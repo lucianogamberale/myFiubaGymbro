@@ -1,5 +1,4 @@
-import datetime
-from enum import Enum
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
@@ -12,7 +11,7 @@ class UserFoodCreationDTO(BaseModel):
     food_name: str
     food_category: FoodCategory
     calories: float
-    date_eaten: datetime.date
+    date: datetime
 
 
 # ====================== RESPONSES ====================== #
@@ -23,4 +22,4 @@ class UserFoodReponseDTO(BaseModel):
     food_name: str
     food_category: str
     calories: float
-    date_eaten: datetime.date
+    date: datetime

@@ -5,21 +5,16 @@ from src.services.users import UsersService
 
 router = APIRouter(prefix="/users", tags=["Users"])
 
-# ==============================================================================
-
-
-# @router.get("/users", status_code=status.HTTP_200_OK)
-# def get_users():
-#     return [{"id": 123, "name": "nombreDeUsuario"}]
+# ====================== MANAGING - USERS ====================== #
 
 
 @router.post("", status_code=status.HTTP_201_CREATED)
-def create_user(user_data: UserCreationDTO, db: DBSessionDependency):
+def create_user(user_data: UserCreationDTO, db: DBSessionDependency) -> None:
     UsersService(db).create_user(user_data)
 
 
 @router.post("/user-health-data/{user_id}", status_code=status.HTTP_201_CREATED)
-def post_user_health_data(
+def create_user_health_data(
     user_id: float, health_data: UserHealthDataCreationDTO, db: DBSessionDependency
-):
+) -> None:
     UsersService(db).create_user_health_data(user_id, health_data)

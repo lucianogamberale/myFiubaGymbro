@@ -36,7 +36,7 @@ class UserFoodsService:
                 food_name=user_food.food.name,
                 food_category=user_food.food.category,
                 calories=user_food.calories,
-                date_eaten=user_food.date_eaten,
+                date=user_food.date,
             )
             for user_food in user_foods
         ]

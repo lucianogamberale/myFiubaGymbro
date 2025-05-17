@@ -7,7 +7,7 @@ from .base import BaseRepository
 
 class UserHealthRepository(BaseRepository):
     def save_health_data(
-        self, user_id, user_data: UserHealthDataCreationDTO
+        self, user_id: float, user_data: UserHealthDataCreationDTO
     ) -> UserHealthData:
         user_healt_data = UserHealthData(
             user_id=user_id,

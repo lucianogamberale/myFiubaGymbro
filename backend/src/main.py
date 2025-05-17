@@ -1,3 +1,5 @@
+from typing import Dict
+
 from fastapi import FastAPI
 from fastapi.concurrency import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
@@ -42,5 +44,5 @@ app.include_router(user_exercises_router)
 
 
 @app.get("/health-check")
-def health_ping():
+def health_check() -> Dict[str, bool]:
     return {"healthy": True}
