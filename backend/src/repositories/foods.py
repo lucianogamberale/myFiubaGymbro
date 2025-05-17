@@ -1,7 +1,5 @@
 import sqlalchemy as sa
-from src.dtos.user_food_dtos import UserFoodCreationDTO
 from src.repositories.models.food import Food
-from src.repositories.models.user_food import UserFood
 
 from .base import BaseRepository
 

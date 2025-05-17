@@ -2,11 +2,12 @@ from typing import List
 
 from fastapi import APIRouter, status
 from src.deps.database import DBSessionDependency
-from src.dtos.user_excercise_dtos import (
-    UserExcerciseCreationDTO,
-    UserExcerciseResponseDTO,
+
+from backend.src.dtos.user_exercise_dtos import (
+    UserExerciseCreationDTO,
+    UserExerciseResponseDTO,
 )
-from src.services.user_excercises import UserExcercisesService
+from backend.src.services.user_exercises import UserExercisesService
 
 router = APIRouter(prefix="/user-exercises", tags=["UserExercises"])
 
@@ -14,12 +15,12 @@ router = APIRouter(prefix="/user-exercises", tags=["UserExercises"])
 
 
 @router.post("/{user_id}", status_code=status.HTTP_201_CREATED)
-def create_user_excercises(
+def create_user_exercises(
     user_id: float,
-    user_excercise_data: UserExcerciseCreationDTO,
+    user_exercise_data: UserExerciseCreationDTO,
     db: DBSessionDependency,
 ):
-    UserExcercisesService(db).create_user_excercise(user_id, user_excercise_data)
+    UserExercisesService(db).create_user_exercise(user_id, user_exercise_data)
 
 
 # ====================== QUERYING - USER FOODS ====================== #
@@ -27,8 +28,8 @@ def create_user_excercises(
 
 @router.get(
     "/{user_id}",
-    response_model=List[UserExcerciseResponseDTO],
+    response_model=List[UserExerciseResponseDTO],
     status_code=status.HTTP_200_OK,
 )
-def get_user_excercises(user_id: float, db: DBSessionDependency):
-    return UserExcercisesService(db).get_user_excercises(user_id)
+def get_user_exercises(user_id: float, db: DBSessionDependency):
+    return UserExercisesService(db).get_user_exercises(user_id)

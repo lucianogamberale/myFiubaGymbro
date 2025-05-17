@@ -47,7 +47,7 @@ function Home() {
     <div className="home-container">
       {/* Navbar */}
       <nav className="navbar">
-        <h1 className="nav-title">My Fiuba GymBro</h1>
+        <h1 className="nav-title">myFiubaGymbro</h1>
         <div className="nav-links">
           <div className="dropdown">
             <button className="dropbtn" onClick={() => toggleMenu("comida")}>

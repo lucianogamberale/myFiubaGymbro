@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { foodOptions } from './Selects/foodOptions'; 
-import { foodCategories } from './Selects/foodCategories'; 
+import { foodOptions } from './Selects/foodOptions';
+import { foodCategories } from './Selects/foodCategories';
 import { useNavigate } from 'react-router-dom';
 
-import './Styles/user_excercise.css';
+import './Styles/user_exercise.css';
 import './Styles/BackButton.css';
 
 type FormData = {

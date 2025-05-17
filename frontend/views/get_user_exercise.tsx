@@ -1,20 +1,20 @@
-import { useState, useEffect  } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './Styles/user_excercise.css'; // cambiar
+import './Styles/user_exercise.css'; // cambiar
 import './Styles/BackButton.css';
 
-type ExcerciseEntry = {
+type ExerciseEntry = {
   id: number;
-  excercise_name: string;
+  exercise_name: string;
   duration: number;
   calories: number;
   date_done: string;
 };
 
-function UserExcersiceFetcher() {
+function UserExersiceFetcher() {
   // const [userId, setUserId] = useState('');
   const userId = 1;
-  const [ExerciseList, setExerciseList] = useState<ExcerciseEntry[]>([]);
+  const [ExerciseList, setExerciseList] = useState<ExerciseEntry[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -24,7 +24,7 @@ function UserExcersiceFetcher() {
     navigate(-1); // o navigate('/') si querés ir al menú principal
   };
 
-  const fetchExcercises = async () => {
+  const fetchExercises = async () => {
     if (!userId) return;
 
     setLoading(true);
@@ -32,7 +32,7 @@ function UserExcersiceFetcher() {
     setExerciseList([]);
 
     try {
-      const response = await fetch(`http://localhost:8000/api/user-excercises/${userId}`);
+      const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}`);
       if (!response.ok) throw new Error('Error al obtener los datos');
 
       const data = await response.json();
@@ -46,7 +46,7 @@ function UserExcersiceFetcher() {
   };
 
   useEffect(() => {
-    fetchExcercises(); 
+    fetchExercises();
   }, []);
 
 
@@ -69,12 +69,12 @@ function UserExcersiceFetcher() {
               </tr>
             </thead>
             <tbody>
-              {ExerciseList.map((excercise) => (
-                <tr key={excercise.id}>
-                  <td>{excercise.excercise_name}</td>
-                  <td>{excercise.duration}</td>
-                  <td>{excercise.calories}</td>
-                  <td>{new Date(excercise.date_done).toLocaleDateString()}</td>
+              {ExerciseList.map((exercise) => (
+                <tr key={exercise.id}>
+                  <td>{exercise.exercise_name}</td>
+                  <td>{exercise.duration}</td>
+                  <td>{exercise.calories}</td>
+                  <td>{new Date(exercise.date_done).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
@@ -89,4 +89,4 @@ function UserExcersiceFetcher() {
   );
 }
 
-export default UserExcersiceFetcher;
+export default UserExersiceFetcher;

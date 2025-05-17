@@ -1,8 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { exerciseOptions } from './Selects/exerciseOptions'; 
+import { exerciseOptions } from './Selects/exerciseOptions';
 import { useNavigate } from 'react-router-dom';
 
-import './Styles/user_excercise.css';
+import './Styles/user_exercise.css';
 import './Styles/BackButton.css';
 
 type FormData = {
@@ -24,11 +24,11 @@ function UserExercise() {
 
   const onSubmit = async (data: FormData) => {
     //const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/user-excercises/${1}`; // Se usa en la URL
+    const url = `http://localhost:8000/api/user-exercises/${1}`; // Se usa en la URL
 
     // body del post
-    const userExcerciseData = {
-      excercise_name: data.Ejercicio,
+    const userExerciseData = {
+      exercise_name: data.Ejercicio,
       duration: data.Duracion,
       calories: data.Calorias,
       date_done: data.Date,
@@ -40,7 +40,7 @@ function UserExercise() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userExcerciseData),
+        body: JSON.stringify(userExerciseData),
       });
 
       if (!response.ok) throw new Error('Error al enviar los datos');
@@ -61,9 +61,9 @@ function UserExercise() {
       <form onSubmit={handleSubmit(onSubmit)} className="user-exercise-form">
         <select {...register('Ejercicio', { required: true })}>
           <option value="">Selecciona la actividad realizada</option>
-          {exerciseOptions.map((excercise) => (
-            <option key={excercise} value={excercise}>
-              {excercise}
+          {exerciseOptions.map((exercise) => (
+            <option key={exercise} value={exercise}>
+              {exercise}
             </option>
           ))}
         </select>
@@ -71,7 +71,7 @@ function UserExercise() {
           placeholder="Duración"
           type="number"
           min={1}
-          {...register('Duracion', { required: true,  min: 1 })}
+          {...register('Duracion', { required: true, min: 1 })}
         />
         <input
           placeholder="Calorías"
