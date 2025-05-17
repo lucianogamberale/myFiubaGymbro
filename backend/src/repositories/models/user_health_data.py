@@ -5,7 +5,7 @@ from .base_model import Base, BigInt, Str
 from .user import User
 
 
-class UserHealth(Base):
+class UserHealthData(Base):
     __tablename__ = "user_health_data"
 
     id: Mapped[BigInt] = mapped_column(primary_key=True)

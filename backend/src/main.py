@@ -23,6 +23,7 @@ async def lifespan(app: FastAPI):
     # remove tables on shutdown
     Base.metadata.drop_all(bind=engine)
 
+
 app = FastAPI(**FASTAPI_METADATA, lifespan=lifespan)
 
 app.add_middleware(
@@ -40,6 +41,6 @@ app.include_router(user_excercises_router)
 # ==============================================================================
 
 
-@app.get("/api/health-check")
+@app.get("/health-check")
 def health_ping():
     return {"healthy": True}

@@ -1,9 +1,8 @@
 from sqlalchemy.orm import Session
+from src.dtos.user_dtos import UserCreationDTO, UserHealthDataCreationDTO
 from src.repositories.models.user import User
-from src.repositories.models.user_health import UserHealth
-from src.dtos.user_dtos import HealthDataDTO, UserCreationDTO
+from src.repositories.user_health_data import UserHealthRepository
 from src.repositories.users import UsersRepository
-from src.repositories.user_health import UserHealthRepository
 
 
 class UsersService:
@@ -18,9 +17,11 @@ class UsersService:
             email=user_data.email,
             password=user_data.password,
             name=user_data.name,
-            surname=user_data.surname
+            surname=user_data.surname,
         )
         self.users_repo.save(user)
 
-    def post_user_health_data(self, user_id: float, user_data: HealthDataDTO) -> None:
+    def create_user_health_data(
+        self, user_id: float, user_data: UserHealthDataCreationDTO
+    ) -> None:
         self.users_health_repo.save_health_data(user_id, user_data)

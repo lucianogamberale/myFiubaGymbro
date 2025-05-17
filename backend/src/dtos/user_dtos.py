@@ -14,7 +14,7 @@ class UserCreationDTO(BaseModel):
     password: str
 
 
-class HealthDataDTO(BaseModel):
+class UserHealthDataCreationDTO(BaseModel):
     weight: int
     height: int
     age: int

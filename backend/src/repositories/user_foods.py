@@ -1,16 +1,18 @@
 import sqlalchemy as sa
 from src.dtos.user_food_dtos import UserFoodCreationDTO
+from src.repositories.models.food import Food
 from src.repositories.models.user_food import UserFood
 
 from .base import BaseRepository
 
 
 class UserFoodsRepository(BaseRepository):
-    def save_new_user_food(self, user_id, user_food_data: UserFoodCreationDTO) -> UserFood:
+    def save_new_user_food(
+        self, user_id, food: Food, user_food_data: UserFoodCreationDTO
+    ) -> UserFood:
         user_food = UserFood(
             user_id=user_id,
-            food_name=user_food_data.food_name,
-            food_category=user_food_data.food_category,
+            food_id=food.id,
             calories=user_food_data.calories,
             date_eaten=user_food_data.date_eaten,
         )
