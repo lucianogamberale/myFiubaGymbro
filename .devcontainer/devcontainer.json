@@ -20,6 +20,7 @@
 	"customizations": {
 		"vscode": {
 			"settings": {
+				"mypy-type-checker.cwd": "${workspaceFolder}/backend",
 				"[python]": {
 					"editor.defaultFormatter": "ms-python.black-formatter"
 				},

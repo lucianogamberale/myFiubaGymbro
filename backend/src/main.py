@@ -16,7 +16,7 @@ engine = create_engine(DB_URL, echo=True)
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI):  # type: ignore
     # Create tables on startup
     Base.metadata.create_all(bind=engine)
 
@@ -26,7 +26,7 @@ async def lifespan(app: FastAPI):
     Base.metadata.drop_all(bind=engine)
 
 
-app = FastAPI(**FASTAPI_METADATA, lifespan=lifespan)
+app = FastAPI(**FASTAPI_METADATA, lifespan=lifespan)  # type: ignore
 
 app.add_middleware(
     CORSMiddleware,
