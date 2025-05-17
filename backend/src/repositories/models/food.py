@@ -3,7 +3,7 @@ from enum import Enum
 from sqlalchemy import UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .base_model import Base, BigInt, IntPK, Str
+from .base_model import Base, IntPK, Str
 
 
 class FoodCategory(str, Enum):

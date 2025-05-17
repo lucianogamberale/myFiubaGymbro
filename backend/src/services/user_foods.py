@@ -3,6 +3,7 @@ from typing import List
 from sqlalchemy.orm import Session
 from src.dtos.user_food_dtos import UserFoodCreationDTO, UserFoodReponseDTO
 from src.repositories.foods import FoodsRepository
+from src.repositories.models.food import FoodCategory
 from src.repositories.user_foods import UserFoodsRepository
 
 
@@ -34,7 +35,7 @@ class UserFoodsService:
             UserFoodReponseDTO(
                 id=user_food.id,
                 food_name=user_food.food.name,
-                food_category=user_food.food.category,
+                food_category=FoodCategory(user_food.food.category),
                 calories=user_food.calories,
                 date=user_food.date,
             )

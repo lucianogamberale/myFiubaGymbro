@@ -2,6 +2,7 @@ from typing import Sequence
 
 import sqlalchemy as sa
 from src.dtos.user_exercise_dtos import UserExerciseCreationDTO
+from src.repositories.models.exercise import Exercise
 from src.repositories.models.user_exercise import UserExercise
 
 from .base import BaseRepository
@@ -9,11 +10,14 @@ from .base import BaseRepository
 
 class UserExercisesRepository(BaseRepository):
     def save_new_user_exercise(
-        self, user_id: float, user_exercise_data: UserExerciseCreationDTO
+        self,
+        user_id: float,
+        exercise: Exercise,
+        user_exercise_data: UserExerciseCreationDTO,
     ) -> UserExercise:
         user_exercise = UserExercise(
             user_id=user_id,
-            exercise_name=user_exercise_data.exercise_name,
+            exercise_id=exercise.id,
             duration=user_exercise_data.duration,
             calories=user_exercise_data.calories,
             date_done=user_exercise_data.date,

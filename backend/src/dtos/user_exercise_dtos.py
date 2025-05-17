@@ -21,6 +21,7 @@ class UserExerciseCreationDTO(BaseModel):
 class UserExerciseResponseDTO(BaseModel):
     id: Optional[int]
     exercise_name: str
+    exercise_category: ExerciseCategory
     duration: Optional[float]
     calories: float
     date: datetime
