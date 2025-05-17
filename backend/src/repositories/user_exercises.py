@@ -20,7 +20,7 @@ class UserExercisesRepository(BaseRepository):
             exercise_id=exercise.id,
             duration=user_exercise_data.duration,
             calories=user_exercise_data.calories,
-            date_done=user_exercise_data.date,
+            date=user_exercise_data.date,
         )
 
         self.db_session.add(user_exercise)

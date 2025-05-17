@@ -16,7 +16,7 @@ class UserFoodsRepository(BaseRepository):
             user_id=user_id,
             food_id=food.id,
             calories=user_food_data.calories,
-            date_eaten=user_food_data.date,
+            date=user_food_data.date,
         )
 
         self.db_session.add(user_food)
