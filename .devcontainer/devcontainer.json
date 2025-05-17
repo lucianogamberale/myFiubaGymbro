@@ -19,6 +19,13 @@
 	// Add custom VS Code extensions.
 	"customizations": {
 		"vscode": {
+			"settings": {
+				"[python]": {
+					"editor.defaultFormatter": "ms-python.black-formatter"
+				},
+				"editor.formatOnSave": true,
+				"python.analysis.typeCheckingMode": "standard"
+			},
 			"extensions": [
 				"ms-python.mypy-type-checker",
 				"ms-python.isort",
