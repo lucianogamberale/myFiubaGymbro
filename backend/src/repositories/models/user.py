@@ -1,7 +1,8 @@
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+from typing import List
 
 from .base_model import Base, IntPK, Str
-
+from .diet import Diet
 
 class User(Base):
     __tablename__ = "users"
@@ -12,3 +13,5 @@ class User(Base):
     password: Mapped[Str]
     name: Mapped[Str]
     surname: Mapped[Str]
+
+    diets: Mapped[List["Diet"]] = relationship(back_populates="user", cascade="all, delete-orphan")
