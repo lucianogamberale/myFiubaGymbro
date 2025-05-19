@@ -58,15 +58,23 @@ export default function Login() {
 
     return (
         <div className="h-screen w-screen flex flex-col md:flex-row overflow-hidden">
-            <div className="w-full md:w-1/2 h-full flex flex-col justify-center items-center">
+            <div className="w-full h-full flex flex-col justify-center items-center">
                 <h1 className='text-4xl font-extrabold w-auto text-center'>
                     ¡Bienvenido a myFiubaGymbro!
                 </h1>
-                <p className='text-lg font-semibold w-auto text-center'>
+                <p className='text-lg font-semibold w-auto text-center pb-4'>
                     La mejor manera de cuidar y organizar tu salud
                 </p>
+                <p className='text-lg font-semibold w-auto text-center'>
+                    ¡Inicia sesión para comenzar!
+                </p>
+            </div>
+            <div className="w-full h-full flex flex-col justify-center items-center bg-white">
+                <div className="flex justify-center">
+                    <img width="80" height="80" src="https://img.icons8.com/external-soft-fill-juicy-fish/60/external-gym-gym-life-soft-fill-soft-fill-juicy-fish-10.png" alt="external-gym-gym-life-soft-fill-soft-fill-juicy-fish-10" />
+                </div>
                 <div className="text-center mt-6">
-                    <h2 className='text-2xl font-bold text-gray-900'>
+                    <h2 className='text-3xl font-bold text-gray-900'>
                         Inicie sesión con email
                     </h2>
                 </div>
@@ -76,8 +84,8 @@ export default function Login() {
                             <p className="text-red-500 text-center">{errorResponse}</p>
                         </div>
                     )}
-                    <form className="space-y-6" onSubmit={handleSubmit}>
-                        <div>
+                    <form className="space-y-8" onSubmit={handleSubmit}>
+                        <div className="flex flex-col">
                             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                                 Correo Electrónico
                             </label>

@@ -72,15 +72,23 @@ export default function SignUp() {
 
     return (
         <div className="h-screen w-screen flex flex-col md:flex-row overflow-hidden">
-            <div className="w-full md:w-1/2 h-full flex flex-col justify-center items-center">
+            <div className="w-full h-full flex flex-col justify-center items-center">
                 <h1 className='text-4xl font-extrabold w-auto text-center'>
                     ¡Bienvenido a myFiubaGymbro!
                 </h1>
-                <p className='text-lg font-semibold w-auto text-center'>
+                <p className='text-lg font-semibold w-auto text-center pb-4'>
                     La mejor manera de cuidar y organizar tu salud
                 </p>
+                <p className='text-lg font-semibold w-auto text-center'>
+                    ¡Regístrate y comienza a cuidar tu salud!
+                </p>
+            </div>
+            <div className="w-full h-full flex flex-col justify-center items-center bg-white p-6">
+                <div className="flex justify-center">
+                    <img width="80" height="80" src="https://img.icons8.com/external-soft-fill-juicy-fish/60/external-gym-gym-life-soft-fill-soft-fill-juicy-fish-10.png" alt="external-gym-gym-life-soft-fill-soft-fill-juicy-fish-10" />
+                </div>
                 <div className="text-center mt-6">
-                    <h2 className='text-2xl font-bold text-gray-900'>
+                    <h2 className='text-3xl font-bold text-gray-900'>
                         Creemos una cuenta
                     </h2>
                 </div>
@@ -198,9 +206,10 @@ export default function SignUp() {
                     </p>
                 </div>
             </div>
-            {showSuccessModal &&
+            {
+                showSuccessModal &&
                 <ModalSuccess title="¡Registro exitoso!" description="Tu cuenta ha sido creada con éxito." route="/login" button="Iniciar Sesión" />
             }
-        </div>
+        </div >
     );
 }
