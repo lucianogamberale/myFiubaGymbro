@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { UserFoods } from "../pages/UserFoods";
-import { Home } from "../pages/Home";
+import { UserExercises } from "../pages/UserExercises";
 import Login from "../pages/Login";
 import SignUp from "../pages/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
@@ -19,6 +19,9 @@ export const AppRouter = () => {
       </Route>
       <Route path="/user-foods" element={<ProtectedRoute />}>
         <Route path="/user-foods" element={<UserFoods />} />
+      </Route>
+      <Route path="/user-exercises" element={<ProtectedRoute />}>
+        <Route path="/user-exercises" element={<UserExercises />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/signup" />} />

@@ -5,27 +5,40 @@ import { useAuth } from '../../auth/AuthProvider';
 
 interface Props {
 	setOpenForm: (value: boolean) => void;
-	onNewUserFood: () => void;
+	onNewUserExercise: () => void;
 }
 
-export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
+export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props) => {
 	const auth = useAuth();
 	const user_id = auth.getUserId();
 
-	const availableFoodCategories = {
-		"Fruta": "Fruta",
-		"Vegetal": "Vegetal",
-		"Proteína": "Proteína",
-		"Grano": "Grano",
-		"Lácteo": "Lácteo",
-		"Graso": "Graso",
-		"Dulces": "Dulces",
+	// STRENGTH = "Fuerza"
+	// CARDIO = "Cardio"
+	// FLEXIBILITY = "Flexibilidad"
+	// BALANCE = "Equilibrio"
+	// ENDURANCE = "Resistencia"
+	// SPEED = "Velocidad"
+	// AGILITY = "Agilidad"
+	// COORDINATION = "Coordinación"
+	// POWER = "Potencia"
+
+	const availableExerciseCategories = {
+		"Fuerza": "Fuerza",
+		"Cardio": "Cardio",
+		"Flexibilidad": "Flexibilidad",
+		"Equilibrio": "Equilibrio",
+		"Resistencia": "Resistencia",
+		"Velocidad": "Velocidad",
+		"Agilidad": "Agilidad",
+		"Coordinación": "Coordinación",
+		"Potencia": "Potencia",
 	}
 
-	const [foodCategory, setFoodCategory] = useState('');
-	const [foodName, setFoodName] = useState('');
+	const [exerciseCategory, setExerciseCategory] = useState('');
+	const [exerciseName, setExerciseName] = useState('');
 	const [calories, setCalories] = useState('');
 	const [dateTime, setDatetime] = useState(new Date().toISOString().slice(0, 16));
+	const [exerciseDuration, setExerciseDuration] = useState('');
 
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -39,22 +52,23 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 
 	async function createUserFood() {
 		try {
-			const response = await fetch(`http://localhost:8000/api/user-foods/${user_id}`, {
+			const response = await fetch(`http://localhost:8000/api/user-exercises/${user_id}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					"food_category": foodCategory,
-					"food_name": foodName,
+					"exercise_category": exerciseCategory,
+					"exercise_name": exerciseName,
 					"calories": calories,
 					"date": dateTime,
+					"duration": exerciseDuration,
 				}),
 			});
 			if (response.ok) {
 				console.log("Creado con exito");
 				setShowSuccessModal(true);
-				onNewUserFood();
+				onNewUserExercise();
 			}
 		} catch (error) {
 			console.error("Error al realizar la solicitud:", error);
@@ -77,13 +91,13 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 								Categoría
 							</label>
 							<select
-								value={foodCategory}
-								onChange={(e) => setFoodCategory(e.target.value)}
+								value={exerciseCategory}
+								onChange={(e) => setExerciseCategory(e.target.value)}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="category"
 								required>
 								<option value="" disabled>Selecciona una categoría</option>
-								{Object.entries(availableFoodCategories).map(([key, value]) => (
+								{Object.entries(availableExerciseCategories).map(([key, value]) => (
 									<option key={key} value={key}>
 										{value}
 									</option>
@@ -95,12 +109,12 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 								Nombre
 							</label>
 							<input
-								value={foodName}
-								onChange={(e) => setFoodName(e.target.value)}
+								value={exerciseName}
+								onChange={(e) => setExerciseName(e.target.value)}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="name"
 								type="text"
-								placeholder="ej. Manzana"
+								placeholder="ej. Running"
 								required />
 						</div>
 						<div className="mb-4">
@@ -117,7 +131,7 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 						</div>
 						<div className="mb-4">
 							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="calories">
-								Calorías ingeridas [cal]
+								Calorías quemadas [cal]
 							</label>
 							<input
 								value={calories}
@@ -128,6 +142,21 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 								min={1}
 								placeholder="ej. 100"
 								required />
+						</div>
+						<div className="mb-4">
+							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="duration">
+								Duración [min]
+							</label>
+							<input
+								value={exerciseDuration}
+								onChange={(e) => setExerciseDuration(e.target.value)}
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="duration"
+								type="number"
+								min={1}
+								placeholder="ej. 30"
+								required
+							/>
 						</div>
 						<div className="flex items-center justify-end">
 							<button onClick={closeForm} className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-center font-semibold mr-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
@@ -142,7 +171,7 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 			</div>
 
 			{showSuccessModal &&
-				<ModalSuccess title="¡Creada con éxito!" description="La comida ha sido creada con éxito" route="/user-foods" button="Ir a mis comidas" onClose={handleCloseAll} />
+				<ModalSuccess title="¡Creado con éxito!" description="El ejercicio ha sido creado con éxito" route="/user-exercises" button="Ir a mis ejercicios" onClose={handleCloseAll} />
 			}
 		</>
 	)

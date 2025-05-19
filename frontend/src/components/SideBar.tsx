@@ -24,7 +24,7 @@ const SideBar = () => {
     { name: `¡Hola ${auth.getUserName()}!`, link: "/home", icon: FaUserCircle },
     { name: `Mi salud`, link: "/home", icon: FaHeartbeat },
     { name: "Mis comidas", link: "/user-foods", icon: FaHamburger },
-    // { name: "Mis ejercicios", link: "/historial", icon: FaRunning },
+    { name: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
     { name: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
   ];
 
