@@ -2,7 +2,7 @@ from typing import Dict
 
 from fastapi import APIRouter, status
 from src.deps.database import DBSessionDependency
-from src.dtos.user_auth import AuthResponseDTO, UserLoginDTO, UserSignUpDTO
+from backend.src.dtos.user_auth_dtos import AuthResponseDTO, UserLoginDTO, UserSignUpDTO
 from src.services.user_auth import UserAuthService
 
 router = APIRouter(prefix="/auth", tags=["Auth"])

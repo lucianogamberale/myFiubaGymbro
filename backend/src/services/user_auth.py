@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Session
-from src.dtos.user_auth import AuthResponseDTO, UserLoginDTO, UserSignUpDTO
+from src.dtos.user_auth_dtos import AuthResponseDTO, UserLoginDTO, UserSignUpDTO
 from src.repositories.users import UsersRepository
 
 
