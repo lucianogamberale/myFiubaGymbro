@@ -3,6 +3,7 @@ from typing import Dict
 from fastapi import FastAPI
 from fastapi.concurrency import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from sqlalchemy import create_engine
 
 from .config.api_metadata import FASTAPI_METADATA
@@ -47,6 +48,11 @@ app.include_router(diets_router)
 # ==============================================================================
 
 
-@app.get("/health-check")
+@app.get("/", include_in_schema=False)
+def root_docs_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/docs")
+
+
+@app.get("/health-check", include_in_schema=False)
 def health_check() -> Dict[str, bool]:
     return {"healthy": True}

@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from backend.src.dtos.user_auth_dtos import UserSignUpDTO
+from src.dtos.user_auth_dtos import UserSignUpDTO
 
 from .base import BaseRepository
 from .models.user import User

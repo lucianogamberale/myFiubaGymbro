@@ -5,7 +5,7 @@ from src.deps.database import DBSessionDependency
 from src.dtos.diet_dtos import DietCreationDTO, DietResponseDTO, DietUpdateDTO
 from src.services.diets import DietsService
 
-router = APIRouter(prefix="/api", tags=["Diets"])
+router = APIRouter(prefix="", tags=["Diets"])
 
 # ====================== GESTIÓN DE DIETAS ====================== #
 
