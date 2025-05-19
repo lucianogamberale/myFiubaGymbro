@@ -1,19 +1,16 @@
 import { useForm } from 'react-hook-form';
-import { exerciseOptions } from './Selects/exerciseOptions';
+import { activitiesOptions } from './Selects/ObjectiveActivitiesOptions';
 import { useNavigate } from 'react-router-dom';
 
 import './Styles/user_exercise.css';
 import './Styles/BackButton.css';
 
 type FormData = {
-  ID: number;
-  Ejercicio: string;
-  Duracion: number;
-  Calorias: number;
-  date: string;
+  Activity: string;
+  Objective: number;
 };
 
-function UserExercise() {
+function UserObjectives() {
   const { register, handleSubmit, reset } = useForm<FormData>();
 
   const navigate = useNavigate();
@@ -24,15 +21,13 @@ function UserExercise() {
 
   const onSubmit = async (data: FormData) => {
     //const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/user-exercises/${1}`; // Se usa en la URL
+    const url = `http://localhost:8000/api/user-objectives/${1}`; // Se usa en la URL
 
     // body del post
-    const userExerciseData = {
-      exercise_name: data.Ejercicio,
-      exercise_category: "fuerza",
-      duration: data.Duracion,
-      calories: data.Calorias,
-      date: data.date,
+    const UserObjectivesData = {
+      activity: data.Activity,
+      objective: data.Objective,
+      unit_of_measurement: "", //vacio porque se calcula en el back
     };
 
     try {
@@ -41,7 +36,7 @@ function UserExercise() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(userExerciseData),
+        body: JSON.stringify(UserObjectivesData),
       });
 
       if (!response.ok) throw new Error('Error al enviar los datos');
@@ -52,40 +47,32 @@ function UserExercise() {
       reset(); // Limpia el formulario
     } catch (error) {
       console.error('Error en el POST:', error);
-      console.log("Full error object:", error);
     }
   };
 
   return (
     <div className="user-food-container">
       <button className="back-button" onClick={handleBack}>Volver</button>
-      <h2 className="user-food-title">Registrar Ejercicio</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="user-exercise-form">
-        <select {...register('Ejercicio', { required: true })}>
-          <option value="">Selecciona la actividad realizada</option>
-          {exerciseOptions.map((exercise) => (
-            <option key={exercise} value={exercise}>
-              {exercise}
+      <h2 className="user-food-title">Registrar Activity</h2>
+      <form onSubmit={handleSubmit(onSubmit)} className="user-food-form">
+        <select {...register('Activity', { required: true })}>
+          <option value="">Selecciona una Activity</option>
+          {activitiesOptions.map((activities) => (
+            <option key={activities} value={activities}>
+              {activities}
             </option>
           ))}
         </select>
         <input
-          placeholder="Duración"
+          placeholder="Objective"
           type="number"
           min={1}
-          {...register('Duracion', { required: true, min: 1 })}
+          {...register('Objective', { required: true, min: 1 })}
         />
-        <input
-          placeholder="Calorías"
-          type="number"
-          min={1}
-          {...register('Calorias', { required: true, min: 1 })}
-        />
-        <input type="date" {...register('date', { required: true })} />
         <button type="submit">Enviar</button>
       </form>
     </div>
   );
 }
 
-export default UserExercise;
+export default UserObjectives;

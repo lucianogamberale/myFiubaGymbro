@@ -31,7 +31,7 @@ function Register() {
 
   const onSubmit = async (data: FormData) => {
     //const userId = data.ID;  // El ID del usuario se toma desde el formulario
-    const url = `http://localhost:8000/api/register`; // Se usa en la URL
+    const url = `http://localhost:8000/api/users/register`; // Se usa en la URL
 
     // body del post
     const user = {

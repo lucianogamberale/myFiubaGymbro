@@ -60,11 +60,6 @@ function UserFood() {
       <button className="back-button" onClick={handleBack}>Volver</button>
       <h2 className="user-food-title">Registrar comida</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="user-food-form">
-        {/* <input
-          placeholder="ID"
-          type="number"
-          {...register('ID', { required: true })}
-        /> */}
         <select {...register('Comida', { required: true })}>
           <option value="">Selecciona una comida</option>
           {foodOptions.map((food) => (

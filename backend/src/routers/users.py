@@ -8,7 +8,7 @@ router = APIRouter(prefix="/users", tags=["Users"])
 # ====================== MANAGING - USERS ====================== #
 
 
-@router.post("", status_code=status.HTTP_201_CREATED)
+@router.post("/register", status_code=status.HTTP_201_CREATED)
 def create_user(user_data: UserCreationDTO, db: DBSessionDependency) -> None:
     UsersService(db).create_user(user_data)
 

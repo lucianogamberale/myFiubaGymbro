@@ -1,4 +1,3 @@
-import sqlalchemy as sa
 from src.dtos.user_dtos import UserHealthDataCreationDTO
 from src.repositories.models.user_health_data import UserHealthData
 
