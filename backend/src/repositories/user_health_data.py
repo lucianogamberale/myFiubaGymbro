@@ -1,5 +1,5 @@
 import sqlalchemy as sa
-from src.dtos.user_dtos import UserHealthDataCreationDTO
+from src.dtos.user_health_data_dtos import UserHealthDataCreationDTO
 from src.repositories.models.user_health_data import UserHealthData
 
 from .base import BaseRepository
@@ -14,6 +14,7 @@ class UserHealthRepository(BaseRepository):
             weight=user_data.weight,
             height=user_data.height,
             age=user_data.age,
+            date=user_data.date,
         )
 
         self.db_session.add(user_healt_data)

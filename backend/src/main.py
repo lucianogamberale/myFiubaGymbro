@@ -8,9 +8,10 @@ from sqlalchemy import create_engine
 from .config.api_metadata import FASTAPI_METADATA
 from .config.env import DB_URL
 from .repositories.models.base_model import Base
+from .routers.user_auth import router as user_auth_router
 from .routers.user_exercises import router as user_exercises_router
 from .routers.user_foods import router as user_foods_router
-from .routers.users import router as users_router
+from .routers.user_health_data import router as users_router
 
 engine = create_engine(DB_URL, echo=True)
 
@@ -31,11 +32,12 @@ app = FastAPI(**FASTAPI_METADATA, lifespan=lifespan)  # type: ignore
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+app.include_router(user_auth_router)
 app.include_router(users_router)
 app.include_router(user_foods_router)
 app.include_router(user_exercises_router)

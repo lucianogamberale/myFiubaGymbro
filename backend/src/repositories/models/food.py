@@ -7,13 +7,13 @@ from .base_model import Base, IntPK, Str
 
 
 class FoodCategory(str, Enum):
-    FRUIT = "fruta"
-    VEGETABLE = "vegetal"
-    PROTEIN = "proteina"
-    GRAIN = "grano"
-    DAIRY = "lácteo"
-    FAT = "graso"
-    SWEET = "dulces"
+    FRUIT = "Fruta"
+    VEGETABLE = "Vegetal"
+    PROTEIN = "Proteina"
+    GRAIN = "Grano"
+    DAIRY = "Lácteo"
+    FAT = "Graso"
+    SWEET = "Dulces"
 
 
 class Food(Base):

@@ -12,3 +12,7 @@ class User(Base):
     password: Mapped[Str]
     name: Mapped[Str]
     surname: Mapped[Str]
+
+    def check_password(self, password: str) -> bool:
+        # Implement password checking logic here
+        return self.password == password

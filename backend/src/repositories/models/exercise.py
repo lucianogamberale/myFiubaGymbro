@@ -7,15 +7,15 @@ from .base_model import Base, IntPK, Str
 
 
 class ExerciseCategory(str, Enum):
-    STRENGTH = "fuerza"
-    CARDIO = "cardio"
-    FLEXIBILITY = "flexibilidad"
-    BALANCE = "equilibrio"
-    ENDURANCE = "resistencia"
-    SPEED = "velocidad"
-    AGILITY = "agilidad"
-    COORDINATION = "coordinación"
-    POWER = "potencia"
+    STRENGTH = "Fuerza"
+    CARDIO = "Cardio"
+    FLEXIBILITY = "Flexibilidad"
+    BALANCE = "Equilibrio"
+    ENDURANCE = "Resistencia"
+    SPEED = "Velocidad"
+    AGILITY = "Agilidad"
+    COORDINATION = "Coordinación"
+    POWER = "Potencia"
 
 
 class Exercise(Base):

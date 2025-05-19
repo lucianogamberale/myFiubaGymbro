@@ -10,8 +10,6 @@
 	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	// Forward ports from inside the container.
 	"forwardPorts": [
-		8000,
-		8080,
 		5432
 	],
 	// Run commands after the container is started.

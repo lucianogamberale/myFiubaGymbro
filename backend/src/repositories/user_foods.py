@@ -1,4 +1,4 @@
-from typing import List, Sequence
+from typing import Sequence
 
 import sqlalchemy as sa
 from src.dtos.user_food_dtos import UserFoodCreationDTO
