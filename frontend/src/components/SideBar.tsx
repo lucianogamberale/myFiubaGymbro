@@ -3,10 +3,9 @@ import { MdLogout } from "react-icons/md";
 import { FaBars, FaUserCircle, FaHamburger, FaRunning, FaHeartbeat } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
-
+import { GiMeal } from "react-icons/gi";
 
 import { Link } from "react-router-dom";
-// import { useAuth } from "../auth/AuthProvider";
 
 interface Menu {
   name: string;
@@ -22,9 +21,10 @@ const SideBar = () => {
 
   const menus: Menu[] = [
     { name: `¡Hola ${auth.getUserName()}!`, link: "/home", icon: FaUserCircle },
-    { name: `Mi salud`, link: "/home", icon: FaHeartbeat },
+    { name: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
     { name: "Mis comidas", link: "/user-foods", icon: FaHamburger },
     { name: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
+    { name: "Mis dietas", link: "/user-diets", icon: GiMeal },
     { name: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
   ];
 

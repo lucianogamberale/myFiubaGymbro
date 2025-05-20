@@ -1,6 +1,4 @@
 import { useState, useEffect } from 'react';
-import Loading from '../Loading';
-import { useAuth } from '../../auth/AuthProvider';
 import { UserHealthDataCreateForm } from '../Forms/UserHealthDataCreateForm';
 
 
