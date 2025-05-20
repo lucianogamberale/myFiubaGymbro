@@ -4,7 +4,6 @@ from typing import List, Optional  # Añade List aquí también para la relació
 
 from sqlalchemy import Enum, ForeignKey, Time
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from src.repositories.models.user import User
 
 # Ajusta las importaciones de tipos para usar los definidos en base_model.py
 from .base_model import Base, BigInt, IntPK, Str
