@@ -14,17 +14,17 @@ interface Props {
 type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
 
 interface DietMealEntryForm {
-  day_of_week: DayOfWeek;
-  time_of_day: string;
-  food_name: string;
-  food_category: string;
-  calories: number;
+	day_of_week: DayOfWeek;
+	time_of_day: string;
+	food_name: string;
+	food_category: string;
+	calories: number;
 }
 
 interface DietForm {
-  name: string;
-  description?: string;
-  meals: DietMealEntryForm[];
+	name: string;
+	description?: string;
+	meals: DietMealEntryForm[];
 }
 
 const daysOfWeek: DayOfWeek[] = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
@@ -266,7 +266,7 @@ export const DietCreateForm = ({ setOpenForm, onNewDiet }: Props) => {
 						</div>
 
 						<div className="flex justify-center mt-6">
-							<button type="button" onClick={handleAddMeal} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
+							<button type="button" onClick={handleAddMeal} className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
 								Añadir Comida
 							</button>
 						</div>
