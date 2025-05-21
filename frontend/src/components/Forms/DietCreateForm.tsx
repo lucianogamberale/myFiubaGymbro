@@ -245,6 +245,7 @@ export const DietCreateForm = ({ setOpenForm, onNewDiet }: Props) => {
 												min: { value: 1, message: "Las calorías deben ser mayores a 0" }
 											})}
 											className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+											min={0}
 										/>
 										{errors.meals?.[index]?.calories && <p className="text-red-500 text-xs italic">{errors.meals[index].calories?.message}</p>}
 									</div>

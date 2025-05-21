@@ -9,7 +9,7 @@ from .base_model import Base, IntPK, Str
 class FoodCategory(str, Enum):
     FRUIT = "Fruta"
     VEGETABLE = "Vegetal"
-    PROTEIN = "Proteina"
+    PROTEIN = "Proteína"
     GRAIN = "Grano"
     DAIRY = "Lácteo"
     FAT = "Graso"
