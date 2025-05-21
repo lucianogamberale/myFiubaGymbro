@@ -2,7 +2,6 @@ from typing import Optional
 from src.dtos.user_objective_dtos import UserObjectiveDataDTO
 from src.repositories.models.user_objective import UserObjective
 import sqlalchemy as sa
-from sqlalchemy.exc import SQLAlchemyError
 
 from .base import BaseRepository
 
@@ -23,7 +22,7 @@ class UserObjectiveRepository(BaseRepository):
         self.db_session.refresh(user_objective)
         return user_objective
 
-    def get_user_objective_data(self, user_id: float) -> UserObjective:
+    def get_user_objective_data(self, user_id: float) -> Optional[UserObjective]:
         return self.db_session.execute(
             sa.select(UserObjective).where(UserObjective.user_id == user_id)
-        ).scalar_one()
+        ).scalar_one_or_none()
