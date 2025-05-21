@@ -3,6 +3,8 @@ import { useAuth } from '../../auth/AuthProvider';
 import Loading from '../Loading';
 import { DietCreateForm } from '../Forms/DietCreateForm';
 import { DietEditForm } from '../Forms/DietEditForm';
+import { ModalConfirm } from '../ModalConfirm';
+import { ModalSuccess } from '../ModalSuccess';
 
 interface Props {
     updateUserDiets: boolean;
@@ -49,7 +51,7 @@ const dayDisplayNames: { [key: string]: string } = {
 };
 
 
-export const UserDietsList = ({ updateUserDiets}: Props) => {
+export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => {
     const auth = useAuth();
     const user_id = auth.getUserId();
 
@@ -60,6 +62,12 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
     const [openCreateForm, setOpenCreateForm] = useState(false);
     const [openEditForm, setOpenEditForm] = useState(false);
     const [dietToEditId, setDietToEditId] = useState<number | null>(null);
+
+    const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
+    const [dietToDeleteId, setDietToDeleteId] = useState<number | null>(null);
+
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const [successMessage, setSuccessMessage] = useState({ title: '', description: '' });
 
     const fetchUserDiets = async () => {
       if (!user_id) {
@@ -108,37 +116,46 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
         }
     };
 
-    const handleDeleteDiet = async (dietId: number) => {
-        if (!user_id) {
-            alert('ID de usuario no disponible. Por favor, inicie sesión.');
+    const confirmDeleteDiet = (dietId: number) => {
+        setDietToDeleteId(dietId);
+        setShowConfirmDeleteModal(true);
+    };
+
+    const executeDeleteDiet = async () => {
+        if (!user_id || dietToDeleteId === null) {
+            alert('ID de usuario o dieta no disponible. Por favor, inicie sesión.');
             return;
         }
 
-        if (window.confirm('¿Estás seguro de que quieres eliminar esta dieta?')) {
-            setLoading(true);
-            setError('');
-            try {
-                const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets/${dietId}`, {
-                    method: 'DELETE',
-                });
+        setShowConfirmDeleteModal(false);
+        setLoading(true);
+        setError('');
+        try {
+            const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets/${dietToDeleteId}`, {
+                method: 'DELETE',
+            });
 
-                if (!response.ok) {
-                    if (response.status !== 204) {
-                        const errorData = await response.json();
-                        throw new Error(errorData.detail || 'Error al eliminar la dieta.');
-                    }
+            if (!response.ok) {
+                if (response.status !== 204) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.detail || 'Error al eliminar la dieta.');
                 }
-
-                alert('Dieta eliminada con éxito.');
-                setSelectedDiet(null);
-                fetchUserDiets();
-            } catch (err: any) {
-                console.error('Error deleting diet:', err);
-                setError(err.message || 'No se pudo eliminar la dieta.');
-            } finally {
-                setLoading(false);
             }
+
+            setSelectedDiet(null);
+            onUpdateUserDiets(!updateUserDiets);
+        } catch (err: any) {
+            console.error('Error deleting diet:', err);
+            setError(err.message || 'No se pudo eliminar la dieta.');
+        } finally {
+            setLoading(false);
+            setDietToDeleteId(null);
         }
+    };
+
+    const cancelDeleteDiet = () => {
+        setShowConfirmDeleteModal(false);
+        setDietToDeleteId(null);
     };
 
     const handleEditDiet = (dietId: number) => {
@@ -183,11 +200,28 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
         });
     };
 
-    const handleDietFormSuccess = () => {
+    const handleDietFormSuccess = (isEdit: boolean) => {
         setOpenCreateForm(false);
         setOpenEditForm(false);
         setDietToEditId(null);
-        fetchUserDiets();
+
+        if (isEdit) {
+            setSuccessMessage({ title: '¡Editada con éxito!', description: 'La dieta ha sido editada con éxito.' });
+        } else {
+            setSuccessMessage({ title: '¡Creada con éxito!', description: 'La dieta ha sido creada con éxito.' });
+        }
+        setShowSuccessModal(true);
+
+        if (selectedDiet) {
+            fetchDietDetails(selectedDiet.id);
+        } else {
+            onUpdateUserDiets(!updateUserDiets);
+        }
+    };
+
+    const handleCloseAll = () => {
+        setShowSuccessModal(false);
+        onUpdateUserDiets(!updateUserDiets);
     };
 
 
@@ -210,7 +244,7 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
     return (
         <div className="h-full flex flex-col overflow-auto">
             <div className="border-t border-gray-300 my-3"></div>
-            <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
+            <div className="text-3xl text-slate-900 font-bold flex justify-between items-center px-4">
                 <span>Mis Dietas</span>
                 <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Crear dieta
@@ -248,7 +282,7 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
                                                         Editar
                                                     </button>
                                                     <button
-                                                        onClick={() => handleDeleteDiet(diet.id)}
+                                                        onClick={() => confirmDeleteDiet(diet.id)}
                                                         className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs"
                                                     >
                                                         Eliminar
@@ -264,11 +298,11 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
                 </>
             ) : (
                 <div className="flex-grow overflow-auto p-2 ml-2 mr-2 bg-white border rounded-lg shadow-sm">
-                    <div className="flex justify-between items-center mb-4"> {/* botón de volver y los de acción */}
+                    <div className="flex justify-between items-center mb-4">
                         <button onClick={handleBackToList} className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded focus:outline-none">
                             ← Volver a la lista
                         </button>
-                        <div className="flex gap-2"> {/* botones de Editar y Eliminar */}
+                        <div className="flex gap-2">
                             <button
                                 onClick={() => handleEditDiet(selectedDiet.id)}
                                 className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
@@ -276,15 +310,15 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
                                 Editar
                             </button>
                             <button
-                                onClick={() => handleDeleteDiet(selectedDiet.id)}
+                                onClick={() => confirmDeleteDiet(selectedDiet.id)}
                                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
                             >
                                 Eliminar
                             </button>
                         </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-slate-800 mb-2">{selectedDiet.name}</h3>
-                    {selectedDiet.description && <p className="text-slate-600 mb-4">{selectedDiet.description}</p>}
+                    <h3 className="text-2xl font-bold text-slate-800 mb-2">Dieta: {selectedDiet.name}</h3>
+                    {selectedDiet.description && <p className="text-slate-600 mb-4">Descripción: {selectedDiet.description}</p>}
 
                     <div className="overflow-x-auto">
                         <table className="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg shadow-sm bg-white">
@@ -327,8 +361,22 @@ export const UserDietsList = ({ updateUserDiets}: Props) => {
             )}
 
             {/* crear y editar dietas */}
-            {openCreateForm && <DietCreateForm setOpenForm={setOpenCreateForm} onNewDiet={handleDietFormSuccess} />}
-            {openEditForm && dietToEditId && <DietEditForm dietId={dietToEditId} setOpenForm={setOpenEditForm} onUpdateDiet={handleDietFormSuccess} />}
+            {openCreateForm && <DietCreateForm setOpenForm={setOpenCreateForm} onNewDiet={() => handleDietFormSuccess(false)} />}
+            {openEditForm && dietToEditId && <DietEditForm dietId={dietToEditId} setOpenForm={setOpenEditForm} onUpdateDiet={() => handleDietFormSuccess(true)} />}
+
+            {/* confirmación de eliminación */}
+            {showConfirmDeleteModal && (
+                <ModalConfirm
+                    title="Confirmar Eliminación"
+                    description="¿Estás seguro de que quieres eliminar esta dieta? Esta acción no se puede deshacer."
+                    onConfirm={executeDeleteDiet}
+                    onCancel={cancelDeleteDiet}
+                />
+            )}
+
+ 			{showSuccessModal &&
+ 				<ModalSuccess title={successMessage.title} description={successMessage.description} route="/user-diets" button="Ir a mis dietas" onClose={handleCloseAll} />
+ 			}
         </div>
     );
 };

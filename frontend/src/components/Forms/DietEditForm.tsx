@@ -3,8 +3,6 @@ import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { ModalSuccess } from "../ModalSuccess";
 import { useAuth } from '../../auth/AuthProvider';
 import Loading from '../Loading';
-
-import { foodOptions } from '../../utils/constants/foodOptions';
 import { foodCategories } from '../../utils/constants/foodCategories';
 
 interface Props {
@@ -30,6 +28,16 @@ interface DietForm {
 }
 
 const daysOfWeek: DayOfWeek[] = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
+
+const dayDisplayNames: { [key: string]: string } = {
+	MONDAY: "Lunes",
+	TUESDAY: "Martes",
+	WEDNESDAY: "Miércoles",
+	THURSDAY: "Jueves",
+	FRIDAY: "Viernes",
+	SATURDAY: "Sábado",
+	SUNDAY: "Domingo",
+};
 
 export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 	const auth = useAuth();
@@ -232,7 +240,7 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 												render={({ field: controllerField }) => (
 													<select {...controllerField} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.meals?.[index]?.day_of_week ? 'border-red-500' : ''}`}>
 														{daysOfWeek.map(day => (
-															<option key={day} value={day}>{day}</option>
+															<option key={day} value={day}>{dayDisplayNames[day]}</option>
 														))}
 													</select>
 												)}
@@ -266,19 +274,12 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 
 										<div>
 											<label className="block text-gray-700 text-sm font-bold mb-1">Comida:</label>
-											<Controller
-												name={`meals.${index}.food_name`}
-												control={control}
-												defaultValue={field.food_name}
-												rules={{ required: 'La comida es obligatoria' }}
-												render={({ field: controllerField }) => (
-													<select {...controllerField} className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.meals?.[index]?.food_name ? 'border-red-500' : ''}`}>
-														<option value="">Selecciona una comida</option>
-														{foodOptions.map((food) => (
-															<option key={food} value={food}>{food}</option>
-														))}
-													</select>
-												)}
+											<input // Cambiado a input type="text"
+												type="text"
+												id={`meals.${index}.food_name`}
+												placeholder="Ej. Arroz con pollo"
+												{...register(`meals.${index}.food_name`, { required: "El nombre de la comida es obligatorio" })}
+												className={`shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${errors.meals?.[index]?.food_name ? 'border-red-500' : ''}`}
 											/>
 											{errors.meals?.[index]?.food_name && <p className="text-red-500 text-xs italic">{errors.meals[index].food_name?.message}</p>}
 										</div>
@@ -350,7 +351,13 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 			</div>
 
 			{showSuccessModal &&
-				<ModalSuccess title="¡Actualizada con éxito!" description="La dieta ha sido actualizada con éxito" route="/user-diets" button="Ir a mis dietas" onClose={handleCloseAll} />
+				<ModalSuccess
+					title="¡Actualizada con éxito!"
+					description="La dieta ha sido actualizada con éxito."
+					route="/user-diets"
+					button="Ir a mis dietas"
+					onClose={handleCloseAll}
+				/>
 			}
 		</>
 	)
