@@ -61,6 +61,7 @@ import SignUp from "../pages/SignUp";
 import ProtectedRoute from "./ProtectedRoute";
 import { UserHealthData } from "../pages/UserHealthData";
 import { UserDiets } from "../pages/UserDiets";
+import { UserObjectives } from "../pages/UserObjectives";
 
 export const AppRouter = () => {
   return (
@@ -81,6 +82,9 @@ export const AppRouter = () => {
       </Route>
       <Route path="/user-diets" element={<ProtectedRoute />}>
         <Route path="/user-diets" element={<UserDiets />} />
+      </Route>
+      <Route path="/user-objectives" element={<ProtectedRoute />}>
+        <Route path="/user-objectives" element={<UserObjectives />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/signup" />} />

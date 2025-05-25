@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { MdLogout } from "react-icons/md";
-import { FaBars, FaUserCircle, FaHamburger, FaRunning, FaHeartbeat } from "react-icons/fa";
+import { FaBars, FaUserCircle, FaHamburger, FaRunning, FaHeartbeat, FaTrophy } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { GiMeal } from "react-icons/gi";
@@ -25,6 +25,7 @@ const SideBar = () => {
     { name: "Mis comidas", link: "/user-foods", icon: FaHamburger },
     { name: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
     { name: "Mis dietas", link: "/user-diets", icon: GiMeal },
+    { name: "Mis objetivos", link: "/user-objectives", icon: FaTrophy },
     { name: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
   ];
 
