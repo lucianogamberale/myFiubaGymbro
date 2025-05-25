@@ -1,6 +1,9 @@
-from sqlalchemy.orm import Mapped, mapped_column
+from typing import List
+
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base_model import Base, IntPK, Str
+from .diet import Diet
 
 
 class User(Base):
@@ -12,3 +15,11 @@ class User(Base):
     password: Mapped[Str]
     name: Mapped[Str]
     surname: Mapped[Str]
+
+    diets: Mapped[List["Diet"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+
+    def check_password(self, password: str) -> bool:
+        # Implement password checking logic here
+        return self.password == password

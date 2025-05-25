@@ -1,16 +1,17 @@
-import datetime
+from datetime import datetime
 from typing import Optional
 
 from pydantic import BaseModel
+from src.repositories.models.food import FoodCategory
 
 # ====================== REQUESTS ====================== #
 
 
 class UserFoodCreationDTO(BaseModel):
     food_name: str
-    food_category: str
+    food_category: FoodCategory
     calories: float
-    date_eaten: datetime.date
+    date: datetime
 
 
 # ====================== RESPONSES ====================== #
@@ -19,6 +20,6 @@ class UserFoodCreationDTO(BaseModel):
 class UserFoodReponseDTO(BaseModel):
     id: Optional[int]
     food_name: str
-    food_category: str
+    food_category: FoodCategory
     calories: float
-    date_eaten: datetime.date
+    date: datetime

@@ -16,7 +16,7 @@ SessionLocal = sessionmaker(autoflush=False, bind=engine)
 # Dependency =============================
 
 
-def get_db_session():
+def get_db_session():  # type: ignore
     session: Session = SessionLocal()
     try:
         yield session

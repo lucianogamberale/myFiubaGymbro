@@ -1,20 +1,25 @@
+from typing import Dict
+
 from fastapi import FastAPI
 from fastapi.concurrency import asynccontextmanager
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import RedirectResponse
 from sqlalchemy import create_engine
 
 from .config.api_metadata import FASTAPI_METADATA
 from .config.env import DB_URL
 from .repositories.models.base_model import Base
-from .routers.user_excercises import router as user_excercises_router
+from .routers.diets import router as diets_router
+from .routers.user_auth import router as user_auth_router
+from .routers.user_exercises import router as user_exercises_router
 from .routers.user_foods import router as user_foods_router
-from .routers.users import router as users_router
+from .routers.user_health_data import router as users_router
 
 engine = create_engine(DB_URL, echo=True)
 
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(app: FastAPI):  # type: ignore
     # Create tables on startup
     Base.metadata.create_all(bind=engine)
 
@@ -23,23 +28,31 @@ async def lifespan(app: FastAPI):
     # remove tables on shutdown
     Base.metadata.drop_all(bind=engine)
 
-app = FastAPI(**FASTAPI_METADATA, lifespan=lifespan)
+
+app = FastAPI(**FASTAPI_METADATA, lifespan=lifespan)  # type: ignore
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+app.include_router(user_auth_router)
 app.include_router(users_router)
 app.include_router(user_foods_router)
-app.include_router(user_excercises_router)
+app.include_router(user_exercises_router)
+app.include_router(diets_router)
 
 # ==============================================================================
 
 
-@app.get("/api/health-check")
-def health_ping():
+@app.get("/", include_in_schema=False)
+def root_docs_redirect() -> RedirectResponse:
+    return RedirectResponse(url="/docs")
+
+
+@app.get("/health-check", include_in_schema=False)
+def health_check() -> Dict[str, bool]:
     return {"healthy": True}
