@@ -74,7 +74,7 @@ export default function Login() {
                     <img width="80" height="80" src="https://img.icons8.com/external-soft-fill-juicy-fish/60/external-gym-gym-life-soft-fill-soft-fill-juicy-fish-10.png" alt="external-gym-gym-life-soft-fill-soft-fill-juicy-fish-10" />
                 </div>
                 <div className="text-center mt-6">
-                    <h2 className='text-3xl font-bold text-gray-900'>
+                    <h2 className='text-2xl font-bold text-gray-900'>
                         Inicie sesión con email
                     </h2>
                 </div>
