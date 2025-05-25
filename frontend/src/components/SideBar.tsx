@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { MdLogout } from "react-icons/md";
 import { FaBars, FaUserCircle, FaHamburger, FaRunning, FaHeartbeat } from "react-icons/fa";
@@ -5,27 +6,27 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { GiMeal } from "react-icons/gi";
 
-import { Link } from "react-router-dom";
 
 interface Menu {
-  name: string;
+  label: string;
   link: string;
   icon: React.ElementType;
   click?: boolean;
 }
-const SideBar = () => {
+
+export default function SidebarLayout() {
   const auth = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);
 
   const menus: Menu[] = [
-    { name: `¡Hola ${auth.getUserName()}!`, link: "/home", icon: FaUserCircle },
-    { name: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
-    { name: "Mis comidas", link: "/user-foods", icon: FaHamburger },
-    { name: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
-    { name: "Mis dietas", link: "/user-diets", icon: GiMeal },
-    { name: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
+    { label: `¡Hola ${auth.getUserName()}!`, link: "/home", icon: FaUserCircle },
+    { label: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
+    { label: "Mis comidas", link: "/user-foods", icon: FaHamburger },
+    { label: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
+    { label: "Mis dietas", link: "/user-diets", icon: GiMeal },
+    { label: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
   ];
 
   async function handleSignOut(event: React.MouseEvent<HTMLAnchorElement>) {
@@ -38,63 +39,52 @@ const SideBar = () => {
     return null; // Don't render anything if we are on the home(registration) page or log in page
   }
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
-
   return (
-    <>
-      {/* Sidebar for larger screens */}
-      <div className="md:hidden fixed top-4 left-4 z-10">
-        <button
-          onClick={toggleSidebar}
-          className="p-2 bg-slate-300 text-white rounded-md focus:outline-none"
-        >
-          <FaBars size={15} />
-        </button>
-      </div>
-      <div className={`fixed md:relative transform top-0 left-0 w-80 h-full transition-transform bg-slate-100 min-h-screen text-slate-900 px-4  ${isOpen ? 'translate-x-0 z-20' : '-translate-x-full z-0'} md:translate-x-0`}>
-        {/* Sidebar items */}
-        <div className={`flex flex-col gap-4 relative`}>
-          <Link to={'/home'}>
-            <h1 className="text-3xl  text-slate-900 text-left font-extrabold mt-8 mb-2 ">myFiubaGymbro</h1>
-          </Link>
-          {menus?.map((menu: Menu, i: number) => (
-            i === 0 ? (
-              <div
-                key={i}
-                className="group flex text-center items-center gap-3.5 font-medium p-2 rounded-md w-auto"
-              >
-                <div>{React.createElement(menu?.icon, { size: "30" })}</div>
-                <h1 className='whitespace-pre text-xl'>
-                  {menu?.name}
-                </h1>
-              </div>
-            ) : (
+    <div className="flex h-screen bg-gray-300">
+      {/* Sidebar */}
+      <div
+        className={`bg-slate-800 text-white transition-all duration-300
+          ${collapsed ? "w-16" : "w-56"} 
+          flex flex-col my-3 ml-3 rounded-2xl relative`}
+      >
+        {/* Header */}
+        <div className="flex items-center justify-between p-4">
+          {!collapsed && <span className="text-lg font-bold">myFiubaGymBro</span>}
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="text-white hover:bg-slate-700 rounded p-2"
+            aria-label="Toggle Sidebar"
+          >
+            {/* {collapsed ? ">" : "<"} */}
+            <FaBars size={15} />
+          </button>
+        </div>
+
+        {/* Navigation */}
+        <nav className="flex flex-col gap-2 px-2">
+          {menus.map((menu, idx) => (
+            idx === menus.length - 1 ? (
               <Link to={menu.link}
-                key={i}
-                className="group flex text-center items-center gap-3.5 font-medium p-2 hover:bg-slate-200 rounded-md w-auto"
+                key={idx}
+                className="group relative flex items-center gap-4 px-2 py-2 rounded hover:bg-slate-700 cursor-pointer"
+                onClick={() => auth.signOut()}
+              >
+                {React.createElement(menu?.icon, { size: "25" })}
+                {!collapsed && <span>{menu.label}</span>}
+              </Link>
+            ) : (
+
+              <Link to={menu.link}
+                key={idx}
+                className="group relative flex items-center gap-4 px-2 py-2 rounded hover:bg-slate-700 cursor-pointer"
                 {...(menu?.click && { onClick: handleSignOut })}
               >
-                <div>{React.createElement(menu?.icon, { size: "30" })}</div>
-                <h1 className='whitespace-pre text-xl'>
-                  {menu?.name}
-                </h1>
-              </Link>
-            )
+                {React.createElement(menu?.icon, { size: "25" })}
+                {!collapsed && <span>{menu.label}</span>}
+              </Link>)
           ))}
-        </div>
+        </nav>
       </div>
-
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black opacity-50 z-10"
-          onClick={toggleSidebar}
-        />
-      )}
-    </>
+    </div>
   );
 }
-
-export default SideBar;

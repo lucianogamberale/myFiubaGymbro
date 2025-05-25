@@ -14,40 +14,40 @@ interface Props {
 type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
 
 interface DietMealEntryResponse {
-  id: number;
-  day_of_week: DayOfWeek;
-  time_of_day: string;
-  food_name: string;
-  food_category: string;
-  calories: number;
+    id: number;
+    day_of_week: DayOfWeek;
+    time_of_day: string;
+    food_name: string;
+    food_category: string;
+    calories: number;
 }
 
 interface DietResponse {
-  id: number;
-  name: string;
-  description?: string;
-  user_id: number;
-  meals: DietMealEntryResponse[];
+    id: number;
+    name: string;
+    description?: string;
+    user_id: number;
+    meals: DietMealEntryResponse[];
 }
 
 type MealSchedule = {
-  [day: string]: {
-    [time: string]: DietMealEntryResponse[];
-  };
+    [day: string]: {
+        [time: string]: DietMealEntryResponse[];
+    };
 };
 
 const orderedDays: DayOfWeek[] = [
-  "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"
+    "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"
 ];
 
 const dayDisplayNames: { [key: string]: string } = {
-  MONDAY: "Lunes",
-  TUESDAY: "Martes",
-  WEDNESDAY: "Miércoles",
-  THURSDAY: "Jueves",
-  FRIDAY: "Viernes",
-  SATURDAY: "Sábado",
-  SUNDAY: "Domingo",
+    MONDAY: "Lunes",
+    TUESDAY: "Martes",
+    WEDNESDAY: "Miércoles",
+    THURSDAY: "Jueves",
+    FRIDAY: "Viernes",
+    SATURDAY: "Sábado",
+    SUNDAY: "Domingo",
 };
 
 
@@ -70,24 +70,24 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
     const [successMessage, setSuccessMessage] = useState({ title: '', description: '' });
 
     const fetchUserDiets = async () => {
-      if (!user_id) {
-        setError('ID de usuario no disponible. Por favor, inicie sesión.');
-        return;
-      }
+        if (!user_id) {
+            setError('ID de usuario no disponible. Por favor, inicie sesión.');
+            return;
+        }
 
-      setLoading(true);
-      setError('');
-      try {
-        const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets`);
-        if (!response.ok) throw new Error('Error al obtener la lista de dietas.');
-        const data: DietResponse[] = await response.json();
-        setUserDiets(data);
-      } catch (err: any) {
-        console.error('Error fetching user diets:', err);
-        setError(err.message || 'No se pudieron cargar las dietas.');
-      } finally {
-        setLoading(false);
-      }
+        setLoading(true);
+        setError('');
+        try {
+            const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets`);
+            if (!response.ok) throw new Error('Error al obtener la lista de dietas.');
+            const data: DietResponse[] = await response.json();
+            setUserDiets(data);
+        } catch (err: any) {
+            console.error('Error fetching user diets:', err);
+            setError(err.message || 'No se pudieron cargar las dietas.');
+        } finally {
+            setLoading(false);
+        }
     };
 
     useEffect(() => {
@@ -244,7 +244,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
     return (
         <div className="h-full flex flex-col overflow-auto">
             <div className="border-t border-gray-300 my-3"></div>
-            <div className="text-3xl text-slate-900 font-bold flex justify-between items-center px-4">
+            <div className="text-2xl text-slate-900 font-bold flex justify-between items-center px-4">
                 <span>Mis Dietas</span>
                 <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Crear dieta
@@ -374,9 +374,9 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                 />
             )}
 
- 			{showSuccessModal &&
- 				<ModalSuccess title={successMessage.title} description={successMessage.description} route="/user-diets" button="Ir a mis dietas" onClose={handleCloseAll} />
- 			}
+            {showSuccessModal &&
+                <ModalSuccess title={successMessage.title} description={successMessage.description} route="/user-diets" button="Ir a mis dietas" onClose={handleCloseAll} />
+            }
         </div>
     );
 };

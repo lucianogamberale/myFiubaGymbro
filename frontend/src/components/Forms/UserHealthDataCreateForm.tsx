@@ -116,7 +116,7 @@ export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: P
 			</div>
 
 			{showSuccessModal &&
-				<ModalSuccess title="¡Creado con éxito!" description="Los datos personales se cargaron con éxito" route="/user-health-data" button="Ir a mi salud" onClose={handleCloseAll} />
+				<ModalSuccess title="¡Creado con éxito!" description="Los datos de salud se cargaron con éxito" route="/user-health-data" button="Ir a mi salud" onClose={handleCloseAll} />
 			}
 		</>
 	)
