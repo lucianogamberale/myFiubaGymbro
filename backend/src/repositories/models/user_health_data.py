@@ -18,7 +18,6 @@ class UserHealthData(Base):
 
     weight: Mapped[int] = mapped_column()
     height: Mapped[int] = mapped_column()
-    age: Mapped[float] = mapped_column()
     date: Mapped[datetime] = mapped_column()  # this should be a date
 
     user: Mapped["User"] = relationship()
