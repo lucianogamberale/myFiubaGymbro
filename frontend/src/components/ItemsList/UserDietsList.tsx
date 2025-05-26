@@ -244,7 +244,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
     return (
         <div className="h-full flex flex-col overflow-auto">
             <div className="border-t border-gray-300 my-3"></div>
-            <div className="text-2xl text-slate-900 font-bold flex justify-between items-center px-4">
+            <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mis Dietas</span>
                 <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Crear dieta
