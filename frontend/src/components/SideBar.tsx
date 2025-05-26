@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { MdLogout } from "react-icons/md";
-import { FaBars, FaUserCircle, FaHamburger, FaRunning, FaHeartbeat, FaTrophy } from "react-icons/fa";
+import { FaBars, FaUserCircle, FaHamburger, FaRunning, FaHeartbeat, FaTrophy, FaClock } from "react-icons/fa";
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthProvider';
 import { GiMeal } from "react-icons/gi";
@@ -23,6 +23,7 @@ export default function SidebarLayout() {
   const menus: Menu[] = [
     { label: `¡Hola ${auth.getUserName()}!`, link: "/home", icon: FaUserCircle },
     { label: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
+    { label: "Mis calorías diarias", link: "/user-daily-calories-goal", icon: FaClock },
     { label: "Mis comidas", link: "/user-foods", icon: FaHamburger },
     { label: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
     { label: "Mis dietas", link: "/user-diets", icon: GiMeal },

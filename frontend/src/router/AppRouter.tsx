@@ -62,6 +62,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import { UserHealthData } from "../pages/UserHealthData";
 import { UserDiets } from "../pages/UserDiets";
 import { UserObjectives } from "../pages/UserObjectives";
+import { UserDailyCaloriesGoal } from "../pages/UserDailyCaloriesGoal";
 
 export const AppRouter = () => {
   return (
@@ -73,6 +74,9 @@ export const AppRouter = () => {
       {/* RUTAS PROTEGIDAS */}
       <Route path="/user-health-data" element={<ProtectedRoute />}>
         <Route path="/user-health-data" element={<UserHealthData />} />
+      </Route>
+      <Route path="/user-daily-calories-goal" element={<ProtectedRoute />}>
+        <Route path="/user-daily-calories-goal" element={<UserDailyCaloriesGoal />} />
       </Route>
       <Route path="/user-foods" element={<ProtectedRoute />}>
         <Route path="/user-foods" element={<UserFoods />} />

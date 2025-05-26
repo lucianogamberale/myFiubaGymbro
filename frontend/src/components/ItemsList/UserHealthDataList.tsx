@@ -9,7 +9,7 @@ interface Props {
     onUpdateUserHealthData: (value: boolean) => void;
 }
 
-type UserHealthDataEntry = {
+export type UserHealthDataEntry = {
     id: number;
     weight: number;
     height: number;
