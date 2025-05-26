@@ -14,7 +14,6 @@ export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: P
 
 	const [weight, setWeight] = useState('');
 	const [height, setHeight] = useState('');
-	const [age, setAge] = useState('');
 	const [date, setDatetime] = useState(new Date().toISOString().slice(0, 10));
 
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -37,7 +36,6 @@ export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: P
 				body: JSON.stringify({
 					"weight": weight,
 					"height": height,
-					"age": age,
 					"date": date,
 				}),
 			});
@@ -62,21 +60,6 @@ export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: P
 				<div className="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 				<div className="fixed inset-0 z-50 w-screen overflow-y-auto flex justify-center items-center">
 					<form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg xl:w-2/4 p-10">
-						<div className="mb-4">
-							<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="age">
-								Edad
-							</label>
-							<input
-								type="number" // positive
-								id="age"
-								value={age}
-								onChange={(e) => setAge(e.target.value)}
-								className="shadow appearance-none border rounded positive w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-								placeholder="ej. 25"
-								min={1}
-								required
-							/>
-						</div>
 						<div className="mb-4">
 							<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="weight">
 								Peso [kg]
@@ -133,7 +116,7 @@ export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: P
 			</div>
 
 			{showSuccessModal &&
-				<ModalSuccess title="¡Creado con éxito!" description="Los datos personales se cargaron con éxito" route="/user-health-data" button="Ir a mi salud" onClose={handleCloseAll} />
+				<ModalSuccess title="¡Creado con éxito!" description="Los datos de salud se cargaron con éxito" route="/user-health-data" button="Ir a mi salud" onClose={handleCloseAll} />
 			}
 		</>
 	)
