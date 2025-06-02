@@ -5,6 +5,7 @@ from src.deps.database import DBSessionDependency
 from src.dtos.user_health_data_dtos import (
     UserHealthDataCreationDTO,
     UserHealthDataReponseDTO,
+    UserWeightHistoryDTO,
 )
 from src.services.users_health_data import UserHealthDataService
 
@@ -42,3 +43,10 @@ def get_last_user_health_data(
         )
     else:
         return user_health_data
+
+
+@router.get("/{user_id}/weight-history", response_model=List[UserWeightHistoryDTO])
+def get_user_weight_history(
+    user_id: float, db: DBSessionDependency
+) -> List[UserWeightHistoryDTO]:
+    return UserHealthDataService(db).get_user_weight_history(user_id)

@@ -1,6 +1,7 @@
 from typing import List, Optional
 
 from sqlalchemy.orm import Session
+from src.dtos.user_health_data_dtos import UserWeightHistoryDTO
 from src.dtos.user_health_data_dtos import (
     UserHealthDataCreationDTO,
     UserHealthDataReponseDTO,
@@ -51,3 +52,10 @@ class UserHealthDataService:
                 height=last_user_health_data.height,
                 date=last_user_health_data.date,
             )
+
+    def get_user_weight_history(self, user_id: float) -> List[UserWeightHistoryDTO]:
+        history = self.users_health_repo.get_historical_user_health_data(user_id)
+        return [
+            UserWeightHistoryDTO(weight=record.weight, date=record.date)
+            for record in history
+        ]

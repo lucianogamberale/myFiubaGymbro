@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { UserHealthDataCreateForm } from '../Forms/UserHealthDataCreateForm';
+import { WeightChart } from '../Charts/WeightChart';
 import { useAuth } from '../../auth/AuthProvider';
 import Loading from '../Loading';
 
@@ -105,6 +106,10 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
                             <div className="text-gray-700">{lastUserHealthData.height} cm</div>
                         </div>
                     </div>
+
+                    {historicalUserHealthData.length > 0 && (
+                        <WeightChart data={historicalUserHealthData} />
+                    )}
                 </div>
             )}
             {
