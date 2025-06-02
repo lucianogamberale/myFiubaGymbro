@@ -11,6 +11,7 @@ export const WeightChart = ({ data }: Props) => {
     const formattedData = data
         .slice()
         .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+        .slice(-7) // <-- Tomamos las últimas 7 entradas ya ordenadas
         .map(entry => ({
             ...entry,
             date: new Date(entry.date).toLocaleDateString('es-AR', {
