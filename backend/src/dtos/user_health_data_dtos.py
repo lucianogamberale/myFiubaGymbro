@@ -20,3 +20,8 @@ class UserHealthDataReponseDTO(BaseModel):
     weight: int
     height: int
     date: datetime
+
+
+class UserWeightHistoryDTO(BaseModel):
+    weight: int
+    date: datetime
