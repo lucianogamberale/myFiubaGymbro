@@ -18,7 +18,7 @@ class UserFoodCreationDTO(BaseModel):
 
 
 class UserFoodReponseDTO(BaseModel):
-    id: Optional[int]
+    id: int
     food_name: str
     food_category: FoodCategory
     calories: float
