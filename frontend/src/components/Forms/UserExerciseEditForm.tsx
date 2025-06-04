@@ -1,13 +1,15 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from '../../auth/AuthProvider';
+import Loading from "../Loading";
 
 
 interface Props {
+	userExerciseId: number,
 	setOpenForm: (value: boolean) => void;
-	onNewUserExercise: () => void;
+	onEditUserExercise: () => void;
 }
 
-export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props) => {
+export const UserExerciseEditForm = ({ userExerciseId, setOpenForm, onEditUserExercise }: Props) => {
 	const auth = useAuth();
 	const userId = auth.getUserId();
 
@@ -29,14 +31,45 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 	const [dateTime, setDatetime] = useState(new Date().toISOString().slice(0, 16));
 	const [exerciseDuration, setExerciseDuration] = useState('');
 
+	const [loading, setLoading] = useState(true);
+
+	async function fetchData() {
+		try {
+			const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}/exercises/${userExerciseId}`, {
+				method: 'GET'
+			});
+			if (response.ok) {
+				const data = await response.json();
+				setExerciseCategory(data.exercise_category);
+				setExerciseName(data.exercise_name);
+				setCalories(data.calories);
+				setDatetime(data.date);
+				setExerciseDuration(data.duration);
+			} else {
+				console.error("Error fetching user exercise data");
+			}
+		} catch (error) {
+			console.error("Error fetching user exercise:", error);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	useEffect(() => {
+		if (userId) {
+			fetchData();
+		}
+	}, [userId]);
+
+
 	function closeForm() {
 		setOpenForm(false);
 	}
 
-	async function createUserExercise() {
+	async function updateUserExercise() {
 		try {
-			const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}`, {
-				method: 'POST',
+			const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}/exercises/${userExerciseId}`, {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -50,7 +83,7 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 			});
 			if (response.ok) {
 				console.log("Creado con exito");
-				onNewUserExercise();
+				onEditUserExercise();
 			}
 		} catch (error) {
 			console.error("Error al realizar la solicitud:", error);
@@ -59,7 +92,15 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		createUserExercise();
+		updateUserExercise();
+	}
+
+	if (loading) {
+		return (
+			<div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
+				<Loading />
+			</div>
+		);
 	}
 
 	return (
@@ -145,7 +186,7 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 								Cerrar
 							</button>
 							<button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-								Crear
+								Editar
 							</button>
 						</div>
 					</form>

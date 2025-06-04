@@ -7,10 +7,10 @@ from src.repositories.models.exercise import ExerciseCategory
 # ====================== REQUESTS ====================== #
 
 
-class UserExerciseCreationDTO(BaseModel):
+class UserExerciseRequestDataDTO(BaseModel):
     exercise_name: str
     exercise_category: ExerciseCategory
-    duration: Optional[float]
+    duration: float
     calories: float
     date: datetime
 
@@ -19,9 +19,9 @@ class UserExerciseCreationDTO(BaseModel):
 
 
 class UserExerciseResponseDTO(BaseModel):
-    id: Optional[int]
+    id: int
     exercise_name: str
     exercise_category: ExerciseCategory
-    duration: Optional[float]
+    duration: float
     calories: float
     date: datetime
