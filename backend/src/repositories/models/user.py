@@ -4,6 +4,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base_model import Base, IntPK, Str
 from .diet import Diet
+from .routine import Routine
 
 
 class User(Base):
@@ -17,6 +18,10 @@ class User(Base):
     surname: Mapped[Str]
 
     diets: Mapped[List["Diet"]] = relationship(
+        back_populates="user", cascade="all, delete-orphan"
+    )
+
+    routines: Mapped[List["Routine"]] = relationship(
         back_populates="user", cascade="all, delete-orphan"
     )
 
