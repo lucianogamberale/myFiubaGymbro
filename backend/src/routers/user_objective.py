@@ -22,5 +22,5 @@ def create_user_objective(
     response_model=UserObjectiveDataDTO,
     status_code=status.HTTP_200_OK,
 )
-def get_user_objective(user_id: float, db: DBSessionDependency) -> UserObjectiveDataDTO:
-    return UserObjectiveService(db).get_user_objective(user_id)
+def get_last_user_objective(user_id: float, db: DBSessionDependency) -> UserObjectiveDataDTO:
+    return UserObjectiveService(db).get_last_user_objective(user_id)

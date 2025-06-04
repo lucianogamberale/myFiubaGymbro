@@ -18,7 +18,15 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 		'Bicicleta': 'Bicicleta',
 		'Ganar peso': 'Ganar peso',
 		'Perder peso': 'Perder peso',
-	}
+	};
+
+	// Categories that use km as unit of measurement
+	const kmCategories = new Set(['Correr', 'Caminar', 'Bicicleta']);
+
+	// Function to get unit of measurement based on category
+	const getExampleValue = (category: string): string => {
+		return kmCategories.has(category) ? '10 km' : '1900 kcal';
+	};
 
 	const [objectiveCategory, setObjectiveCategory] = useState('');
 	const [objectiveName, setObjectiveName] = useState('');
@@ -91,11 +99,16 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 							</label>
 							<input
 								value={objectiveName}
-								onChange={(e) => setObjectiveName(e.target.value)}
+								onChange={(e) => {
+									setObjectiveName(e.target.value);
+									// Update placeholder when category changes
+									const input = e.target;
+									input.placeholder = objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : '';
+								}}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="name"
 								type="number"
-								placeholder="ej. 100"
+								placeholder={objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : ''}
 								required />
 						</div>
 						<div className="flex items-center justify-end">
