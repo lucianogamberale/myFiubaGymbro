@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ModalSuccess } from "../ModalSuccess";
 import { useAuth } from '../../auth/AuthProvider';
-
+import { UserHealthDataEntry } from '../ItemsList/UserHealthDataList'
 
 interface Props {
 	setOpenForm: (value: boolean) => void;
@@ -9,12 +9,48 @@ interface Props {
 }
 
 export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: Props) => {
+
+	const [lastUserHealthData, setLastUserHealthData] = useState<UserHealthDataEntry | null>(null);
+	
+	const fetchData = () => {
+		fetch(`http://localhost:8000/api/user-health-data/${user_id}/last`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+			.then(response => {
+				if (!response.ok) {
+					throw new Error('Network response was not ok');
+				}
+				return response.json()
+			})
+			.then(data => {
+				setLastUserHealthData(data);
+			})
+			.catch(error => {
+				console.error('Error fetching data:', error)
+				setLastUserHealthData(null);
+			});
+	};
+	
+	useEffect(() => {
+		fetchData();
+	}, []);
+
 	const auth = useAuth();
 	const user_id = auth.getUserId();
 
 	const [weight, setWeight] = useState('');
 	const [height, setHeight] = useState('');
 	const [date, setDatetime] = useState(new Date().toISOString().slice(0, 10));
+
+	// Set height from last health data if it exists
+	useEffect(() => {
+		if (lastUserHealthData?.height) {
+			setHeight(lastUserHealthData.height.toString());
+		}
+	}, [lastUserHealthData]);
 
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -75,21 +111,23 @@ export const UserHealthDataCreateForm = ({ setOpenForm, onNewUserHealthData }: P
 								required
 							/>
 						</div>
-						<div className="mb-4">
-							<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="height">
-								Altura [cm]
-							</label>
-							<input
-								type="number"
-								id="height"
-								value={height}
-								onChange={(e) => setHeight(e.target.value)}
-								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-								placeholder="ej. 170"
-								min={0}
-								required
-							/>
-						</div>
+							{!lastUserHealthData?.height && (
+								<div className="mb-4">
+									<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="height">
+										Altura [cm]
+									</label>
+									<input
+										type="number"
+										id="height"
+										value={height}
+										onChange={(e) => setHeight(e.target.value)}
+										className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+										placeholder="ej. 170"
+										min={0}
+										required
+									/>
+								</div>
+							)}
 						<div className="mb-4">
 							<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
 								Fecha

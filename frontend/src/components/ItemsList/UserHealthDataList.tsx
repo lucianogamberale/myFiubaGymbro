@@ -133,7 +133,7 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
                                             <thead className="bg-gray-100 text-gray-700 text-sm font-semibold">
                                                 <tr>
                                                     <th className="px-4 py-3 text-left">Fecha</th>
-                                                    <th className="px-4 py-3 text-right">Altura [cm]</th>
+                                                    {/* <th className="px-4 py-3 text-right">Altura [cm]</th> */}
                                                     <th className="px-4 py-3 text-right">Peso [kg]</th>
                                                 </tr>
                                             </thead>
@@ -147,7 +147,7 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
                                                                 year: 'numeric',
                                                             })}
                                                         </td>
-                                                        <td className="px-4 py-2 text-right">{userHealthData.height}</td>
+                                                        {/* <td className="px-4 py-2 text-right">{userHealthData.height}</td> */}
                                                         <td className="px-4 py-2 text-right">{userHealthData.weight}</td>
                                                     </tr>
                                                 ))}
