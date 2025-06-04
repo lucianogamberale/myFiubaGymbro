@@ -22,7 +22,10 @@ class UserObjectiveRepository(BaseRepository):
         self.db_session.refresh(user_objective)
         return user_objective
 
-    def get_user_objective_data(self, user_id: float) -> Optional[UserObjective]:
+    def get_last_user_objective_data(self, user_id: float) -> Optional[UserObjective]:
         return self.db_session.execute(
-            sa.select(UserObjective).where(UserObjective.user_id == user_id)
+            sa.select(UserObjective)
+            .where(UserObjective.user_id == user_id)
+            .order_by(sa.desc(UserObjective.id))
+            .limit(1)
         ).scalar_one_or_none()
