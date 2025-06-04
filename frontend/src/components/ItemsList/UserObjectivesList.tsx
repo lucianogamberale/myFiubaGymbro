@@ -67,7 +67,7 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
             <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mis Objetivos</span>
                 <button onClick={() => setOpen(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
-                    + Cargar Objetivo
+                    + Nuevo Objetivo
                 </button>
             </div>
             <div className="border-t border-gray-300 my-4"></div>

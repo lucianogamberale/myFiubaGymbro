@@ -22,8 +22,8 @@ class UserObjectiveService:
 
         self.objectives_repo.save_objective_data(user_id, user_objective_data)
 
-    def get_user_objective(self, user_id: float) -> UserObjectiveDataDTO:
-        user_objective_data = self.objectives_repo.get_user_objective_data(user_id)
+    def get_last_user_objective(self, user_id: float) -> UserObjectiveDataDTO:
+        user_objective_data = self.objectives_repo.get_last_user_objective_data(user_id)
 
         if not user_objective_data:
             raise HTTPException(
