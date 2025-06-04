@@ -10,6 +10,7 @@ from .config.api_metadata import FASTAPI_METADATA
 from .config.env import DB_URL
 from .repositories.models.base_model import Base
 from .routers.diets import router as diets_router
+from .routers.routines import router as routines_router
 from .routers.user_auth import router as user_auth_router
 from .routers.user_exercises import router as user_exercises_router
 from .routers.user_foods import router as user_foods_router
@@ -46,6 +47,7 @@ app.include_router(users_router)
 app.include_router(user_foods_router)
 app.include_router(user_exercises_router)
 app.include_router(diets_router)
+app.include_router(routines_router)
 app.include_router(user_objective)
 app.include_router(user_daily_calories_goal)
 
