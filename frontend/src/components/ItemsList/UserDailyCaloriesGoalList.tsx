@@ -71,7 +71,7 @@ export const UserDailyCaloriesGoalList = ({ updateUserDailyCaloriesGoal, onUpdat
                     + Nuevo objetivo diario
                 </button>
                 <button onClick={() => setOpen2(true)} className="text-sm bg-slate-800 hover:bg-slate-600 py-1 px-4 rounded-full text-slate-100 font-medium focus:outline-none">
-                    + Autorecomendación 
+                    + Recomendación 
                 </button>
             </div>
 
