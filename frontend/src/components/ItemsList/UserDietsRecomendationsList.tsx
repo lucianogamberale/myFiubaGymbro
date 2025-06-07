@@ -10,8 +10,6 @@ import comidaCorazon from '../../images/cuidado_corazon.webp';
 import comidaVegetariana from '../../images/comida_vegetariana.jpg';
 import comidaSinGluten from '../../images/sin_gluten.jpeg';
 import dietaKeto from '../../images/dieta_keto.jpg';
-import volumenSaludable from '../../images/volumen_saludable.jpeg';
-import volumenSucio from '../../images/volumen_sucio.jpeg';
 import recomendado from '../../images/recomendado.png';
 
 export const UserDietsRecomendations = () => {
@@ -54,7 +52,7 @@ export const UserDietsRecomendations = () => {
             title: 'Ganar musculatura',
             color: 'bg-red-700',
             image: ganarMusculatura,
-            path: '/recomend-diets/3',
+            path: '/musculatura-diets',
         },
         {
             title: 'Diabetes',
@@ -85,18 +83,6 @@ export const UserDietsRecomendations = () => {
             color: 'bg-gray-800',
             image: dietaKeto,
             path: '/recomend-diets/9',
-        },
-        {
-            title: 'Volumen saludable',
-            color: 'bg-orange-700',
-            image: volumenSaludable,
-            path: '/recomend-diets/10',
-        },
-        {
-            title: 'Volumen sucio',
-            color: 'bg-stone-800',
-            image: volumenSucio,
-            path: '/recomend-diets/11',
         }
     ];
 
