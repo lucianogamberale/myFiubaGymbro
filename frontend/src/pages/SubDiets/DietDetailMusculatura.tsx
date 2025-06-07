@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserDietsMusculaturaList } from "../components/ItemsList/UserDietsMusculaturaList";
+import { UserDietsMusculaturaList } from "../../components/ItemsList/Diets/UserDietsMusculaturaList";
 
 export const UserDietsMusculatura = () => {
   const [updateUserMusculaturaDiets, setUpdateUserMusculaturaDiets] = useState(false);

@@ -1,9 +1,9 @@
 import React from 'react';
-import { useAuth } from '../../auth/AuthProvider';
+import { useAuth } from '../../../auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 // import Loading from '../Loading';
-import volumenSaludable from '../../images/volumen_saludable.jpeg';
-import volumenSucio from '../../images/volumen_sucio.jpeg';
+import volumenSaludable from '../../../images/volumen_saludable.jpeg';
+import volumenSucio from '../../../images/volumen_sucio.jpeg';
 
 export const UserDietsMusculaturaList = () => {
     const auth = useAuth();

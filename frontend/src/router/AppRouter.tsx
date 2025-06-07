@@ -11,7 +11,9 @@ import { UserObjectives } from "../pages/UserObjectives";
 import { UserRecomendations } from "../pages/Home";
 import { UserDailyCaloriesGoal } from "../pages/UserDailyCaloriesGoal";
 import { DietsDetail } from "../pages/DietDetail";
-import { UserDietsMusculatura } from "../pages/DietDetailMusculatura";
+import { UserDietsMusculatura } from "../pages/SubDiets/DietDetailMusculatura";
+import { ExerciseRecomendation } from "../pages/ExerciseRecomendation";
+import { ExerciseDetail } from "../pages/ExerciseDetail";
 
 
 export const AppRouter = () => {
@@ -43,14 +45,20 @@ export const AppRouter = () => {
       <Route path="/user-objectives" element={<ProtectedRoute />}>
         <Route path="/user-objectives" element={<UserObjectives />} />
       </Route>
-      <Route path="/recomend-diets/:type" element={<ProtectedRoute />}>
-        <Route path="/recomend-diets/:type" element={<DietsDetail />} />
-      </Route>
       <Route path="/user-diets" element={<ProtectedRoute />}>
         <Route path="/user-diets" element={<UserDiets />} />
       </Route>
       <Route path="/musculatura-diets" element={<ProtectedRoute />}>
         <Route path="/musculatura-diets" element={<UserDietsMusculatura />} />
+      </Route>
+      <Route path="/recomend-exercise" element={<ProtectedRoute />}>
+        <Route path="/recomend-exercise" element={<ExerciseRecomendation />} />
+      </Route>
+      <Route path="/recomend-diets/:type" element={<ProtectedRoute />}>
+        <Route path="/recomend-diets/:type" element={<DietsDetail />} />
+      </Route>
+      <Route path="/detail-exercise/:type" element={<ProtectedRoute />}>
+        <Route path="/detail-exercise/:type" element={<ExerciseDetail />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/signup" />} />

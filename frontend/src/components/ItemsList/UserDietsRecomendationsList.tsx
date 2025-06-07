@@ -31,6 +31,12 @@ export const UserDietsRecomendations = () => {
 
     const categories = [
         {
+            title: 'EJERCICIOS PAPEEEIN',
+            color: 'bg-pink-600',
+            image: bajarPeso,
+            path: '/recomend-exercise',
+        },
+        {
             title: 'Recomendados para ti',
             color: 'bg-emerald-800',
             image: recomendado,

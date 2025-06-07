@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/AuthProvider';
 import { useParams } from 'react-router-dom';
-import { diets } from '../../utils/constants/diets';
+import { routines } from '../../utils/constants/exercises';
 
 export type UserHealthDataEntry = {
     id: number;
@@ -10,21 +10,22 @@ export type UserHealthDataEntry = {
     date: string;
 };
 
-interface DietMealEntryForm {
-    food_name: string;
-    food_category: string;
+interface ExerciseEntryForm {
+    exercise_name: string;
+    exercise_category: string;
     day_of_week: string;
     time_of_day: string;
-    calories: number;
+    calories_burned: number;
+    duration: number
 }
 
-interface DietForm {
+interface RoutineForm {
     name: string;
     description?: string;
-    meals: DietMealEntryForm[];
+    exercises: ExerciseEntryForm[];
 }
 
-export const UserDietsDetail = () => {
+export const UserExerciseDetailList = () => {
     const auth = useAuth();
     const user_id = auth.getUserId();
     const { type } = useParams();
@@ -64,84 +65,86 @@ export const UserDietsDetail = () => {
         }
     }, [type, user_id]);
 
-    const handleAddDiet = async () => {
-        if (!diet) return;
+    const handleAddRoutine = async () => {
+        if (!routine) return;
 
-        const dietDataToSend: DietForm = {
-            name: diet.name,
-            description: diet.description,
-            meals: diet.meals.map(meal => ({
-                food_name: meal.food_name,
-                food_category: meal.food_category,
-                day_of_week: meal.day_of_week,
-                time_of_day: meal.time_of_day,
-                calories: meal.calories
+        const routineDataToSend: RoutineForm = {
+            name: routine.name,
+            description: routine.description,
+            exercises: routine.exercises.map(exercise => ({
+                exercise_name: exercise.exercise_name,
+                exercise_category: exercise.exercise_category,
+                day_of_week: exercise.day_of_week,
+                time_of_day: exercise.time_of_day,
+                calories_burned: exercise.calories_burned,
+                duration: exercise.duration
             })),
         };
 
         try {
-            const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets`, {
+            const response = await fetch(`http://localhost:8000/api/users/${user_id}/routines`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(dietDataToSend),
+                body: JSON.stringify(routineDataToSend),
             });
 
             if (response.ok) {
                 setShowSuccessModal(true);
-                alert('✅ Dieta añadida exitosamente');
+                alert('✅ Rutina añadida exitosamente');
             } else {
                 const errorData = await response.json();
-                console.error('Error creating diet:', errorData);
-                alert(`Error al crear la dieta: ${errorData.detail || response.statusText}`);
+                console.error('Error creating routine:', errorData);
+                alert(`Error al crear la rutina: ${errorData.detail || response.statusText}`);
             }
         } catch (error) {
-            console.error('Error creating diet:', error);
-            alert('Error al crear la dieta. Intente de nuevo más tarde.');
+            console.error('Error creating routine:', error);
+            alert('Error al crear la rutina. Intente de nuevo más tarde.');
         }
     };
 
     if (loading) return <div className="p-4 text-center text-gray-500">Cargando datos...</div>;
     if (error) return <div className="p-4 text-center text-red-500">{error}</div>;
 
-    const diet = diets.find(d => d.id === selectedType);
-    if (!diet) return <div className="p-4 text-center text-red-500">Dieta no encontrada.</div>;
+    const routine = routines.find(r => r.id === selectedType);
+    if (!routine) return <div className="p-4 text-center text-red-500">Rutina no encontrada.</div>;
 
     return (
         <div className="p-6 max-w-4xl mx-auto">
             <div className="flex justify-between items-center bg-gradient-to-r from-emerald-500 to-lime-400 text-white p-6 rounded-xl shadow-md mb-6">
                 <div>
-                    <h1 className="text-4xl font-extrabold">{diet.name}</h1>
-                    <p className="text-lg mt-2">{diet.description}</p>
+                    <h1 className="text-4xl font-extrabold">{routine.name}</h1>
+                    <p className="text-lg mt-2">{routine.description}</p>
                 </div>
                 <button
-                    onClick={handleAddDiet}
+                    onClick={handleAddRoutine}
                     className="bg-white text-emerald-600 hover:text-white hover:bg-emerald-700 font-bold py-2 px-4 rounded-xl shadow transition duration-200"
                 >
                     Añadir
                 </button>
             </div>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">🍽️ Comidas</h2>
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Ejercicios</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {diet.meals.map((meal, index) => (
+                {routine.exercises.map((exercise, index) => (
                     <div
                         key={index}
                         className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition duration-300"
                     >
-                        <h3 className="text-xl font-bold text-emerald-700 mb-1">{meal.food_name}</h3>
+                        <h3 className="text-xl font-bold text-emerald-700 mb-1">{exercise.exercise_name}</h3>
                         <p className="text-gray-600 mb-1">
-                            <span className="font-medium">Categoría:</span> {meal.food_category}
+                            <span className="font-medium">Categoría:</span> {exercise.exercise_category}
                         </p>
                         <p className="text-gray-600 mb-1">
-                            <span className="font-medium">Día:</span> {meal.day_of_week}
+                            <span className="font-medium">Día:</span> {exercise.day_of_week}
                         </p>
                         <p className="text-gray-600 mb-1">
                             <span className="font-medium">Horario:</span>{" "}
-                            {meal.time_of_day}
+                            {exercise.time_of_day}
                         </p>
-                        <p className="text-gray-700 font-semibold">🔥 {meal.calories} calorías</p>
+                        <p className="text-gray-700 font-semibold">🔥 {exercise.calories_burned} calorías</p>
+                        <p className="text-gray-700 font-semibold">{exercise.duration} duración</p>
                     </div>
                 ))}
             </div>
