@@ -77,24 +77,60 @@ export const routines: Routine[] = [
     ]
   },
   {
-    id: "5",
-    name: "Running",
-    description: "Programa de entrenamiento de carrera con enfoque en resistencia y técnica.",
-    exercises: [
-      { day_of_week: "MONDAY", time_of_day: "08:00:00", exercise_name: "Carrera continua 5km", exercise_category: "Cardio", duration: 30, calories_burned: 568 },
-      { day_of_week: "WEDNESDAY", time_of_day: "08:00:00", exercise_name: "Intervalos (400m rápidos / 400m trote)", exercise_category: "Cardio", duration: 35, calories_burned: 568 },
-      { day_of_week: "FRIDAY", time_of_day: "08:00:00", exercise_name: "Fartlek: cambios de ritmo", exercise_category: "Cardio", duration: 30, calories_burned: 568 },
-      { day_of_week: "SUNDAY", time_of_day: "09:00:00", exercise_name: "Trote largo 10km", exercise_category: "Cardio", duration: 60, calories_burned: 568 }
+    "id": "51",
+    "name": "Running Nivel Inicial",
+    "description": "Rutina para principiantes que desean iniciar en el running con caminatas y trotes suaves.",
+    "exercises": [
+      { "day_of_week": "MONDAY", "time_of_day": "07:30:00", "exercise_name": "Caminata rápida + trote suave (1:1)", "exercise_category": "Cardio", "duration": 30, "calories_burned": 250 },
+      { "day_of_week": "TUESDAY", "time_of_day": "07:30:00", "exercise_name": "Caminata rápida", "exercise_category": "Cardio", "duration": 30, "calories_burned": 200 },
+      { "day_of_week": "WEDNESDAY", "time_of_day": "07:30:00", "exercise_name": "Trote suave continuo", "exercise_category": "Cardio", "duration": 25, "calories_burned": 280 },
+      { "day_of_week": "FRIDAY", "time_of_day": "07:30:00", "exercise_name": "Caminata rápida + trote suave (2:1)", "exercise_category": "Cardio", "duration": 35, "calories_burned": 300 },
+      { "day_of_week": "SUNDAY", "time_of_day": "08:00:00", "exercise_name": "Trote suave en parque", "exercise_category": "Cardio", "duration": 30, "calories_burned": 320 }
     ]
   },
   {
-    id: "6",
-    name: "Ciclismo",
-    description: "Rutina semanal de ciclismo de ruta y urbano para mejorar capacidad aeróbica.",
-    exercises: [
-      { day_of_week: "TUESDAY", time_of_day: "08:00:00", exercise_name: "Rodaje urbano 20km", exercise_category: "Cardio", duration: 60, calories_burned: 568 },
-      { day_of_week: "THURSDAY", time_of_day: "08:00:00", exercise_name: "Cuestas en bici (repeticiones)", exercise_category: "Cardio", duration: 45, calories_burned: 568 },
-      { day_of_week: "SATURDAY", time_of_day: "09:00:00", exercise_name: "Ruta larga 50km", exercise_category: "Cardio", duration: 120, calories_burned: 568 }
+    "id": "52",
+    "name": "Running Nivel Medio",
+    "description": "Rutina para corredores con experiencia básica que desean mejorar resistencia y ritmo.",
+    "exercises": [
+      { "day_of_week": "MONDAY", "time_of_day": "07:00:00", "exercise_name": "Trote continuo a ritmo moderado", "exercise_category": "Cardio", "duration": 40, "calories_burned": 420 },
+      { "day_of_week": "TUESDAY", "time_of_day": "07:00:00", "exercise_name": "Series de velocidad: 4x400m", "exercise_category": "Cardio", "duration": 30, "calories_burned": 350 },
+      { "day_of_week": "THURSDAY", "time_of_day": "07:00:00", "exercise_name": "Trote en cuestas", "exercise_category": "Cardio", "duration": 35, "calories_burned": 380 },
+      { "day_of_week": "SATURDAY", "time_of_day": "08:00:00", "exercise_name": "Rodaje largo a ritmo cómodo", "exercise_category": "Cardio", "duration": 60, "calories_burned": 600 }
+    ]
+  },
+  {
+    "id": "53",
+    "name": "Running Nivel Avanzado",
+    "description": "Programa diseñado para corredores experimentados que buscan mejorar rendimiento competitivo.",
+    "exercises": [
+      { "day_of_week": "MONDAY", "time_of_day": "06:30:00", "exercise_name": "Rodaje regenerativo", "exercise_category": "Cardio", "duration": 45, "calories_burned": 400 },
+      { "day_of_week": "TUESDAY", "time_of_day": "06:30:00", "exercise_name": "Series intensas: 6x800m", "exercise_category": "Cardio", "duration": 40, "calories_burned": 500 },
+      { "day_of_week": "WEDNESDAY", "time_of_day": "06:30:00", "exercise_name": "Trote largo y suave", "exercise_category": "Cardio", "duration": 60, "calories_burned": 600 },
+      { "day_of_week": "FRIDAY", "time_of_day": "06:30:00", "exercise_name": "Fartlek variado", "exercise_category": "Cardio", "duration": 45, "calories_burned": 550 },
+      { "day_of_week": "SUNDAY", "time_of_day": "07:00:00", "exercise_name": "Rodaje largo progresivo", "exercise_category": "Cardio", "duration": 75, "calories_burned": 700 }
+    ]
+  },
+  {
+    "id": "54",
+    "name": "Trail Running",
+    "description": "Entrenamiento enfocado en resistencia, técnica de ascenso y descenso en terrenos irregulares.",
+    "exercises": [
+      { "day_of_week": "MONDAY", "time_of_day": "07:00:00", "exercise_name": "Trote en terreno mixto", "exercise_category": "Cardio", "duration": 45, "calories_burned": 500 },
+      { "day_of_week": "WEDNESDAY", "time_of_day": "07:00:00", "exercise_name": "Subidas y bajadas técnicas", "exercise_category": "Cardio", "duration": 40, "calories_burned": 520 },
+      { "day_of_week": "FRIDAY", "time_of_day": "07:00:00", "exercise_name": "Entrenamiento de cuestas", "exercise_category": "Cardio", "duration": 35, "calories_burned": 480 },
+      { "day_of_week": "SATURDAY", "time_of_day": "08:00:00", "exercise_name": "Salida larga en sendero", "exercise_category": "Cardio", "duration": 90, "calories_burned": 850 }
+    ]
+  },
+  {
+    "id": "6",
+    "name": "Ciclismo",
+    "description": "Programa de ciclismo para mejorar resistencia aeróbica y fuerza en piernas.",
+    "exercises": [
+      { "day_of_week": "MONDAY", "time_of_day": "06:30:00", "exercise_name": "Rodaje suave en ruta", "exercise_category": "Cardio", "duration": 45, "calories_burned": 400 },
+      { "day_of_week": "WEDNESDAY", "time_of_day": "06:30:00", "exercise_name": "Intervalos en subida", "exercise_category": "Cardio", "duration": 40, "calories_burned": 500 },
+      { "day_of_week": "FRIDAY", "time_of_day": "06:30:00", "exercise_name": "Ciclismo indoor (spinning)", "exercise_category": "Cardio", "duration": 45, "calories_burned": 450 },
+      { "day_of_week": "SUNDAY", "time_of_day": "07:00:00", "exercise_name": "Salida larga en ruta", "exercise_category": "Cardio", "duration": 90, "calories_burned": 800 }
     ]
   },
   {
@@ -127,16 +163,6 @@ export const routines: Routine[] = [
       { day_of_week: "MONDAY", time_of_day: "07:00:00", exercise_name: "Circuitos con peso corporal y kettlebells", exercise_category: "Fuerza", duration: 40, calories_burned: 568 },
       { day_of_week: "WEDNESDAY", time_of_day: "07:00:00", exercise_name: "Circuitos con peso corporal y kettlebells", exercise_category: "Fuerza", duration: 40, calories_burned: 568 },
       { day_of_week: "FRIDAY", time_of_day: "07:00:00", exercise_name: "Circuitos con peso corporal y kettlebells", exercise_category: "Fuerza", duration: 40, calories_burned: 568 }
-    ]
-  },
-  {
-    id: "10",
-    name: "Yoga",
-    description: "Sesiones para flexibilidad, relajación y equilibrio.",
-    exercises: [
-      { day_of_week: "TUESDAY", time_of_day: "19:00:00", exercise_name: "Hatha Yoga", exercise_category: "Flexibilidad", duration: 60, calories_burned: 200 },
-      { day_of_week: "THURSDAY", time_of_day: "19:00:00", exercise_name: "Vinyasa Yoga", exercise_category: "Flexibilidad", duration: 60, calories_burned: 200 },
-      { day_of_week: "SUNDAY", time_of_day: "09:00:00", exercise_name: "Yin Yoga y meditación", exercise_category: "Flexibilidad", duration: 60, calories_burned: 200 }
     ]
   },
   {
