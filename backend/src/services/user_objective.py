@@ -1,5 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy.orm import Session
+from typing import List
 from src.dtos.user_objective_dtos import UserObjectiveDataDTO
 from src.repositories.user_objectives import UserObjectiveRepository
 
@@ -10,7 +11,9 @@ class UserObjectiveService:
         self.objectives_repo = UserObjectiveRepository(db_session)
 
     def create_user_objective(
-        self, user_id: float, user_objective_data: UserObjectiveDataDTO
+        self,
+        user_id: float,
+        user_objective_data: UserObjectiveDataDTO,
     ) -> None:
 
         activities_in_km = {"Bicicleta", "Correr", "Caminar"}
@@ -22,16 +25,12 @@ class UserObjectiveService:
 
         self.objectives_repo.save_objective_data(user_id, user_objective_data)
 
-    def get_last_user_objective(self, user_id: float) -> UserObjectiveDataDTO:
-        user_objective_data = self.objectives_repo.get_last_user_objective_data(user_id)
+    def get_all_user_objective_data(self, user_id: float) -> List[UserObjectiveDataDTO]:
+        user_objective_data = self.objectives_repo.get_all_user_objective_data(user_id)
 
         if not user_objective_data:
             raise HTTPException(
                 status_code=404, detail="No se encontró el objetivo del usuario"
             )
 
-        return UserObjectiveDataDTO(
-            activity=user_objective_data.activity,
-            objective=user_objective_data.objective,
-            unit_of_measurement=user_objective_data.unit_of_measurement,
-        )
+        return user_objective_data

@@ -1,3 +1,4 @@
+from datetime import datetime
 from sqlalchemy import ForeignKey
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -15,7 +16,11 @@ class UserObjective(Base):
     )
 
     activity: Mapped[Str] = mapped_column()
+    current_progress: Mapped[float] = mapped_column()
     objective: Mapped[float] = mapped_column()
     unit_of_measurement: Mapped[Str] = mapped_column()
+    start_date: Mapped[datetime] = mapped_column()
+    end_date: Mapped[datetime] = mapped_column()
 
     user: Mapped["User"] = relationship()
+

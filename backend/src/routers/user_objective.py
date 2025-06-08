@@ -1,4 +1,5 @@
 from fastapi import APIRouter, status
+from typing import List
 from src.deps.database import DBSessionDependency
 from src.dtos.user_objective_dtos import UserObjectiveDataDTO
 from src.services.user_objective import UserObjectiveService
@@ -19,8 +20,8 @@ def create_user_objective(
 
 @router.get(
     "/{user_id}",
-    response_model=UserObjectiveDataDTO,
+    response_model=List[UserObjectiveDataDTO],
     status_code=status.HTTP_200_OK,
 )
-def get_last_user_objective(user_id: float, db: DBSessionDependency) -> UserObjectiveDataDTO:
-    return UserObjectiveService(db).get_last_user_objective(user_id)
+def get_all_user_objectives(user_id: float, db: DBSessionDependency) -> List[UserObjectiveDataDTO]:
+    return UserObjectiveService(db).get_all_user_objective_data(user_id)

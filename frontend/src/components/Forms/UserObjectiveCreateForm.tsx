@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { ModalSuccess } from "../ModalSuccess";
 import { useAuth } from '../../auth/AuthProvider';
 
@@ -30,6 +30,7 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 
 	const [objectiveCategory, setObjectiveCategory] = useState('');
 	const [objectiveName, setObjectiveName] = useState('');
+	const [endDateTime, setEndDateTime] = useState('');
 
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -50,8 +51,11 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 				},
 				body: JSON.stringify({
 					"activity": objectiveCategory,
+					"current_progress": 0,
 					"objective": objectiveName,
-					"unit_of_measurement": ""
+					"unit_of_measurement": "",
+					"start_date": new Date().toISOString(),
+					"end_date": endDateTime
 				}),
 			});
 			if (response.ok) {
@@ -75,7 +79,7 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 				<div className="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 				<div className="fixed inset-0 z-50 w-screen overflow-y-auto flex justify-center items-center">
 					<form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg xl:w-2/4 p-10">
-						<div className="mb-4">
+						<div className	="mb-4">
 							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="category">
 								Actividad
 							</label>
@@ -109,6 +113,18 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 								id="name"
 								type="number"
 								placeholder={objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : ''}
+								required />
+						</div>
+						<div className="mb-4">
+							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="datetime">
+								Fecha y hora de finalización
+							</label>
+							<input
+								value={endDateTime}
+								onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEndDateTime(e.target.value)}
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="datetime"
+								type="datetime-local"
 								required />
 						</div>
 						<div className="flex items-center justify-end">
