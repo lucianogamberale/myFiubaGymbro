@@ -1,15 +1,18 @@
 import { useState, useEffect } from 'react';
 import { UserObjectiveCreateForm } from '../Forms/UserObjectiveCreateForm';
+import { UserObjectiveDeleteForm } from '../Forms/UserObjectiveDeleteForm';
 import Loading from '../Loading';
 import { useAuth } from '../../auth/AuthProvider';
 import { FaEdit, FaTrash } from 'react-icons/fa';
+import { UserObjectiveEditForm } from '../Forms/UserObjectiveEditForm';
 
 interface Props {
     updateUserObjectives: boolean;
     onUpdateUserObjectives: (value: boolean) => void;
 }
 
-type UserObjectiveEntry = {
+export type UserObjectiveEntry = {
+    id: number;
     activity: string;
     current_progress: number;
     objective: number;
@@ -23,7 +26,10 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
     const user_id = auth.getUserId();
 
     const [userObjectives, setUserObjectives] = useState<UserObjectiveEntry[]>([])
-    const [open, setOpen] = useState(false);
+    const [openCreateForm, setOpenCreateForm] = useState(false);
+    const [openDelete, setOpenDelete] = useState(false);
+    const [openEdit, setOpenEdit] = useState(false);
+    const [selectedObjective, setSelectedObjective] = useState<UserObjectiveEntry | null>(null);
     const [loading, setLoading] = useState(false);
 
     const fetchData = () => {
@@ -70,7 +76,7 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
             <div className="border-t border-gray-300 my-3"></div>
             <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mis Objetivos</span>
-                <button onClick={() => setOpen(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
+                <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Nuevo Objetivo
                 </button>
             </div>
@@ -117,7 +123,8 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                                                                     aria-label="Editar objetivo"
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
-                                                                        // TODO: Implementar lógica de edición
+                                                                        setSelectedObjective(userObjective);
+                                                                        setOpenEdit(true);
                                                                     }}
                                                                 >
                                                                     <FaEdit size={16} />
@@ -127,7 +134,8 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                                                                     aria-label="Eliminar objetivo"
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
-                                                                        // TODO: Implementar lógica de eliminación
+                                                                        setSelectedObjective(userObjective);
+                                                                        setOpenDelete(true);
                                                                     }}
                                                                 >
                                                                     <FaTrash size={16} />
@@ -175,7 +183,30 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                     </>
             }
 
-            {open && <UserObjectiveCreateForm setOpenForm={setOpen} onNewUserObjective={handleNewUserObjective}></UserObjectiveCreateForm>}
+            {openCreateForm && 
+            (<UserObjectiveCreateForm 
+                setOpenForm={setOpenCreateForm} 
+                onNewUserObjective={handleNewUserObjective} 
+            />)}
+            {selectedObjective && openDelete && (
+                <UserObjectiveDeleteForm 
+                    open={openDelete} 
+                    onClose={() => {
+                        setOpenDelete(false);
+                        setSelectedObjective(null);
+                    }} 
+                    user_id={user_id}
+                    userObjective={selectedObjective}
+                    onUserObjectiveDeleted={fetchData}
+                />
+            )}
+            {selectedObjective && openEdit && (
+                <UserObjectiveEditForm 
+                    setOpenForm={setOpenEdit}
+                    userObjective={selectedObjective}
+                    onUserObjectiveEdited={fetchData}
+                />
+            )}
         </div>
     );
 };

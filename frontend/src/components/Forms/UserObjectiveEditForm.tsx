@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { ModalSuccess } from "../ModalSuccess";
 import { useAuth } from '../../auth/AuthProvider';
-
+import { UserObjectiveEntry } from '../ItemsList/UserObjectivesList';
 
 interface Props {
 	setOpenForm: (value: boolean) => void;
-	onNewUserObjective: () => void;
+	userObjective: UserObjectiveEntry;
+	onUserObjectiveEdited: (id: number) => void;
 }
 
-export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Props) => {
+export const UserObjectiveEditForm = ({ setOpenForm, userObjective , onUserObjectiveEdited }: Props) => {
 	const auth = useAuth();
 	const user_id = auth.getUserId();
 
@@ -28,9 +29,9 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 		return kmCategories.has(category) ? '10 km' : '1900 kcal';
 	};
 
-	const [objectiveCategory, setObjectiveCategory] = useState('');
-	const [objectiveName, setObjectiveName] = useState('');
-	const [endDateTime, setEndDateTime] = useState('');
+	const [objectiveCategory, setObjectiveCategory] = useState(userObjective.activity);
+	const [objectiveName, setObjectiveName] = useState(userObjective.objective.toString());
+	const [endDateTime, setEndDateTime] = useState(new Date(userObjective.end_date).toISOString().slice(0, 16));
 
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
 
@@ -42,26 +43,26 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 		closeForm();
 	}
 
-	async function createUserObjective() {
+	async function updateUserObjective() {
 		try {
-			const response = await fetch(`http://localhost:8000/api/user-objectives/${user_id}`, {
-				method: 'POST',
+			const response = await fetch(`http://localhost:8000/api/user-objectives/${user_id}/${userObjective.id}`, {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
 					"activity": objectiveCategory,
-					"current_progress": 1,
+					"current_progress": userObjective.current_progress,
 					"objective": objectiveName,
 					"unit_of_measurement": "",
-					"start_date": new Date().toISOString(),
+					"start_date": userObjective.start_date,
 					"end_date": endDateTime
 				}),
 			});
 			if (response.ok) {
 				console.log("Creado con exito");
 				setShowSuccessModal(true);
-				onNewUserObjective();
+				onUserObjectiveEdited(userObjective.id);
 			}
 		} catch (error) {
 			console.error("Error al realizar la solicitud:", error);
@@ -70,7 +71,7 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		createUserObjective();
+		updateUserObjective();
 	}
 
 	return (
@@ -132,7 +133,7 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 								Cerrar
 							</button>
 							<button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-								Crear
+								Guardar
 							</button>
 						</div>
 					</form>
@@ -140,7 +141,13 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 			</div>
 
 			{showSuccessModal &&
-				<ModalSuccess title="¡Creado con éxito!" description="El objetivo ha sido cargado con éxito" route="/user-objectives" button="Ir a mis objetivos" onClose={handleCloseAll} />
+				<ModalSuccess 
+					title="¡Actualizado con éxito!" 
+					description="El objetivo ha sido actualizado correctamente" 
+					route="/user-objectives" 
+					button="Volver a mis objetivos" 
+					onClose={handleCloseAll} 
+				/>
 			}
 		</>
 	)
