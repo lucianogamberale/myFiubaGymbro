@@ -51,7 +51,7 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 				},
 				body: JSON.stringify({
 					"activity": objectiveCategory,
-					"current_progress": 1,
+					"current_progress": 0,
 					"objective": objectiveName,
 					"unit_of_measurement": "",
 					"start_date": new Date().toISOString(),
