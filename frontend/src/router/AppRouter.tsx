@@ -8,12 +8,20 @@ import { UserHealthData } from "../pages/UserHealthData";
 import { UserDiets } from "../pages/UserDiets";
 import { UserRoutines } from "../pages/UserRoutines";
 import { UserObjectives } from "../pages/UserObjectives";
-import { UserRecomendations } from "../pages/Home";
 import { UserDailyCaloriesGoal } from "../pages/UserDailyCaloriesGoal";
+import { HomePage } from "../pages/Home";
 import { DietsDetail } from "../pages/DietDetail";
-import { UserDietsMusculatura } from "../pages/SubDiets/DietDetailMusculatura";
-import { ExerciseRecomendation } from "../pages/ExerciseRecomendation";
 import { ExerciseDetail } from "../pages/ExerciseDetail";
+
+{/*Recomendaciones de dietas*/ }
+import { UserRecomendations } from "../pages/DietRecomendation";
+import { UserDietsMusculatura } from "../pages/SubDiets/DietDetailMusculatura";
+
+{/*Recomendaciones de rutinas*/ }
+import { ExerciseRecomendation } from "../pages/RoutineRecommendation";
+import { UserExerciseMusculatura } from "../pages/SubExercises/MuscularRoutines";
+import { UserExerciseRunning } from "../pages/SubExercises/RunningRoutines";
+import { UserExerciseYoga } from "../pages/SubExercises/YogaRoutines";
 
 
 export const AppRouter = () => {
@@ -25,7 +33,7 @@ export const AppRouter = () => {
 
       {/* RUTAS PROTEGIDAS */}
       <Route path="/home" element={<ProtectedRoute />}>
-        <Route path="/home" element={<UserRecomendations />} />
+        <Route path="/home" element={<HomePage />} />
       </Route>
       <Route path="/user-health-data" element={<ProtectedRoute />}>
         <Route path="/user-health-data" element={<UserHealthData />} />
@@ -48,21 +56,37 @@ export const AppRouter = () => {
       <Route path="/user-diets" element={<ProtectedRoute />}>
         <Route path="/user-diets" element={<UserDiets />} />
       </Route>
+
+      {/*Recomendaciones de dietas*/}
+      <Route path="/diet-recommendations" element={<ProtectedRoute />}>
+        <Route path="/diet-recommendations" element={<UserRecomendations />} />
+      </Route>
       <Route path="/musculatura-diets" element={<ProtectedRoute />}>
         <Route path="/musculatura-diets" element={<UserDietsMusculatura />} />
-      </Route>
-      <Route path="/recomend-exercise" element={<ProtectedRoute />}>
-        <Route path="/recomend-exercise" element={<ExerciseRecomendation />} />
       </Route>
       <Route path="/recomend-diets/:type" element={<ProtectedRoute />}>
         <Route path="/recomend-diets/:type" element={<DietsDetail />} />
       </Route>
-      <Route path="/detail-exercise/:type" element={<ProtectedRoute />}>
-        <Route path="/detail-exercise/:type" element={<ExerciseDetail />} />
+
+      {/*Recomendaciones de rutinas*/}
+      <Route path="/routines-recommendation" element={<ProtectedRoute />}>
+        <Route path="/routines-recommendation" element={<ExerciseRecomendation />} />
+      </Route>
+      <Route path="/muscular-routines" element={<ProtectedRoute />}>
+        <Route path="/muscular-routines" element={<UserExerciseMusculatura />} />
+      </Route>
+      <Route path="/running-routines" element={<ProtectedRoute />}>
+        <Route path="/running-routines" element={<UserExerciseRunning />} />
+      </Route>
+      <Route path="/yoga-routines" element={<ProtectedRoute />}>
+        <Route path="/yoga-routines" element={<UserExerciseYoga />} />
+      </Route>
+      <Route path="/routine-details/:type" element={<ProtectedRoute />}>
+        <Route path="/routine-details/:type" element={<ExerciseDetail />} />
       </Route>
 
       <Route path="/" element={<Navigate to="/signup" />} />
       <Route path="/*" element={<Navigate to="/signup" />} />
-    </Routes>
+    </Routes >
   )
 }

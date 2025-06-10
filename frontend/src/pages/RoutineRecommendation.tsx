@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserExerciseRecomendationList } from "../components/ItemsList/UserExercisesRecomendationsList";
+import { UserExerciseRecomendationList } from "../components/ItemsList/UserRoutineRecommendationsList";
 
 export const ExerciseRecomendation = () => {
     const [updateUserExerciseRecomendation, setUpdateUserExerciseRecomendation] = useState(false);
