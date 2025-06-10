@@ -303,7 +303,7 @@ export const RoutineEditForm = ({ routineId, setOpenForm, onUpdateRoutine }: Pro
                                         </div>
 
                                         <div>
-                                            <label className="block text-gray-700 text-sm font-bold mb-1">Calorías Quemadas (kcal):</label>
+                                            <label className="block text-gray-700 text-sm font-bold mb-1">Calorías Quemadas (cal):</label>
                                             <Controller
                                                 name={`exercises.${index}.calories_burned`}
                                                 control={control}

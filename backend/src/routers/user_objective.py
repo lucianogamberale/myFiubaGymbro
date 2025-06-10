@@ -1,7 +1,7 @@
 from fastapi import APIRouter, status
 from typing import List
 from src.deps.database import DBSessionDependency
-from src.dtos.user_objective_dtos import UserObjectiveCreationDTO, UserObjectiveUpdateDTO, UserObjectiveResponseDTO
+from src.dtos.user_objective_dtos import UserObjectiveCreationDTO, UserObjectiveUpdateDTO, UserObjectiveResponseDTO, UserObjectiveHistoryResponseDTO
 from src.services.user_objective import UserObjectiveService
 
 router = APIRouter(prefix="/user-objectives", tags=["UserObjectives"])
@@ -25,6 +25,16 @@ def create_user_objective(
 )
 def get_all_user_objectives(user_id: float, db: DBSessionDependency) -> List[UserObjectiveResponseDTO]:
     return UserObjectiveService(db).get_all_user_objectives(user_id)
+
+
+@router.get(
+    "/{user_id}/history",
+    response_model=List[UserObjectiveHistoryResponseDTO],
+    status_code=status.HTTP_200_OK,
+)
+def get_user_objective_history(user_id: float, db: DBSessionDependency) -> List[UserObjectiveHistoryResponseDTO]:
+    return UserObjectiveService(db).get_user_objective_history(user_id)
+
 
 @router.put("/{user_id}/{user_objective_id}", status_code=status.HTTP_204_NO_CONTENT)
 def update_user_objective(user_id: float, user_objective_id: float, user_objective_data: UserObjectiveUpdateDTO, db: DBSessionDependency) -> None:

@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ModalSuccess } from "../ModalSuccess";
+import { ModalConfirm } from "../ModalConfirm";
 import { useAuth } from '../../auth/AuthProvider';
-
 
 interface Props {
 	setOpenForm: (value: boolean) => void;
@@ -13,30 +13,44 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 	const user_id = auth.getUserId();
 
 	const availableObjectiveCategories = {
-		'Correr': 'Correr',
-		'Caminar': 'Caminar',
-		'Bicicleta': 'Bicicleta',
 		'Ganar peso': 'Ganar peso',
 		'Perder peso': 'Perder peso',
 	};
 
-	// Categories that use km as unit of measurement
-	const kmCategories = new Set(['Correr', 'Caminar', 'Bicicleta']);
-
 	// Function to get unit of measurement based on category
-	const getExampleValue = (category: string): string => {
-		return kmCategories.has(category) ? '10 km' : '1900 kcal';
+	const getExampleValue = (): string => {
+		return '1900 cal';
 	};
 
 	const [objectiveCategory, setObjectiveCategory] = useState('');
 	const [objectiveName, setObjectiveName] = useState('');
 	const [endDateTime, setEndDateTime] = useState('');
-
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
+	const [showConfirmModal, setShowConfirmModal] = useState(false);
+	const [existingObjective, setExistingObjective] = useState(false);
+
+	useEffect(() => {
+		// Check if user already has an objective
+		fetch(`http://localhost:8000/api/user-objectives/${user_id}`, {
+			method: 'GET',
+			headers: {
+				'Content-Type': 'application/json',
+			},
+		})
+		.then(response => {
+			if (response.ok) {
+				response.json().then(data => {
+					setExistingObjective(Array.isArray(data) ? data.length > 0 : !!data);
+				});
+			}
+		})
+		.catch(error => console.error('Error checking existing objectives:', error));
+	}, [user_id]);
 
 	function closeForm() {
 		setOpenForm(false);
 	}
+
 	function handleCloseAll() {
 		setShowSuccessModal(false);
 		closeForm();
@@ -70,7 +84,11 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		createUserObjective();
+		if (existingObjective) {
+			setShowConfirmModal(true);
+		} else {
+			createUserObjective();
+		}
 	}
 
 	return (
@@ -79,7 +97,7 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 				<div className="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 				<div className="fixed inset-0 z-50 w-screen overflow-y-auto flex justify-center items-center">
 					<form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg xl:w-2/4 p-10">
-						<div className	="mb-4">
+						<div className="mb-4">
 							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="category">
 								Actividad
 							</label>
@@ -107,12 +125,12 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 									setObjectiveName(e.target.value);
 									// Update placeholder when category changes
 									const input = e.target;
-									input.placeholder = objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : '';
+									input.placeholder = objectiveCategory ? `ej. ${getExampleValue()}` : '';
 								}}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="name"
 								type="number"
-								placeholder={objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : ''}
+								placeholder={objectiveCategory ? `ej. ${getExampleValue()}` : ''}
 								required />
 						</div>
 						<div className="mb-4">
@@ -142,6 +160,18 @@ export const UserObjectiveCreateForm = ({ setOpenForm, onNewUserObjective }: Pro
 			{showSuccessModal &&
 				<ModalSuccess title="¡Creado con éxito!" description="El objetivo ha sido cargado con éxito" route="/user-objectives" button="Ir a mis objetivos" onClose={handleCloseAll} />
 			}
+
+			{showConfirmModal && (
+				<ModalConfirm
+					title="Confirmar nuevo objetivo"
+					description="Ya tienes un objetivo activo. Al crear uno nuevo, el objetivo actual será reemplazado. ¿Deseas continuar?"
+					onConfirm={() => {
+						setShowConfirmModal(false);
+						createUserObjective();
+					}}
+					onCancel={() => setShowConfirmModal(false)}
+				/>
+			)}
 		</>
 	)
 }

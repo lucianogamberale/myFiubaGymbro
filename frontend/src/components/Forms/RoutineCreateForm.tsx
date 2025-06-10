@@ -227,7 +227,7 @@ export const RoutineCreateForm = ({ setOpenForm, onNewRoutine }: Props) => {
                                     </div>
                                     <div>
                                         <label className="block text-gray-700 text-md font-bold mb-2" htmlFor={`exercises.${index}.calories_burned`}>
-                                            Calorías (kcal)
+                                            Calorías (cal)
                                         </label>
                                         <input
                                             id={`exercises.${index}.calories_burned`}

@@ -80,7 +80,7 @@ export const UserDailyCaloriesGoalList = ({ updateUserDailyCaloriesGoal, onUpdat
                                 <div className="flex flex-col gap-4 p-4">
                                     <div className="bg-gray-100 text-gray-700 shadow-md rounded-lg p-4 flex flex-col hover:shadow-lg transition-shadow duration-300 transform">
                                         <div className="text-3xl font-semibold">Calorías: </div>
-                                        <div className="text-gray-700">{lastUserDailyCaloriesGoal.amount_of_calories} kcal</div>
+                                        <div className="text-gray-700">{lastUserDailyCaloriesGoal.amount_of_calories} cal</div>
                                     </div>
                                 </div>
                             </div>

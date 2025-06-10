@@ -26,7 +26,7 @@ export const UserObjectiveEditForm = ({ setOpenForm, userObjective , onUserObjec
 
 	// Function to get unit of measurement based on category
 	const getExampleValue = (category: string): string => {
-		return kmCategories.has(category) ? '10 km' : '1900 kcal';
+		return kmCategories.has(category) ? '10 km' : '1900 cal';
 	};
 
 	const [objectiveCategory, setObjectiveCategory] = useState(userObjective.activity);

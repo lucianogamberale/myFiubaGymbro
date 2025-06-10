@@ -1,3 +1,3 @@
 export const exerciseCategories = [
-  "Cardio", "Fuerza", "Flexibilidad", "Equilibrio", "Resistencia"
+  "Fuerza", "Cardio", "Flexibilidad", "Equilibrio", "Resistencia", "Velocidad", "Agilidad", "Coordinación", "Potencia"
 ];
