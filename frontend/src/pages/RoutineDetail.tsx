@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { UserExerciseDetailList } from "../components/ItemsList/ExerciseDetailList";
+import { UserExerciseDetailList } from "../components/ItemsList/RoutineDetailList";
 
 export const ExerciseDetail = () => {
     const [updateUserExerciseDetail, setUpdateUserExerciseDetail] = useState(false);

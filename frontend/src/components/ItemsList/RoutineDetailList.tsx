@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../../auth/AuthProvider';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { routines } from '../../utils/constants/exercises';
 
 export type UserHealthDataEntry = {
@@ -28,6 +28,7 @@ interface RoutineForm {
 export const UserExerciseDetailList = () => {
     const auth = useAuth();
     const user_id = auth.getUserId();
+    const navigate = useNavigate();
     const { type } = useParams();
 
     const [selectedType, setSelectedType] = useState<string | null>(type !== '0' ? type! : null);
@@ -50,10 +51,10 @@ export const UserExerciseDetailList = () => {
                 .then((data: UserHealthDataEntry) => {
                     const { weight, height } = data;
 
-                    if (weight > height) setSelectedType('1');
-                    else if (weight === height) setSelectedType('2');
-                    else if (weight < height) setSelectedType('3');
-                    else setSelectedType('4');
+                    if (weight > height) setSelectedType('2.0');
+                    else if (weight === height) setSelectedType('2.1');
+                    else if (weight < height) setSelectedType('3.0');
+                    else setSelectedType('1.0');
 
                     setLoading(false);
                 })
@@ -112,6 +113,22 @@ export const UserExerciseDetailList = () => {
 
     return (
         <div className="p-6 max-w-4xl mx-auto">
+            <button
+                onClick={() => navigate(-1)}
+                className="flex items-center gap-2 mb-6 text-gray-700 hover:text-black transition font-medium hover:underline group"
+            >
+                <svg
+                    className="w-5 h-5 transition-transform group-hover:-translate-x-1"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+                <span className="text-base">Volver</span>
+            </button>
             <div className="flex justify-between items-center bg-gradient-to-r from-emerald-500 to-lime-400 text-white p-6 rounded-xl shadow-md mb-6">
                 <div>
                     <h1 className="text-4xl font-extrabold">{routine.name}</h1>

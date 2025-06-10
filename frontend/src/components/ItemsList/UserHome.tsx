@@ -2,8 +2,8 @@ import React from 'react';
 import { useAuth } from '../../auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { FiArrowRight } from 'react-icons/fi';
-import ejercicios from '../../images/diets/bajar_peso.webp';
-import dietas from '../../images/diets/recomendado.png';
+import ejercicios from '../../images/routines/rutinas.jpg';
+import dietas from '../../images/diets/dietas.avif';
 
 export const UserHome = () => {
     const auth = useAuth();
@@ -24,7 +24,7 @@ export const UserHome = () => {
             colorFrom: 'from-emerald-800',
             colorTo: 'to-emerald-500',
             image: dietas,
-            path: '/diet-recommendations',
+            path: '/diets-recommendation',
         }
     ];
 

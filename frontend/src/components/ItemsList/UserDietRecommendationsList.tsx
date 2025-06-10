@@ -1,55 +1,102 @@
 import React from 'react';
 import { useAuth } from '../../auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import musculatura from '../../images/routines/musculatura.webp';
-import running from '../../images/routines/running.jpeg';
-import yoga from '../../images/routines/yoga.jpg';
+
+import bajarPeso from '../../images/diets/bajar_peso.webp';
+import ganarPeso from '../../images/diets/ganar_peso.jpg';
+import ganarMusculatura from '../../images/diets/ganar_musculatura.jpeg';
+import comidaDiabeticos from '../../images/diets/comida_diabeticos.jpeg';
+import comidaCorazon from '../../images/diets/cuidado_corazon.webp';
+import comidaVegetariana from '../../images/diets/comida_vegetariana.jpg';
+import comidaSinGluten from '../../images/diets/sin_gluten.jpeg';
+import dietaKeto from '../../images/diets/dieta_keto.jpg';
 import recomendado from '../../images/recomendado.png';
+
 interface Category {
     title: string;
     colorFrom: string;
     colorTo: string;
-    image?: string;
+    image: string;
     path: string;
     description?: string;
 }
 
-export const UserExerciseRecomendationList = () => {
+export const UserDietsRecomendations = () => {
     const auth = useAuth();
     const navigate = useNavigate();
 
     const categories: Category[] = [
         {
             title: 'Recomendados para ti',
-            colorFrom: 'from-emerald-700',
+            colorFrom: 'from-emerald-800',
             colorTo: 'to-emerald-500',
             image: recomendado,
-            path: '/routine-details/0',
-            description: 'Ejercicios personalizados según tu progreso y objetivos.',
+            path: '/recomend-diets/0',
+            description: 'Dietas personalizadas según tu salud y objetivos.',
         },
         {
-            title: "Musculatura",
-            colorFrom: "from-blue-700",
-            colorTo: "to-blue-500",
-            image: musculatura,
-            path: "/muscular-routines",
-            description: 'Rutinas para ganar fuerza y masa muscular.',
+            title: 'Bajar de peso',
+            colorFrom: 'from-pink-600',
+            colorTo: 'to-pink-400',
+            image: bajarPeso,
+            path: '/recomend-diets/1',
+            description: 'Planes bajos en calorías y grasas para perder peso de forma saludable.',
         },
         {
-            title: "Running",
-            colorFrom: "from-red-700",
-            colorTo: "to-red-500",
-            image: running,
-            path: "/running-routines",
-            description: 'Entrenamientos para mejorar tu resistencia y velocidad.',
+            title: 'Ganar peso',
+            colorFrom: 'from-yellow-700',
+            colorTo: 'to-yellow-500',
+            image: ganarPeso,
+            path: '/recomend-diets/2',
+            description: 'Dietas hipercalóricas para aumentar tu masa corporal.',
         },
         {
-            title: "Yoga y Flexibilidad",
-            colorFrom: "from-purple-700",
-            colorTo: "to-purple-500",
-            image: yoga,
-            path: "/yoga-routines",
-            description: 'Ejercicios para mejorar tu flexibilidad y relajación.',
+            title: 'Ganar musculatura',
+            colorFrom: 'from-red-700',
+            colorTo: 'to-red-500',
+            image: ganarMusculatura,
+            path: '/musculatura-diets',
+            description: 'Comidas con alto contenido proteico para favorecer el crecimiento muscular.',
+        },
+        {
+            title: 'Diabetes',
+            colorFrom: 'from-blue-700',
+            colorTo: 'to-blue-500',
+            image: comidaDiabeticos,
+            path: '/recomend-diets/4',
+            description: 'Planes con bajo índice glucémico pensados para diabéticos.',
+        },
+        {
+            title: 'Cuidado del corazón',
+            colorFrom: 'from-rose-700',
+            colorTo: 'to-rose-500',
+            image: comidaCorazon,
+            path: '/recomend-diets/6',
+            description: 'Dietas ricas en fibras y grasas saludables para tu corazón.',
+        },
+        {
+            title: 'Vegetariana',
+            colorFrom: 'from-green-700',
+            colorTo: 'to-green-500',
+            image: comidaVegetariana,
+            path: '/recomend-diets/7',
+            description: 'Opciones balanceadas sin productos de origen animal.',
+        },
+        {
+            title: 'Libre de gluten',
+            colorFrom: 'from-indigo-700',
+            colorTo: 'to-indigo-500',
+            image: comidaSinGluten,
+            path: '/recomend-diets/8',
+            description: 'Ideal para personas con celiaquía o sensibilidad al gluten.',
+        },
+        {
+            title: 'Cetogénica',
+            colorFrom: 'from-gray-800',
+            colorTo: 'to-gray-600',
+            image: dietaKeto,
+            path: '/recomend-diets/9',
+            description: 'Dietas bajas en carbohidratos para entrar en cetosis.',
         },
     ];
 
@@ -72,7 +119,7 @@ export const UserExerciseRecomendationList = () => {
                 </svg>
                 <span className="text-base">Volver</span>
             </button>
-            <h2 className="text-3xl font-bold mb-8">Ejercicios</h2>
+            <h2 className="text-3xl font-bold mb-8">Dietas</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {categories.map((cat, idx) => (
                     <div
@@ -88,7 +135,7 @@ export const UserExerciseRecomendationList = () => {
                                 <p className="text-sm opacity-90 mb-4">{cat.description}</p>
                             )}
                             <button
-                                onClick={e => {
+                                onClick={(e) => {
                                     e.stopPropagation();
                                     navigate(cat.path);
                                 }}

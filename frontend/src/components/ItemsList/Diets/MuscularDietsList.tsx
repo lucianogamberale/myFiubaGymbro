@@ -1,10 +1,9 @@
 import React from 'react';
-import { useAuth } from '../../auth/AuthProvider';
+import { useAuth } from '../../../auth/AuthProvider';
 import { useNavigate } from 'react-router-dom';
-import musculatura from '../../images/routines/musculatura.webp';
-import running from '../../images/routines/running.jpeg';
-import yoga from '../../images/routines/yoga.jpg';
-import recomendado from '../../images/recomendado.png';
+import volumenSaludable from '../../../images/diets/volumen_saludable.jpeg';
+import volumenSucio from '../../../images/diets/volumen_sucio.jpeg';
+
 interface Category {
     title: string;
     colorFrom: string;
@@ -14,42 +13,28 @@ interface Category {
     description?: string;
 }
 
-export const UserExerciseRecomendationList = () => {
+export const UserDietsMusculaturaList = () => {
     const auth = useAuth();
+    const user_id = auth.getUserId();
+    console.log("hola ", user_id);
     const navigate = useNavigate();
 
     const categories: Category[] = [
         {
-            title: 'Recomendados para ti',
-            colorFrom: 'from-emerald-700',
-            colorTo: 'to-emerald-500',
-            image: recomendado,
-            path: '/routine-details/0',
-            description: 'Ejercicios personalizados según tu progreso y objetivos.',
+            title: 'Volumen saludable',
+            colorFrom: 'from-orange-700',
+            colorTo: 'to-orange-500',
+            image: volumenSaludable,
+            path: '/recomend-diets/10',
+            description: 'Dieta enfocada en ganar masa con calidad y salud.',
         },
         {
-            title: "Musculatura",
-            colorFrom: "from-blue-700",
-            colorTo: "to-blue-500",
-            image: musculatura,
-            path: "/muscular-routines",
-            description: 'Rutinas para ganar fuerza y masa muscular.',
-        },
-        {
-            title: "Running",
-            colorFrom: "from-red-700",
-            colorTo: "to-red-500",
-            image: running,
-            path: "/running-routines",
-            description: 'Entrenamientos para mejorar tu resistencia y velocidad.',
-        },
-        {
-            title: "Yoga y Flexibilidad",
-            colorFrom: "from-purple-700",
-            colorTo: "to-purple-500",
-            image: yoga,
-            path: "/yoga-routines",
-            description: 'Ejercicios para mejorar tu flexibilidad y relajación.',
+            title: 'Volumen sucio',
+            colorFrom: 'from-stone-800',
+            colorTo: 'to-stone-600',
+            image: volumenSucio,
+            path: '/recomend-diets/11',
+            description: 'Aumento de masa sin restricciones, ideal para ganar rápido.',
         },
     ];
 
@@ -72,7 +57,7 @@ export const UserExerciseRecomendationList = () => {
                 </svg>
                 <span className="text-base">Volver</span>
             </button>
-            <h2 className="text-3xl font-bold mb-8">Ejercicios</h2>
+            <h2 className="text-3xl font-bold mb-8">Dietas para ganar musculatura</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {categories.map((cat, idx) => (
                     <div
