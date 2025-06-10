@@ -53,7 +53,7 @@ export default function Login() {
     }
 
     if (auth.isAuthenticated) {
-        return <Navigate to="/user-health-data"></Navigate>;
+        return <Navigate to="/home"></Navigate>;
     }
 
     return (

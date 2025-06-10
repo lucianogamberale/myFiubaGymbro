@@ -21,7 +21,7 @@ export default function SidebarLayout() {
   const [collapsed, setCollapsed] = useState(false);
 
   const menus: Menu[] = [
-    { label: `¡Hola ${auth.getUserName()}!`, link: "/home", icon: FaUserCircle },
+    { label: `Home`, link: "/home", icon: FaUserCircle },
     { label: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
     { label: "Mis calorías diarias", link: "/user-daily-calories-goal", icon: FaClock },
     { label: "Mis comidas", link: "/user-foods", icon: FaHamburger },
