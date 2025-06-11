@@ -17,6 +17,7 @@ from .routers.user_foods import router as user_foods_router
 from .routers.user_health_data import router as users_router
 from .routers.user_objective import router as user_objective
 from .routers.user_daily_calories_goal import router as user_daily_calories_goal
+from .routers.user_sincronization import router as user_app_sync
 
 engine = create_engine(DB_URL, echo=True)
 
@@ -44,12 +45,13 @@ app.add_middleware(
 
 app.include_router(user_auth_router)
 app.include_router(users_router)
+app.include_router(user_objective)
+app.include_router(user_daily_calories_goal)
 app.include_router(user_foods_router)
 app.include_router(user_exercises_router)
 app.include_router(diets_router)
 app.include_router(routines_router)
-app.include_router(user_objective)
-app.include_router(user_daily_calories_goal)
+app.include_router(user_app_sync)
 
 # ==============================================================================
 
