@@ -1,10 +1,14 @@
 from typing import List
-
+from datetime import datetime
 from sqlalchemy.orm import Session
 from src.dtos.user_exercise_dtos import UserExerciseCreationDTO, UserExerciseResponseDTO
 from src.repositories.exercises import ExercisesRepository
 from src.repositories.models.exercise import ExerciseCategory
 from src.repositories.user_exercises import UserExercisesRepository
+from src.repositories.user_objectives import UserObjectiveRepository
+from src.repositories.models.user_objective import UserObjective
+from src.dtos.user_objective_dtos import UserObjectiveUpdateDTO
+import sqlalchemy as sa
 
 
 class UserExercisesService:
@@ -12,6 +16,7 @@ class UserExercisesService:
     def __init__(self, db_session: Session):
         self.exercise_repo = ExercisesRepository(db_session)
         self.user_exercises_repo = UserExercisesRepository(db_session)
+        self.user_objectives_repo = UserObjectiveRepository(db_session)
 
     def create_user_exercise(
         self, user_id: float, user_exercise_data: UserExerciseCreationDTO
@@ -29,6 +34,47 @@ class UserExercisesService:
 
         self.user_exercises_repo.save_new_user_exercise(
             user_id, exercise, user_exercise_data
+        )
+
+        # Update weight loss objective if exists
+        self._update_weight_loss_objective(user_id, user_exercise_data)
+
+    def _update_weight_loss_objective(self, user_id: float, user_exercise_data: UserExerciseCreationDTO) -> None:
+        # Get active weight loss objective
+        weight_loss_objective = self.user_objectives_repo.get_all_user_objective_data(user_id)
+        if not weight_loss_objective:
+            return
+
+        # Find the active weight loss objective
+        active_objective = None
+        today = datetime.now()
+        for objective in weight_loss_objective:
+            if (objective.activity == "Perder peso" and 
+                objective.start_date <= today <= objective.end_date):
+                active_objective = objective
+                break
+
+        if not active_objective:
+            return
+
+        # Update objective progress (now working directly with calories)
+        progress_increment = user_exercise_data.calories
+        active_objective.current_progress = min(active_objective.current_progress + progress_increment, active_objective.objective)
+
+        # Update the objective in the database
+        update_dto = UserObjectiveUpdateDTO(
+            activity=active_objective.activity,
+            current_progress=active_objective.current_progress,
+            objective=active_objective.objective,
+            unit_of_measurement=active_objective.unit_of_measurement,
+            start_date=active_objective.start_date,
+            end_date=active_objective.end_date
+        )
+        
+        self.user_objectives_repo.update_objective_data(
+            user_id,
+            active_objective.id,
+            update_dto
         )
 
     def get_user_exercises(self, user_id: float) -> List[UserExerciseResponseDTO]:

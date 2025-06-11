@@ -224,6 +224,43 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
         onUpdateUserDiets(!updateUserDiets);
     };
 
+    const handleMarkMealAsConsumed = async (meal: DietMealEntryResponse) => {
+        if (!user_id) {
+            setError('ID de usuario no disponible. Por favor, inicie sesión.');
+            return;
+        }
+
+        try {
+            const now = new Date();
+            const userMealData = {
+                food_name: meal.food_name,
+                food_category: meal.food_category,
+                calories: meal.calories,
+                date: now.toISOString()
+            };
+
+            const response = await fetch(`http://localhost:8000/api/user-foods/${user_id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userMealData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al marcar la comida como consumida.');
+            }
+
+            setSuccessMessage({ 
+                title: '¡Comida consumida!', 
+                description: 'La comida ha sido marcada como consumida y agregada a tus comidas realizadas.' 
+            });
+            setShowSuccessModal(true);
+        } catch (err: any) {
+            console.error('Error marking meal as consumed:', err);
+            setError(err.message || 'No se pudo marcar la comida como consumida.');
+        }
+    };
 
     if (loading) {
         return (
@@ -338,9 +375,19 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                                             <td key={`${day}-${time}`} className="px-4 py-2">
                                                 {getMealSchedule(selectedDiet.meals)[day]?.[time]?.map((meal, idx) => (
                                                     <div key={idx} className="mb-1 last:mb-0 p-1 border-b border-gray-100 last:border-b-0">
-                                                        <strong className="text-slate-700">{meal.food_name}</strong>
-                                                        <br />
-                                                        <span className="text-gray-500">({meal.calories} kcal)</span>
+                                                        <div className="flex justify-between items-start">
+                                                            <div>
+                                                                <strong className="text-slate-700">{meal.food_name}</strong>
+                                                                <br />
+                                                                <span className="text-gray-500">({meal.calories} cal)</span>
+                                                            </div>
+                                                            <button
+                                                                onClick={() => handleMarkMealAsConsumed(meal)}
+                                                                className="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
+                                                            >
+                                                                Consumir
+                                                            </button>
+                                                        </div>
                                                     </div>
                                                 ))}
                                             </td>

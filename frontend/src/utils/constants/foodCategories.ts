@@ -1,4 +1,3 @@
 export const foodCategories = [
-  "Frutas", "Verduras", "Proteínas", "Carbohidratos", "Lácteos", "Grasas",
-  "Bebidas", "Postres", "Cereales", "Legumbres", "Carne"
+  "Fruta", "Vegetal", "Proteína", "Grano", "Lácteo", "Graso", "Dulces"
 ];

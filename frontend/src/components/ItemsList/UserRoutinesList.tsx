@@ -207,6 +207,45 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
         ? orderedDays.filter(day => getExerciseSchedule(selectedRoutine.exercises)[day]?.length > 0)
         : [];
 
+    const handleMarkExerciseAsCompleted = async (exercise: RoutineExerciseEntryResponse) => {
+        if (!user_id) {
+            setError('ID de usuario no disponible. Por favor, inicie sesión.');
+            return;
+        }
+
+        try {
+            const now = new Date();
+            const userExerciseData = {
+                exercise_name: exercise.exercise_name,
+                exercise_category: exercise.exercise_category,
+                duration: exercise.duration,
+                calories: exercise.calories_burned,
+                date: now.toISOString()
+            };
+
+            const response = await fetch(`http://localhost:8000/api/user-exercises/${user_id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(userExerciseData),
+            });
+
+            if (!response.ok) {
+                throw new Error('Error al marcar el ejercicio como completado.');
+            }
+
+            setSuccessMessage({ 
+                title: '¡Ejercicio completado!', 
+                description: 'El ejercicio ha sido marcado como completado y agregado a tus ejercicios realizados.' 
+            });
+            setShowSuccessModal(true);
+        } catch (err: any) {
+            console.error('Error marking exercise as completed:', err);
+            setError(err.message || 'No se pudo marcar el ejercicio como completado.');
+        }
+    };
+
     if (loading) {
         return (
             <div className="flex justify-center items-center h-full">
@@ -322,9 +361,19 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                                 {exercisesForDay && exercisesForDay.length > 0 ? (
                                                     exercisesForDay.map((exercise, idx) => (
                                                         <div key={idx} className="mb-1 last:mb-0 p-1 border-b border-gray-100 last:border-b-0">
-                                                            <strong className="text-slate-700">{exercise.exercise_name}</strong>
-                                                            <br />
-                                                            <span className="text-gray-500">({exercise.duration} min, {exercise.calories_burned} kcal)</span>
+                                                            <div className="flex justify-between items-start">
+                                                                <div>
+                                                                    <strong className="text-slate-700">{exercise.exercise_name}</strong>
+                                                                    <br />
+                                                                    <span className="text-gray-500">({exercise.duration} min, {exercise.calories_burned} cal)</span>
+                                                                </div>
+                                                                <button
+                                                                    onClick={() => handleMarkExerciseAsCompleted(exercise)}
+                                                                    className="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
+                                                                >
+                                                                    Completar
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     ))
                                                 ) : (

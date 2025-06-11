@@ -234,7 +234,7 @@ export const DietCreateForm = ({ setOpenForm, onNewDiet }: Props) => {
 									</div>
 									<div>
 										<label className="block text-gray-700 text-md font-bold mb-2" htmlFor={`meals.${index}.calories`}>
-											Calorías (kcal)
+											Calorías (cal)
 										</label>
 										<input
 											id={`meals.${index}.calories`}
