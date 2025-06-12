@@ -3,6 +3,20 @@ import { useAuth } from '../../auth/AuthProvider';
 import { useNavigate, useParams } from 'react-router-dom';
 import { diets } from '../../utils/constants/diets';
 
+const categoryColors: Record<string, { colorFrom: string; colorTo: string }> = {
+    '0': { colorFrom: 'from-emerald-800', colorTo: 'to-emerald-500' },
+    '1': { colorFrom: 'from-pink-600', colorTo: 'to-pink-400' },
+    '2': { colorFrom: 'from-yellow-700', colorTo: 'to-yellow-500' },
+    '4': { colorFrom: 'from-blue-700', colorTo: 'to-blue-500' },
+    '6': { colorFrom: 'from-rose-700', colorTo: 'to-rose-500' },
+    '7': { colorFrom: 'from-green-700', colorTo: 'to-green-500' },
+    '8': { colorFrom: 'from-indigo-700', colorTo: 'to-indigo-500' },
+    '9': { colorFrom: 'from-gray-800', colorTo: 'to-gray-600' },
+    '10': { colorFrom: 'from-orange-700', colorTo: 'to-orange-500' },
+    '11': { colorFrom: 'from-stone-800', colorTo: 'to-stone-600' },
+};
+
+
 export type UserHealthDataEntry = {
     id: number;
     weight: number;
@@ -109,6 +123,14 @@ export const UserDietsDetail = () => {
     const diet = diets.find(d => d.id === selectedType);
     if (!diet) return <div className="p-4 text-center text-red-500">Dieta no encontrada.</div>;
 
+    const getBannerColorClasses = () => {
+        const colors = categoryColors[selectedType ?? ''];
+        if (colors) {
+            return `${colors.colorFrom} ${colors.colorTo}`;
+        }
+        return 'from-emerald-500 to-lime-400';
+    };
+
     return (
         <div className="p-6 max-w-4xl mx-auto">
             {/* Botón de volver*/}
@@ -128,7 +150,8 @@ export const UserDietsDetail = () => {
                 </svg>
                 <span className="text-base">Volver</span>
             </button>
-            <div className="flex justify-between items-center bg-gradient-to-r from-emerald-500 to-lime-400 text-white p-6 rounded-xl shadow-md mb-6">
+            <div className={`flex justify-between items-center bg-gradient-to-r ${getBannerColorClasses()} text-white p-6 rounded-xl shadow-md mb-6`}>
+
                 <div>
                     <h1 className="text-4xl font-extrabold">{diet.name}</h1>
                     <p className="text-lg mt-2">{diet.description}</p>
@@ -144,22 +167,39 @@ export const UserDietsDetail = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {diet.meals.map((meal, index) => (
+                    // version vieja
+                    // <div
+                    //     key={index}
+                    //     className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition duration-300"
+                    // >
+                    //     <h3 className="text-xl font-bold text-emerald-700 mb-1">{meal.food_name}</h3>
+                    //     <p className="text-gray-600 mb-1">
+                    //         <span className="font-medium">Categoría:</span> {meal.food_category}
+                    //     </p>
+                    //     <p className="text-gray-600 mb-1">
+                    //         <span className="font-medium">Día:</span> {meal.day_of_week}
+                    //     </p>
+                    //     <p className="text-gray-600 mb-1">
+                    //         <span className="font-medium">Horario:</span>{" "}
+                    //         {meal.time_of_day}
+                    //     </p>
+                    //     <p className="text-gray-700 font-semibold">🔥 {meal.calories} calorías</p>
+                    // </div>
                     <div
                         key={index}
-                        className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition duration-300"
+                        className={`bg-gradient-to-r ${getBannerColorClasses()} text-white rounded-2xl p-5 shadow hover:shadow-lg transition duration-300`}
                     >
-                        <h3 className="text-xl font-bold text-emerald-700 mb-1">{meal.food_name}</h3>
-                        <p className="text-gray-600 mb-1">
+                        <h3 className="text-xl font-bold text-white mb-1">{meal.food_name}</h3>
+                        <p className="text-white mb-1">
                             <span className="font-medium">Categoría:</span> {meal.food_category}
                         </p>
-                        <p className="text-gray-600 mb-1">
+                        <p className="text-white mb-1">
                             <span className="font-medium">Día:</span> {meal.day_of_week}
                         </p>
-                        <p className="text-gray-600 mb-1">
-                            <span className="font-medium">Horario:</span>{" "}
-                            {meal.time_of_day}
+                        <p className="text-white mb-1">
+                            <span className="font-medium">Horario:</span> {meal.time_of_day}
                         </p>
-                        <p className="text-gray-700 font-semibold">🔥 {meal.calories} calorías</p>
+                        <p className="text-white font-semibold">🔥 {meal.calories} calorías</p>
                     </div>
                 ))}
             </div>
