@@ -168,39 +168,44 @@ export const UserDietsDetail = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {diet.meals.map((meal, index) => (
                     // version vieja
-                    // <div
-                    //     key={index}
-                    //     className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition duration-300"
-                    // >
-                    //     <h3 className="text-xl font-bold text-emerald-700 mb-1">{meal.food_name}</h3>
-                    //     <p className="text-gray-600 mb-1">
-                    //         <span className="font-medium">Categoría:</span> {meal.food_category}
-                    //     </p>
-                    //     <p className="text-gray-600 mb-1">
-                    //         <span className="font-medium">Día:</span> {meal.day_of_week}
-                    //     </p>
-                    //     <p className="text-gray-600 mb-1">
-                    //         <span className="font-medium">Horario:</span>{" "}
-                    //         {meal.time_of_day}
-                    //     </p>
-                    //     <p className="text-gray-700 font-semibold">🔥 {meal.calories} calorías</p>
-                    // </div>
                     <div
                         key={index}
-                        className={`bg-gradient-to-r ${getBannerColorClasses()} text-white rounded-2xl p-5 shadow hover:shadow-lg transition duration-300`}
+                        className="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden"
                     >
-                        <h3 className="text-xl font-bold text-white mb-1">{meal.food_name}</h3>
-                        <p className="text-white mb-1">
-                            <span className="font-medium">Categoría:</span> {meal.food_category}
-                        </p>
-                        <p className="text-white mb-1">
-                            <span className="font-medium">Día:</span> {meal.day_of_week}
-                        </p>
-                        <p className="text-white mb-1">
-                            <span className="font-medium">Horario:</span> {meal.time_of_day}
-                        </p>
-                        <p className="text-white font-semibold">🔥 {meal.calories} calorías</p>
+                        <h3
+                            className={`w-full text-xl font-bold text-white rounded-t-2xl bg-gradient-to-r ${getBannerColorClasses()} px-5 py-3 h-20 flex items-center`}
+                            style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                            title={meal.food_name}
+                        >
+                            {meal.food_name}
+                        </h3>
+                        <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                            {/* Columna izquierda: info */}
+                            <div className="md:col-span-2">
+                                <p className="text-gray-600 mb-1">
+                                    <span className="font-medium">Categoría:</span> {meal.food_category}
+                                </p>
+                                <p className="text-gray-600 mb-1">
+                                    <span className="font-medium">Día:</span> {meal.day_of_week}
+                                </p>
+                                <p className="text-gray-600 mb-1">
+                                    <span className="font-medium">Horario:</span> {meal.time_of_day}
+                                </p>
+                                <p className="text-gray-700 font-semibold">🔥 {meal.calories} calorías</p>
+                            </div>
+
+                            {/* Columna derecha: imagen */}
+                            <div className="flex justify-center">
+                                <img
+                                    src={meal.image_url || '/images/placeholder-food.jpg'}
+                                    alt={meal.food_name}
+                                    className="w-full h-32 object-cover rounded-xl shadow-md"
+                                />
+                            </div>
+                        </div>
+
                     </div>
+
                 ))}
             </div>
         </div>

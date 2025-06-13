@@ -141,30 +141,51 @@ export const UserExerciseDetailList = () => {
                     Añadir
                 </button>
             </div>
-            <h2 className="text-2xl font-semibold mb-4 text-gray-800">Ejercicios</h2>
+
+            <h2 className="text-2xl font-semibold mb-4 text-gray-800">🏋️ Ejercicios</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {routine.exercises.map((exercise, index) => (
                     <div
                         key={index}
-                        className="bg-white border border-gray-200 rounded-2xl p-5 shadow hover:shadow-lg transition duration-300"
+                        className="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden"
                     >
-                        <h3 className="text-xl font-bold text-emerald-700 mb-1">{exercise.exercise_name}</h3>
-                        <p className="text-gray-600 mb-1">
-                            <span className="font-medium">Categoría:</span> {exercise.exercise_category}
-                        </p>
-                        <p className="text-gray-600 mb-1">
-                            <span className="font-medium">Día:</span> {exercise.day_of_week}
-                        </p>
-                        <p className="text-gray-600 mb-1">
-                            <span className="font-medium">Horario:</span>{" "}
-                            {exercise.time_of_day}
-                        </p>
-                        <p className="text-gray-700 font-semibold">🔥 {exercise.calories_burned} calorías</p>
-                        <p className="text-gray-700 font-semibold">{exercise.duration} duración</p>
+                        <h3 className="w-full text-xl font-bold text-white rounded-t-2xl bg-gradient-to-r from-emerald-600 to-emerald-400 px-5 py-3 h-20 flex items-center"
+                            style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
+                            title={exercise.exercise_name}
+                        >
+                            {exercise.exercise_name}
+                        </h3>
+
+                        <div className="p-5 grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                            {/* Info del ejercicio */}
+                            <div className="md:col-span-2">
+                                <p className="text-gray-600 mb-1">
+                                    <span className="font-medium">Categoría:</span> {exercise.exercise_category}
+                                </p>
+                                <p className="text-gray-600 mb-1">
+                                    <span className="font-medium">Día:</span> {exercise.day_of_week}
+                                </p>
+                                <p className="text-gray-600 mb-1">
+                                    <span className="font-medium">Horario:</span> {exercise.time_of_day}
+                                </p>
+                                <p className="text-gray-700 font-semibold">🔥 {exercise.calories_burned} calorías</p>
+                                <p className="text-gray-700 font-semibold">{exercise.duration} duración</p>
+                            </div>
+
+                            {/* Imagen genérica para el ejercicio */}
+                            <div className="flex justify-center">
+                                <img
+                                    src={exercise.image_url || '/images/placeholder-exercise.jpg'}
+                                    alt={exercise.exercise_name}
+                                    className="w-full h-32 object-cover rounded-xl shadow-md"
+                                />
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
+
         </div>
     );
 };
