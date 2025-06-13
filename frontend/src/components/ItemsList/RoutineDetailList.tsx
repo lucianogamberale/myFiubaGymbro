@@ -3,6 +3,21 @@ import { useAuth } from '../../auth/AuthProvider';
 import { useNavigate, useParams } from 'react-router-dom';
 import { routines } from '../../utils/constants/exercises';
 
+const categoryColors: Record<string, { colorFrom: string; colorTo: string }> = {
+    '1.0': { colorFrom: 'from-blue-300', colorTo: 'to-blue-400' },
+    '1.1': { colorFrom: 'from-blue-400', colorTo: 'to-blue-500' },
+    '1.2': { colorFrom: 'from-blue-500', colorTo: 'to-blue-600' },
+    '1.3': { colorFrom: 'from-indigo-500', colorTo: 'to-indigo-600' },
+    '2.0': { colorFrom: 'from-red-300', colorTo: 'to-red-400' },
+    '2.1': { colorFrom: 'from-red-400', colorTo: 'to-red-500' },
+    '2.2': { colorFrom: 'from-red-500', colorTo: 'to-red-600' },
+    '2.3': { colorFrom: 'from-rose-500', colorTo: 'to-rose-600' },
+    '3.0': { colorFrom: 'from-purple-300', colorTo: 'to-purple-400' },
+    '3.1': { colorFrom: 'from-purple-400', colorTo: 'to-purple-500' },
+    '3.2': { colorFrom: 'from-indigo-500', colorTo: 'to-purple-600' },
+    '3.3': { colorFrom: 'from-rose-400', colorTo: 'to-purple-500' },
+};
+
 export type UserHealthDataEntry = {
     id: number;
     weight: number;
@@ -111,6 +126,14 @@ export const UserExerciseDetailList = () => {
     const routine = routines.find(r => r.id === selectedType);
     if (!routine) return <div className="p-4 text-center text-red-500">Rutina no encontrada.</div>;
 
+    const getBannerColorClasses = () => {
+        const colors = categoryColors[selectedType ?? ''];
+        if (colors) {
+            return `${colors.colorFrom} ${colors.colorTo}`;
+        }
+        return 'from-emerald-500 to-lime-400';
+    };
+
     return (
         <div className="p-6 max-w-4xl mx-auto">
             <button
@@ -129,7 +152,7 @@ export const UserExerciseDetailList = () => {
                 </svg>
                 <span className="text-base">Volver</span>
             </button>
-            <div className="flex justify-between items-center bg-gradient-to-r from-emerald-500 to-lime-400 text-white p-6 rounded-xl shadow-md mb-6">
+            <div className={`flex justify-between items-center bg-gradient-to-r ${getBannerColorClasses()} text-white p-6 rounded-xl shadow-md mb-6`}>
                 <div>
                     <h1 className="text-4xl font-extrabold">{routine.name}</h1>
                     <p className="text-lg mt-2">{routine.description}</p>
@@ -150,7 +173,7 @@ export const UserExerciseDetailList = () => {
                         key={index}
                         className="bg-white border border-gray-200 rounded-2xl shadow hover:shadow-lg transition duration-300 overflow-hidden"
                     >
-                        <h3 className="w-full text-xl font-bold text-white rounded-t-2xl bg-gradient-to-r from-emerald-600 to-emerald-400 px-5 py-3 h-20 flex items-center"
+                        <h3 className={`w-full text-xl font-bold text-white rounded-t-2xl bg-gradient-to-r ${getBannerColorClasses()} px-5 py-3 h-20 flex items-center`}
                             style={{ display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}
                             title={exercise.exercise_name}
                         >
