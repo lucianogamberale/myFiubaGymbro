@@ -1,4 +1,11 @@
 import ejemplo from '../../images/diets/dietas.avif';
+import avenaConManzanaCanela from '../../images/diets/meals/avena_con_manzana_y_canela.jpeg';
+import ensaladaPolloVegetales from '../../images/diets/meals/ensalada_pollo_vegetales_quinoa.jpg';
+import sopaVerdurasPescado from '../../images/diets/meals/sopa_verduras_pescado.jpeg';
+import yogurFrutillaChia from '../../images/diets/meals/yogur_frutilla_y_chia.jpg';
+import licuadoAvenaBanana from '../../images/diets/meals/licuado_avena_banana.jpeg';
+import hamburguesaQuesoPapas from '../../images/diets/meals/hamburguesa_queso_papas.avif';
+import polloPure from '../../images/diets/meals/pollo_con_pure.jpeg';
 export interface Meal {
   day_of_week: string;
   time_of_day: string;
@@ -29,7 +36,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Avena cocida con manzana y canela",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: avenaConManzanaCanela,
       calories: 250
     },
     {
@@ -37,7 +44,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Ensalada de pollo con vegetales y quinoa",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: ensaladaPolloVegetales,
       calories: 400
     },
     {
@@ -45,7 +52,7 @@ export const diets: Diet[] = [
       time_of_day: "21:00:00",
       food_name: "Sopa de verduras y pescado al vapor",
       food_category: "Cena",
-      image_url: ejemplo,
+      image_url: sopaVerdurasPescado,
       calories: 350
     },
 
@@ -55,7 +62,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Yogur natural con frutillas y semillas de chía",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: yogurFrutillaChia,
       calories: 230
     },
     {
@@ -95,9 +102,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "WEDNESDAY",
       time_of_day: "21:00:00",
-      food_name: "Pechuga de pollo con puré de calabaza",
+      food_name: "Pechuga de pollo con puré",
       food_category: "Cena",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 360
     },
 
@@ -107,7 +114,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Smoothie de banana y avena con leche descremada",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 220
     },
     {
@@ -257,9 +264,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "TUESDAY",
       time_of_day: "20:00:00",
-      food_name: "Pechuga de pollo con puré de papa y brócoli",
+      food_name: "Pechuga de pollo con puré de papa",
       food_category: "Cena",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 620
     },
 
@@ -295,7 +302,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Smoothie de leche entera, banana y avena con mantequilla de maní",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 520
     },
     {
@@ -405,15 +412,15 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Batido de proteína con avena y banana",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 450
     },
     {
       day_of_week: "MONDAY",
       time_of_day: "13:00:00",
-      food_name: "Pollo a la plancha con batatas y brócoli",
+      food_name: "Pollo a la plancha con pure",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 600
     },
     {
@@ -437,9 +444,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "TUESDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pavo con quinoa y ensalada",
+      food_name: "Pechuga de pollo con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 620
     },
     {
@@ -515,9 +522,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "FRIDAY",
       time_of_day: "13:00:00",
-      food_name: "Pollo al horno con arroz y ensalada mixta",
+      food_name: "Pollo con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 620
     },
     {
@@ -535,7 +542,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Smoothie de leche, avena, banana y proteína",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 460
     },
     {
@@ -599,9 +606,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "MONDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pollo con ensalada de espinaca, tomate y garbanzos",
+      food_name: "Pechuga de pollo con pure",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 450
     },
     {
@@ -651,10 +658,10 @@ export const diets: Diet[] = [
     {
       day_of_week: "WEDNESDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pavo con quinoa y verduras salteadas",
+      food_name: "Pechuga de pollo con pure",
       food_category: "Almuerzo",
       image_url: ejemplo,
-      calories: 460
+      calories: 450
     },
     {
       day_of_week: "WEDNESDAY",
@@ -703,9 +710,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "FRIDAY",
       time_of_day: "13:00:00",
-      food_name: "Pollo al horno con ensalada verde y arroz integral",
+      food_name: "Pollo con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 460
     },
     {
@@ -749,15 +756,15 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Avena con manzana rallada y canela",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: avenaConManzanaCanela,
       calories: 320
     },
     {
       day_of_week: "SUNDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pollo con ensalada de espinaca, tomate y garbanzos",
+      food_name: "Pechuga de pollo con pure",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 450
     },
     {
@@ -841,7 +848,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Ensalada de pollo, espinaca y nueces",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: ensaladaPolloVegetales,
       calories: 490
     },
     {
@@ -911,16 +918,16 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Avena con manzana rallada y canela",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: avenaConManzanaCanela,
       calories: 350
     },
     {
       day_of_week: "SATURDAY",
       time_of_day: "13:00:00",
-      food_name: "Pollo a la plancha con ensalada verde y arroz integral",
+      food_name: "Pollo a la plancha con pure",
       food_category: "Almuerzo",
-      image_url: ejemplo,
-      calories: 500
+      image_url: polloPure,
+      calories: 450
     },
     {
       day_of_week: "SATURDAY",
@@ -967,9 +974,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "MONDAY",
       time_of_day: "08:00:00",
-      food_name: "Avena con leche de almendra, nueces y arándanos",
+      food_name: "Avena con leche de almendra, nueces y banana",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 350
     },
     {
@@ -1021,7 +1028,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Yogur vegetal con semillas de chía y frutas frescas",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: yogurFrutillaChia,
       calories: 360
     },
     {
@@ -1045,9 +1052,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "THURSDAY",
       time_of_day: "08:00:00",
-      food_name: "Smoothie de espinaca, plátano y leche vegetal",
+      food_name: "Smoothie de avena, plátano y leche vegetal",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 330
     },
     {
@@ -1097,9 +1104,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "SATURDAY",
       time_of_day: "08:00:00",
-      food_name: "Avena con plátano, semillas de calabaza y canela",
+      food_name: "Avena con leche, plátano y canela",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 350
     },
     {
@@ -1157,15 +1164,15 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Yogur natural con frutas frescas y semillas de chía",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: yogurFrutillaChia,
       calories: 320
     },
     {
       day_of_week: "MONDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga a la plancha con puré de calabaza y ensalada verde",
+      food_name: "Pechuga a la plancha con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 450
     },
     {
@@ -1191,7 +1198,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Ensalada de quinoa con pollo y verduras frescas",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: ensaladaPolloVegetales,
       calories: 460
     },
     {
@@ -1215,9 +1222,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "WEDNESDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pavo con batatas asadas y brócoli",
+      food_name: "Pechuga de pollo con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 470
     },
     {
@@ -1235,7 +1242,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Avena sin gluten con manzana rallada y canela",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: avenaConManzanaCanela,
       calories: 320
     },
     {
@@ -1293,9 +1300,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "SATURDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga a la plancha con puré de calabaza y ensalada verde",
+      food_name: "Pechuga a la plancha con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: polloPure,
       calories: 450
     },
     {
@@ -1313,7 +1320,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Yogur natural con frutas frescas y semillas de chía",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: yogurFrutillaChia,
       calories: 320
     },
     {
@@ -1321,7 +1328,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Ensalada de quinoa con pollo y verduras frescas",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: ensaladaPolloVegetales,
       calories: 460
     },
     {
@@ -1351,10 +1358,10 @@ export const diets: Diet[] = [
     {
       day_of_week: "MONDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pollo con palta, espinaca y aceite de oliva",
+      food_name: "Pechuga de pollo puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
-      calories: 550
+      image_url: polloPure,
+      calories: 450
     },
     {
       day_of_week: "MONDAY",
@@ -1403,10 +1410,10 @@ export const diets: Diet[] = [
     {
       day_of_week: "WEDNESDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pollo con palta, espinaca y aceite de oliva",
+      food_name: "Pechuga de pollo puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
-      calories: 550
+      image_url: polloPure,
+      calories: 450
     },
     {
       day_of_week: "WEDNESDAY",
@@ -1455,10 +1462,10 @@ export const diets: Diet[] = [
     {
       day_of_week: "FRIDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pollo con palta, espinaca y aceite de oliva",
+      food_name: "Pechuga de pollo puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
-      calories: 550
+      image_url: polloPure,
+      calories: 450
     },
     {
       day_of_week: "FRIDAY",
@@ -1507,10 +1514,10 @@ export const diets: Diet[] = [
     {
       day_of_week: "SUNDAY",
       time_of_day: "13:00:00",
-      food_name: "Pechuga de pollo con palta, espinaca y aceite de oliva",
+      food_name: "Pechuga de pollo con puré",
       food_category: "Almuerzo",
-      image_url: ejemplo,
-      calories: 550
+      image_url: polloPure,
+      calories: 450
     },
     {
       day_of_week: "SUNDAY",
@@ -1531,9 +1538,9 @@ export const diets: Diet[] = [
     {
       day_of_week: "MONDAY",
       time_of_day: "08:00:00",
-      food_name: "Avena cocida con leche, almendras y rodajas de banana",
+      food_name: "Avena con leche, almendras y rodajas de banana",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 400
     },
     {
@@ -1549,7 +1556,7 @@ export const diets: Diet[] = [
       time_of_day: "17:00:00",
       food_name: "Batido de proteínas con avena y banana",
       food_category: "Colación",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 450
     },
     {
@@ -1575,7 +1582,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Ensalada de quinoa con pollo, palta y tomates cherry",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: ensaladaPolloVegetales,
       calories: 740
     },
     {
@@ -1617,7 +1624,7 @@ export const diets: Diet[] = [
       time_of_day: "17:00:00",
       food_name: "Batido de proteínas con avena y banana",
       food_category: "Colación",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 450
     },
     {
@@ -1635,7 +1642,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Smoothie de banana con mantequilla de maní y avena",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 400
     },
     {
@@ -1685,7 +1692,7 @@ export const diets: Diet[] = [
       time_of_day: "17:00:00",
       food_name: "Batido de proteínas con avena y banana",
       food_category: "Colación",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 450
     },
     {
@@ -1703,7 +1710,7 @@ export const diets: Diet[] = [
       time_of_day: "08:00:00",
       food_name: "Avena con leche, nueces y rodajas de plátano",
       food_category: "Desayuno",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 400
     },
     {
@@ -1711,7 +1718,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Ensalada de quinoa con pollo, palta y tomates cherry",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: ensaladaPolloVegetales,
       calories: 740
     },
     {
@@ -1753,7 +1760,7 @@ export const diets: Diet[] = [
       time_of_day: "17:00:00",
       food_name: "Batido de proteínas con avena y banana",
       food_category: "Colación",
-      image_url: ejemplo,
+      image_url: licuadoAvenaBanana,
       calories: 450
     },
     {
@@ -1785,7 +1792,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
@@ -1819,7 +1826,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
@@ -1853,7 +1860,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
@@ -1887,7 +1894,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
@@ -1921,7 +1928,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
@@ -1955,7 +1962,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
@@ -1989,7 +1996,7 @@ export const diets: Diet[] = [
       time_of_day: "13:00:00",
       food_name: "Hamburguesas caseras con papas y queso",
       food_category: "Almuerzo",
-      image_url: ejemplo,
+      image_url: hamburguesaQuesoPapas,
       calories: 950
     },
     {
