@@ -114,8 +114,9 @@ export const UserExercisesList = ({ updateUserExercises, onUpdateUserExercises }
         } catch (error) {
             console.error('Error deleting user exercise:', error);
         } finally {
-            setLoading(false);
             setUserExerciseIdToDelete(null);
+            setTimeout(() => { fetchData() }, 1000); // Delay to ensure the modal closes before fetching data
+            setLoading(false);
         }
 
         onUpdateUserExercises(!updateUserExercises);

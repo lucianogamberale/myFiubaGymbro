@@ -52,8 +52,8 @@ export default function SignUp() {
                 setErrorResponse(json.message || "Error en el registro.");
             }
         } catch (error) {
-            setErrorResponse('Error al realizar la solicitud: ' + error);
-            console.error("Error al realizar la solicitud: ", error);
+            setErrorResponse("Error al registrse: el usuario y/o el email ya se encuentran en uso");
+            console.error('Error al realizar la solicitud: ' + error);
         }
     }
 
@@ -67,7 +67,7 @@ export default function SignUp() {
     }
 
     if (auth.isAuthenticated) {
-        return <Navigate to="/user-health-data" />;
+        return <Navigate to="/home" />;
     }
 
     return (

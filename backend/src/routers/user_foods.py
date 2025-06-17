@@ -47,6 +47,7 @@ def delete_user_food(
 def get_user_foods(user_id: float, db: DBSessionDependency) -> List[UserFoodReponseDTO]:
     return UserFoodsService(db).get_user_foods(user_id)
 
+
 @router.get(
     "/{user_id}/foods/{user_food_id}",
     response_model=UserFoodReponseDTO,

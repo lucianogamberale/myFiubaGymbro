@@ -58,7 +58,7 @@ export const UserFoodsList = ({ updateUserFoods, onUpdateUserFoods }: Props) => 
             fetchData();
             onUpdateUserFoods(false);
         }
-    }, [updateUserFoods, userId,]);
+    }, [updateUserFoods, userId]);
 
     const handleEditUserFood = (userFoodId: number) => {
         setUserFoodIdToEdit(userFoodId);
@@ -113,8 +113,9 @@ export const UserFoodsList = ({ updateUserFoods, onUpdateUserFoods }: Props) => 
         } catch (error) {
             console.error('Error deleting user Food:', error);
         } finally {
-            setLoading(false);
             setUserFoodIdToDelete(null);
+            setTimeout(() => { fetchData() }, 1000); // Delay to ensure the modal closes before fetching data
+            setLoading(false);
         }
 
         onUpdateUserFoods(!updateUserFoods);
