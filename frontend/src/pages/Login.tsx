@@ -43,7 +43,7 @@ export default function Login() {
             }
         } catch (error) {
             console.error("Error al realizar la solicitud:", error);
-            setErrorResponse("Error al conectar con el servidor.");
+            setErrorResponse("Error al iniciar sesión, su email y/o contraseña son incorrectos.");
         }
     }
 

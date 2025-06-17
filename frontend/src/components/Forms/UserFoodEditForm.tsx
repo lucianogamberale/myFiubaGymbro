@@ -1,16 +1,17 @@
-import { useState } from "react";
-import { ModalSuccess } from "../ModalSuccess";
+import { useEffect, useState } from "react";
 import { useAuth } from '../../auth/AuthProvider';
+import Loading from "../Loading";
 
 
 interface Props {
+	userFoodId: number,
 	setOpenForm: (value: boolean) => void;
-	onNewUserFood: () => void;
+	onEditUserFood: () => void;
 }
 
-export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
+export const UserFoodEditForm = ({ userFoodId, setOpenForm, onEditUserFood }: Props) => {
 	const auth = useAuth();
-	const user_id = auth.getUserId();
+	const userId = auth.getUserId();
 
 	const availableFoodCategories = {
 		"Fruta": "Fruta",
@@ -27,14 +28,43 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 	const [calories, setCalories] = useState('');
 	const [dateTime, setDatetime] = useState(new Date().toISOString().slice(0, 16));
 
+	const [loading, setLoading] = useState(true);
+
+	async function fetchData() {
+		try {
+			const response = await fetch(`http://localhost:8000/api/user-foods/${userId}/foods/${userFoodId}`, {
+				method: 'GET'
+			});
+			if (response.ok) {
+				const data = await response.json();
+				setFoodCategory(data.food_category);
+				setFoodName(data.food_name);
+				setCalories(data.calories);
+				setDatetime(data.date);
+			} else {
+				console.error("Error fetching user food data");
+			}
+		} catch (error) {
+			console.error("Error fetching user food:", error);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	useEffect(() => {
+		if (userId) {
+			fetchData();
+		}
+	}, [userId]);
+
 	function closeForm() {
 		setOpenForm(false);
 	}
 
-	async function createUserFood() {
+	async function updateUserFood() {
 		try {
-			const response = await fetch(`http://localhost:8000/api/user-foods/${user_id}`, {
-				method: 'POST',
+			const response = await fetch(`http://localhost:8000/api/user-foods/${userId}/foods/${userFoodId}`, {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 				},
@@ -47,7 +77,7 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 			});
 			if (response.ok) {
 				console.log("Creada con exito");
-				onNewUserFood();
+				onEditUserFood();
 			}
 		} catch (error) {
 			console.error("Error al realizar la solicitud:", error);
@@ -56,7 +86,15 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		createUserFood();
+		updateUserFood();
+	}
+
+	if (loading) {
+		return (
+			<div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
+				<Loading />
+			</div>
+		);
 	}
 
 	return (

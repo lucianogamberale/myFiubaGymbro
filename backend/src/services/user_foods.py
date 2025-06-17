@@ -127,3 +127,14 @@ class UserFoodsService:
             )
             for user_food in user_foods
         ]
+
+    def get_user_food(self, user_id: float, user_food_id: float) -> UserFoodReponseDTO:
+        user_food = self.user_foods_repo.get_user_food(user_id, user_food_id)
+
+        return UserFoodReponseDTO(
+            id=user_food.id,
+            food_name=user_food.food.name,
+            food_category=FoodCategory(user_food.food.category),
+            calories=user_food.calories,
+            date=user_food.date,
+        )

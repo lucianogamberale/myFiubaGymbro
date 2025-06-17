@@ -46,3 +46,13 @@ def delete_user_food(
 )
 def get_user_foods(user_id: float, db: DBSessionDependency) -> List[UserFoodReponseDTO]:
     return UserFoodsService(db).get_user_foods(user_id)
+
+@router.get(
+    "/{user_id}/foods/{user_food_id}",
+    response_model=UserFoodReponseDTO,
+    status_code=status.HTTP_200_OK,
+)
+def get_user_food(
+    user_id: float, user_food_id: float, db: DBSessionDependency
+) -> UserFoodReponseDTO:
+    return UserFoodsService(db).get_user_food(user_id, user_food_id)

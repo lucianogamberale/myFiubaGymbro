@@ -59,7 +59,7 @@ export const UserExercisesList = ({ updateUserExercises, onUpdateUserExercises }
             fetchData();
             onUpdateUserExercises(false);
         }
-    }, [userId, updateUserExercises]);
+    }, [updateUserExercises, userId]);
 
     const handleEditUserExercise = (userExerciseId: number) => {
         setUserExerciseIdToEdit(userExerciseId);
