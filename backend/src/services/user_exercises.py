@@ -22,28 +22,7 @@ class UserExercisesService:
         self.user_exercises_repo = UserExercisesRepository(db_session)
         self.user_objectives_repo = UserObjectiveRepository(db_session)
 
-    # ====================== MANAGING ====================== #
-
-    def create_user_exercise(
-        self, user_id: float, user_exercise_data: UserExerciseRequestDataDTO
-    ) -> None:
-        # this will help us to have recommended exercises
-        # do not create exercise if already exist to avoid duplicate entries
-        exercise = self.exercise_repo.get_exercise_named(
-            user_exercise_data.exercise_name, user_exercise_data.exercise_category
-        )
-        if exercise is None:
-            exercise = self.exercise_repo.save_new_exercise(
-                exercise_name=user_exercise_data.exercise_name,
-                exercise_category=user_exercise_data.exercise_category,
-            )
-
-        self.user_exercises_repo.save_new_user_exercise(
-            user_id, exercise, user_exercise_data
-        )
-
-        # Update weight loss objective if exists
-        self._update_weight_loss_objective(user_id, user_exercise_data)
+    # ====================== MANAGING - PRIVATE ====================== #
 
     def _update_weight_loss_objective(
         self, user_id: float, user_exercise_data: UserExerciseRequestDataDTO
@@ -90,6 +69,29 @@ class UserExercisesService:
             user_id, active_objective.id, update_dto
         )
 
+    # ====================== MANAGING ====================== #
+
+    def create_user_exercise(
+        self, user_id: float, user_exercise_data: UserExerciseRequestDataDTO
+    ) -> None:
+        # this will help us to have recommended exercises
+        # do not create exercise if already exist to avoid duplicate entries
+        exercise = self.exercise_repo.get_exercise_named(
+            user_exercise_data.exercise_name, user_exercise_data.exercise_category
+        )
+        if exercise is None:
+            exercise = self.exercise_repo.save_new_exercise(
+                exercise_name=user_exercise_data.exercise_name,
+                exercise_category=user_exercise_data.exercise_category,
+            )
+
+        self.user_exercises_repo.save_new_user_exercise(
+            user_id, exercise, user_exercise_data
+        )
+
+        # Update weight loss objective if exists
+        self._update_weight_loss_objective(user_id, user_exercise_data)
+
     def update_user_exercise(
         self,
         user_id: float,
@@ -112,6 +114,9 @@ class UserExercisesService:
 
         user_exercise.exercise_id = exercise.id
         self.user_exercises_repo.db_session.commit()
+
+        # Update weight loss objective if exists
+        self._update_weight_loss_objective(user_id, user_exercise_data)
 
     def delete_user_exercise(self, user_id: float, user_exercise_id: float) -> None:
         self.user_exercises_repo.delete_user_exercise(user_id, user_exercise_id)

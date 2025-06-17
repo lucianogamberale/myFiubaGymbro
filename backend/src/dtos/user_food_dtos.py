@@ -7,7 +7,7 @@ from src.repositories.models.food import FoodCategory
 # ====================== REQUESTS ====================== #
 
 
-class UserFoodCreationDTO(BaseModel):
+class UserFoodRequestDataDTO(BaseModel):
     food_name: str
     food_category: FoodCategory
     calories: float
