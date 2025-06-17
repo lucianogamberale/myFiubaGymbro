@@ -145,7 +145,7 @@ export const UserExercisesList = ({ updateUserExercises, onUpdateUserExercises }
             <div className="border-t border-gray-300 my-3"></div>
             <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mis Ejercicios</span>
-                <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
+                <button onClick={() => setOpenCreateForm(true)} className="text-lg bg-slate-800 hover:bg-slate-600 py-1 px-5 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Cargar ejercicio
                 </button>
             </div>
@@ -183,7 +183,7 @@ export const UserExercisesList = ({ updateUserExercises, onUpdateUserExercises }
                                                     minute: '2-digit',
                                                 })}
                                             </td>
-                                            <td className="px-4 py-2 text-center">
+                                            <td className="px-4 py-2 text-right">
                                                 <button
                                                     onClick={() => handleEditUserExercise(userExercise.id)}
                                                     className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-1 px-3 rounded text-xs mr-2"

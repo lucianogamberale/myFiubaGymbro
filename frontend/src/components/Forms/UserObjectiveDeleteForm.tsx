@@ -9,31 +9,31 @@ interface Props {
     onUserObjectiveDeleted: () => void;
 }
 
-export const UserObjectiveDeleteForm: React.FC<Props> = ({ 
-    open, 
-    onClose, 
+export const UserObjectiveDeleteForm: React.FC<Props> = ({
+    open,
+    onClose,
     user_id,
     userObjective,
-    onUserObjectiveDeleted 
+    onUserObjectiveDeleted
 }) => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
     const handleDelete = async () => {
         if (!userObjective?.id) return;
-        
+
         setIsDeleting(true);
         setError(null);
-        
+
         try {
             const response = await fetch(`http://localhost:8000/api/user-objectives/${user_id}/${userObjective.id}`, {
                 method: 'DELETE',
             });
-            
+
             if (!response.ok) {
                 throw new Error('Error al eliminar el objetivo');
             }
-            
+
             onUserObjectiveDeleted();
             onClose();
         } catch (err) {
@@ -73,7 +73,7 @@ export const UserObjectiveDeleteForm: React.FC<Props> = ({
                     marginBottom: '0.5rem',
                     color: '#111827'
                 }}>
-                    Eliminar objetivo
+                    Borrar objetivo
                 </h3>
                 <div style={{ marginTop: '0.5rem' }}>
                     <p style={{ fontSize: '0.875rem', color: '#6b7280' }}>
@@ -123,7 +123,7 @@ export const UserObjectiveDeleteForm: React.FC<Props> = ({
                         onClick={handleDelete}
                         disabled={isDeleting}
                     >
-                        {isDeleting ? 'Eliminando...' : 'Eliminar'}
+                        {isDeleting ? 'Eliminando...' : 'Borrar'}
                     </button>
                 </div>
             </div>

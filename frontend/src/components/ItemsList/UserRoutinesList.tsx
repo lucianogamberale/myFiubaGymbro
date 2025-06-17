@@ -267,7 +267,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
             <div className="border-t border-gray-300 my-3"></div>
             <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mis Rutinas</span>
-                <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
+                <button onClick={() => setOpenCreateForm(true)} className="text-lg bg-slate-800 hover:bg-slate-600 py-1 px-5 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Crear rutina
                 </button>
             </div>
@@ -285,7 +285,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                         <tr>
                                             <th className="px-4 py-3 text-left">Nombre de la Rutina</th>
                                             <th className="px-4 py-3 text-left">Descripción</th>
-                                            <th className="px-4 py-3 text-center">Acciones</th>
+                                            <th className="px-4 py-3 text-center"></th>
                                         </tr>
                                     </thead>
                                     <tbody className="text-sm divide-y divide-gray-200">
@@ -295,7 +295,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                                     {routine.name}
                                                 </td>
                                                 <td className="px-4 py-2">{routine.description || 'N/A'}</td>
-                                                <td className="px-4 py-2 text-center">
+                                                <td className="px-4 py-2 text-right">
                                                     <button
                                                         onClick={() => handleEditRoutine(routine.id)}
                                                         className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-1 px-3 rounded text-xs mr-2"
@@ -306,7 +306,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                                         onClick={() => confirmDeleteRoutine(routine.id)}
                                                         className="bg-red-500 hover:bg-red-600 text-white font-bold py-1 px-3 rounded text-xs"
                                                     >
-                                                        Eliminar
+                                                        Borrar
                                                     </button>
                                                 </td>
                                             </tr>
@@ -334,7 +334,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                 onClick={() => confirmDeleteRoutine(selectedRoutine.id)}
                                 className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
                             >
-                                Eliminar
+                                Borrar
                             </button>
                         </div>
                     </div>

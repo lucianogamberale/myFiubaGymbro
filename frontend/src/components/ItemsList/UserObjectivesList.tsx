@@ -76,7 +76,7 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
             <div className="border-t border-gray-300 my-3"></div>
             <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mis Objetivos</span>
-                <button onClick={() => setOpenCreateForm(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
+                <button onClick={() => setOpenCreateForm(true)} className="text-lg bg-slate-800 hover:bg-slate-600 py-1 px-5 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Nuevo Objetivo
                 </button>
             </div>
@@ -99,17 +99,17 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                                             const startDate = new Date(userObjective.start_date);
                                             const endDate = new Date(userObjective.end_date);
                                             const today = new Date();
-                                            
+
                                             // Calculate time progress
                                             const totalDuration = endDate.getTime() - startDate.getTime();
                                             const elapsedTime = today.getTime() - startDate.getTime();
                                             const timeProgress = Math.min((elapsedTime / totalDuration) * 100, 100);
-                                            
+
                                             // Format dates
                                             const formattedStartDate = startDate.toLocaleDateString('es-AR');
                                             const formattedEndDate = endDate.toLocaleDateString('es-AR');
                                             const formattedToday = today.toLocaleDateString('es-AR');
-                                            
+
                                             return (
                                                 <div key={1} className="bg-white rounded-xl shadow-md overflow-hidden border border-gray-100 hover:shadow-lg transition-shadow duration-300">
                                                     <div className="p-5">
@@ -118,7 +118,7 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                                                                 {userObjective.activity}
                                                             </h3>
                                                             <div className="flex space-x-2">
-                                                                <button 
+                                                                <button
                                                                     className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-full transition-colors"
                                                                     aria-label="Editar objetivo"
                                                                     onClick={(e) => {
@@ -129,9 +129,9 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                                                                 >
                                                                     <FaEdit size={16} />
                                                                 </button>
-                                                                <button 
+                                                                <button
                                                                     className="p-1.5 text-red-600 hover:bg-red-50 rounded-full transition-colors"
-                                                                    aria-label="Eliminar objetivo"
+                                                                    aria-label="Borrar objetivo"
                                                                     onClick={(e) => {
                                                                         e.stopPropagation();
                                                                         setSelectedObjective(userObjective);
@@ -142,33 +142,33 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                                                                 </button>
                                                             </div>
                                                         </div>
-                                                        
+
                                                         <div className="mb-4">
                                                             <div className="flex justify-between items-center text-sm text-gray-600 mb-1">
                                                                 <span>Progreso: {userObjective.current_progress} / {userObjective.objective} {userObjective.unit_of_measurement}</span>
                                                                 <span className="font-medium">{Math.min(progress, 100).toFixed(1)}%</span>
                                                             </div>
                                                             <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
-                                                                <div 
-                                                                    className="bg-blue-600 h-2.5 rounded-full" 
+                                                                <div
+                                                                    className="bg-blue-600 h-2.5 rounded-full"
                                                                     style={{ width: `${Math.min(progress, 100)}%` }}
                                                                 ></div>
                                                             </div>
-                                                            
+
                                                             <div className="flex justify-between text-xs text-gray-500 mb-1">
                                                                 <span>Inicio: {formattedStartDate}</span>
                                                                 <span>Hoy: {formattedToday}</span>
                                                                 <span>Fin: {formattedEndDate}</span>
                                                             </div>
                                                             <div className="w-full bg-gray-200 rounded-full h-2.5">
-                                                                <div 
-                                                                    className="bg-green-500 h-2.5 rounded-full" 
+                                                                <div
+                                                                    className="bg-green-500 h-2.5 rounded-full"
                                                                     style={{ width: `${Math.max(0, Math.min(timeProgress, 100))}%` }}
                                                                 ></div>
                                                             </div>
                                                             <div className="text-right text-xs text-gray-400 mt-1">
-                                                                {timeProgress > 0 
-                                                                    ? `Tiempo transcurrido: ${timeProgress.toFixed(1)}%` 
+                                                                {timeProgress > 0
+                                                                    ? `Tiempo transcurrido: ${timeProgress.toFixed(1)}%`
                                                                     : 'El objetivo aún no ha comenzado'}
                                                             </div>
                                                         </div>
@@ -183,25 +183,25 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                     </>
             }
 
-            {openCreateForm && 
-            (<UserObjectiveCreateForm 
-                setOpenForm={setOpenCreateForm} 
-                onNewUserObjective={handleNewUserObjective} 
-            />)}
+            {openCreateForm &&
+                (<UserObjectiveCreateForm
+                    setOpenForm={setOpenCreateForm}
+                    onNewUserObjective={handleNewUserObjective}
+                />)}
             {selectedObjective && openDelete && (
-                <UserObjectiveDeleteForm 
-                    open={openDelete} 
+                <UserObjectiveDeleteForm
+                    open={openDelete}
                     onClose={() => {
                         setOpenDelete(false);
                         setSelectedObjective(null);
-                    }} 
+                    }}
                     user_id={user_id}
                     userObjective={selectedObjective}
                     onUserObjectiveDeleted={fetchData}
                 />
             )}
             {selectedObjective && openEdit && (
-                <UserObjectiveEditForm 
+                <UserObjectiveEditForm
                     setOpenForm={setOpenEdit}
                     userObjective={selectedObjective}
                     onUserObjectiveEdited={fetchData}

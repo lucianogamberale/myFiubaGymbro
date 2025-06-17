@@ -23,12 +23,12 @@ export default function SidebarLayout() {
   const menus: Menu[] = [
     { label: `Home`, link: "/home", icon: FaUserCircle },
     { label: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
-    { label: "Mis calorías diarias", link: "/user-daily-calories-goal", icon: FaClock },
-    { label: "Mis comidas", link: "/user-foods", icon: FaHamburger },
-    { label: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
-    { label: "Mis dietas", link: "/user-diets", icon: GiMeal },
-    { label: "Mis rutinas", link: "/user-routines", icon: FaClipboardList },
     { label: "Mis objetivos", link: "/user-objectives", icon: FaTrophy },
+    { label: "Mis comidas", link: "/user-diets", icon: FaHamburger },
+    // { label: "Mis comidas", link: "/user-foods", icon: FaHamburger },
+    { label: "Mis ejercicios", link: "/user-routines", icon: FaRunning },
+    // { label: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
+    { label: "Mis calorías diarias", link: "/user-daily-calories-goal", icon: FaClock },
     { label: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
   ];
 
@@ -43,7 +43,7 @@ export default function SidebarLayout() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-300">
+    <div className="flex bg-gray-300">
       {/* Sidebar */}
       <div
         className={`bg-slate-800 text-white transition-all duration-300
