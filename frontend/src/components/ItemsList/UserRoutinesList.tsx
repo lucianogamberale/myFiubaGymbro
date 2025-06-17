@@ -235,9 +235,9 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                 throw new Error('Error al marcar el ejercicio como completado.');
             }
 
-            setSuccessMessage({ 
-                title: '¡Ejercicio completado!', 
-                description: 'El ejercicio ha sido marcado como completado y agregado a tus ejercicios realizados.' 
+            setSuccessMessage({
+                title: '¡Ejercicio completado!',
+                description: 'El ejercicio ha sido marcado como completado y agregado a tus ejercicios realizados.'
             });
             setShowSuccessModal(true);
         } catch (err: any) {
@@ -298,7 +298,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                                 <td className="px-4 py-2 text-center">
                                                     <button
                                                         onClick={() => handleEditRoutine(routine.id)}
-                                                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded text-xs mr-2"
+                                                        className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-1 px-3 rounded text-xs mr-2"
                                                     >
                                                         Editar
                                                     </button>
@@ -326,7 +326,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                         <div className="flex gap-2">
                             <button
                                 onClick={() => handleEditRoutine(selectedRoutine.id)}
-                                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
+                                className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
                             >
                                 Editar
                             </button>

@@ -314,7 +314,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                                                 <td className="px-4 py-2 text-center">
                                                     <button
                                                         onClick={() => handleEditDiet(diet.id)}
-                                                        className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-1 px-3 rounded text-xs mr-2"
+                                                        className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-1 px-3 rounded text-xs mr-2"
                                                     >
                                                         Editar
                                                     </button>
@@ -342,7 +342,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                         <div className="flex gap-2">
                             <button
                                 onClick={() => handleEditDiet(selectedDiet.id)}
-                                className="bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
+                                className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded focus:outline-none"
                             >
                                 Editar
                             </button>
