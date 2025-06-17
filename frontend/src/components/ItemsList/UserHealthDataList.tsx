@@ -88,7 +88,7 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
             <div className="border-t border-gray-300 my-3"></div>
             <div className="text-3xl text-slate-900 ml-3 font-bold flex justify-between items-center">
                 <span>Mi Salud</span>
-                <button onClick={() => setOpen(true)} className="text-xl bg-slate-800 hover:bg-slate-600 py-2 px-8 rounded-full text-slate-100 font-semibold focus:outline-none">
+                <button onClick={() => setOpen(true)} className="text-lg bg-slate-800 hover:bg-slate-600 py-1 px-5 rounded-full text-slate-100 font-semibold focus:outline-none">
                     + Cargar datos de salud
                 </button>
             </div>
@@ -108,7 +108,10 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
                     </div>
 
                     {historicalUserHealthData.length > 0 && (
-                        <WeightChart data={historicalUserHealthData} />
+                        <div className="flex flex-col gap-4 p-4">
+                            <WeightChart data={historicalUserHealthData} />
+                        </div>
+
                     )}
                 </div>
             )}

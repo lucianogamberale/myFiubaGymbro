@@ -262,7 +262,7 @@ export const RoutineCreateForm = ({ setOpenForm, onNewRoutine }: Props) => {
                                 </div>
                                 <div className="flex justify-end mt-4">
                                     <button type="button" onClick={() => handleRemoveExercise(index)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                        Eliminar Ejercicio
+                                        Borrar Ejercicio
                                     </button>
                                 </div>
                             </div>

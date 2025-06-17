@@ -77,7 +77,7 @@ export const UserDietsRecomendations = () => {
         {
             title: 'Vegetariana',
             colorFrom: 'from-green-700',
-            colorTo: 'to-green-500',
+            colorTo: 'to-green-700',
             image: comidaVegetariana,
             path: '/recomend-diets/7',
             description: 'Opciones balanceadas sin productos de origen animal.',

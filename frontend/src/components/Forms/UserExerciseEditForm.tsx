@@ -1,53 +1,89 @@
-import { useState } from "react";
-import { ModalSuccess } from "../ModalSuccess";
+import { useEffect, useState } from "react";
 import { useAuth } from '../../auth/AuthProvider';
+import Loading from "../Loading";
 
 
 interface Props {
+	userExerciseId: number,
 	setOpenForm: (value: boolean) => void;
-	onNewUserFood: () => void;
+	onEditUserExercise: () => void;
 }
 
-export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
+export const UserExerciseEditForm = ({ userExerciseId, setOpenForm, onEditUserExercise }: Props) => {
 	const auth = useAuth();
-	const user_id = auth.getUserId();
+	const userId = auth.getUserId();
 
-	const availableFoodCategories = {
-		"Fruta": "Fruta",
-		"Vegetal": "Vegetal",
-		"Proteína": "Proteína",
-		"Grano": "Grano",
-		"Lácteo": "Lácteo",
-		"Graso": "Graso",
-		"Dulces": "Dulces",
+	const availableExerciseCategories = {
+		"Fuerza": "Fuerza",
+		"Cardio": "Cardio",
+		"Flexibilidad": "Flexibilidad",
+		"Equilibrio": "Equilibrio",
+		"Resistencia": "Resistencia",
+		"Velocidad": "Velocidad",
+		"Agilidad": "Agilidad",
+		"Coordinación": "Coordinación",
+		"Potencia": "Potencia",
 	}
 
-	const [foodCategory, setFoodCategory] = useState('');
-	const [foodName, setFoodName] = useState('');
+	const [exerciseCategory, setExerciseCategory] = useState('');
+	const [exerciseName, setExerciseName] = useState('');
 	const [calories, setCalories] = useState('');
 	const [dateTime, setDatetime] = useState(new Date().toISOString().slice(0, 16));
+	const [exerciseDuration, setExerciseDuration] = useState('');
+
+	const [loading, setLoading] = useState(true);
+
+	async function fetchData() {
+		try {
+			const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}/exercises/${userExerciseId}`, {
+				method: 'GET'
+			});
+			if (response.ok) {
+				const data = await response.json();
+				setExerciseCategory(data.exercise_category);
+				setExerciseName(data.exercise_name);
+				setCalories(data.calories);
+				setDatetime(data.date);
+				setExerciseDuration(data.duration);
+			} else {
+				console.error("Error fetching user exercise data");
+			}
+		} catch (error) {
+			console.error("Error fetching user exercise:", error);
+		} finally {
+			setLoading(false);
+		}
+	}
+
+	useEffect(() => {
+		if (userId) {
+			fetchData();
+		}
+	}, [userId]);
+
 
 	function closeForm() {
 		setOpenForm(false);
 	}
 
-	async function createUserFood() {
+	async function updateUserExercise() {
 		try {
-			const response = await fetch(`http://localhost:8000/api/user-foods/${user_id}`, {
-				method: 'POST',
+			const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}/exercises/${userExerciseId}`, {
+				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
 				},
 				body: JSON.stringify({
-					"food_category": foodCategory,
-					"food_name": foodName,
+					"exercise_category": exerciseCategory,
+					"exercise_name": exerciseName,
 					"calories": calories,
 					"date": dateTime,
+					"duration": exerciseDuration,
 				}),
 			});
 			if (response.ok) {
-				console.log("Creada con exito");
-				onNewUserFood();
+				console.log("Creado con exito");
+				onEditUserExercise();
 			}
 		} catch (error) {
 			console.error("Error al realizar la solicitud:", error);
@@ -56,7 +92,15 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		createUserFood();
+		updateUserExercise();
+	}
+
+	if (loading) {
+		return (
+			<div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
+				<Loading />
+			</div>
+		);
 	}
 
 	return (
@@ -70,13 +114,13 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 								Categoría
 							</label>
 							<select
-								value={foodCategory}
-								onChange={(e) => setFoodCategory(e.target.value)}
+								value={exerciseCategory}
+								onChange={(e) => setExerciseCategory(e.target.value)}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="category"
 								required>
 								<option value="" disabled>Selecciona una categoría</option>
-								{Object.entries(availableFoodCategories).map(([key, value]) => (
+								{Object.entries(availableExerciseCategories).map(([key, value]) => (
 									<option key={key} value={key}>
 										{value}
 									</option>
@@ -88,12 +132,12 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 								Nombre
 							</label>
 							<input
-								value={foodName}
-								onChange={(e) => setFoodName(e.target.value)}
+								value={exerciseName}
+								onChange={(e) => setExerciseName(e.target.value)}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="name"
 								type="text"
-								placeholder="ej. Manzana"
+								placeholder="ej. Running"
 								required />
 						</div>
 						<div className="mb-4">
@@ -110,7 +154,7 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 						</div>
 						<div className="mb-4">
 							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="calories">
-								Calorías ingeridas [cal]
+								Calorías quemadas [cal]
 							</label>
 							<input
 								value={calories}
@@ -122,12 +166,27 @@ export const UserFoodCreateForm = ({ setOpenForm, onNewUserFood }: Props) => {
 								placeholder="ej. 100"
 								required />
 						</div>
+						<div className="mb-4">
+							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="duration">
+								Duración [min]
+							</label>
+							<input
+								value={exerciseDuration}
+								onChange={(e) => setExerciseDuration(e.target.value)}
+								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+								id="duration"
+								type="number"
+								min={1}
+								placeholder="ej. 30"
+								required
+							/>
+						</div>
 						<div className="flex items-center justify-end">
 							<button onClick={closeForm} className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-center font-semibold mr-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
 								Cerrar
 							</button>
 							<button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-								Crear
+								Editar
 							</button>
 						</div>
 					</form>

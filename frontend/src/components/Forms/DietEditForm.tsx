@@ -14,17 +14,17 @@ interface Props {
 type DayOfWeek = "MONDAY" | "TUESDAY" | "WEDNESDAY" | "THURSDAY" | "FRIDAY" | "SATURDAY" | "SUNDAY";
 
 interface DietMealEntryForm {
-  day_of_week: DayOfWeek;
-  time_of_day: string;
-  food_name: string;
-  food_category: string;
-  calories: number;
+	day_of_week: DayOfWeek;
+	time_of_day: string;
+	food_name: string;
+	food_category: string;
+	calories: number;
 }
 
 interface DietForm {
-  name: string;
-  description?: string;
-  meals: DietMealEntryForm[];
+	name: string;
+	description?: string;
+	meals: DietMealEntryForm[];
 }
 
 const daysOfWeek: DayOfWeek[] = ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"];
@@ -63,45 +63,45 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 	});
 
 	const [showSuccessModal, setShowSuccessModal] = useState(false);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState('');
 
-    useEffect(() => {
-        const fetchDietDetails = async () => {
-            if (!user_id || !dietId) {
-                setError('ID de usuario o dieta no proporcionado.');
-                setLoading(false);
-                return;
-            }
-            setLoading(true);
-            setError('');
-            try {
-                const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets/${dietId}`);
-                if (!response.ok) throw new Error('Error al obtener los detalles de la dieta para edición.');
-                const data = await response.json();
+	useEffect(() => {
+		const fetchDietDetails = async () => {
+			if (!user_id || !dietId) {
+				setError('ID de usuario o dieta no proporcionado.');
+				setLoading(false);
+				return;
+			}
+			setLoading(true);
+			setError('');
+			try {
+				const response = await fetch(`http://localhost:8000/api/users/${user_id}/diets/${dietId}`);
+				if (!response.ok) throw new Error('Error al obtener los detalles de la dieta para edición.');
+				const data = await response.json();
 
-                reset({
-                    name: data.name,
-                    description: data.description,
-                    meals: data.meals.map((meal: any) => ({
-                        day_of_week: meal.day_of_week,
-                        time_of_day: meal.time_of_day.substring(0, 5),
-                        food_name: meal.food_name,
-                        food_category: meal.food_category,
-                        calories: meal.calories,
-                    })),
-                });
+				reset({
+					name: data.name,
+					description: data.description,
+					meals: data.meals.map((meal: any) => ({
+						day_of_week: meal.day_of_week,
+						time_of_day: meal.time_of_day.substring(0, 5),
+						food_name: meal.food_name,
+						food_category: meal.food_category,
+						calories: meal.calories,
+					})),
+				});
 
-            } catch (err: any) {
-                console.error('Error fetching diet details for edit:', err);
-                setError(err.message || 'No se pudieron cargar los detalles de la dieta para edición.');
-            } finally {
-                setLoading(false);
-            }
-        };
+			} catch (err: any) {
+				console.error('Error fetching diet details for edit:', err);
+				setError(err.message || 'No se pudieron cargar los detalles de la dieta para edición.');
+			} finally {
+				setLoading(false);
+			}
+		};
 
-        fetchDietDetails();
-    }, [dietId, user_id, reset]);
+		fetchDietDetails();
+	}, [dietId, user_id, reset]);
 
 	function closeForm() {
 		setOpenForm(false);
@@ -166,30 +166,30 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 		}
 	};
 
-    if (loading) {
-        return (
-            <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
-                <Loading />
-            </div>
-        );
-    }
+	if (loading) {
+		return (
+			<div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
+				<Loading />
+			</div>
+		);
+	}
 
-    if (error) {
-        return (
-            <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
-                <div className="bg-white rounded-lg p-8 shadow-lg w-96 h-auto flex flex-col items-center justify-center">
-                    <h1 className="text-xl font-semibold text-red-600 mb-4 text-center">Error al cargar dieta</h1>
-                    <p className="text-gray-700 mb-4 text-center">{error}</p>
-                    <button
-                        onClick={closeForm}
-                        className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600"
-                    >
-                        Cerrar
-                    </button>
-                </div>
-            </div>
-        );
-    }
+	if (error) {
+		return (
+			<div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-500 bg-opacity-75 transition-opacity">
+				<div className="bg-white rounded-lg p-8 shadow-lg w-110 h-auto flex flex-col items-center justify-center">
+					<h1 className="text-xl font-semibold text-red-600 mb-4 text-center">Error al cargar dieta</h1>
+					<p className="text-gray-700 mb-4 text-center">{error}</p>
+					<button
+						onClick={closeForm}
+						className="px-4 py-2 bg-slate-500 text-white rounded-md hover:bg-slate-600 focus:outline-none focus:bg-slate-600"
+					>
+						Cerrar
+					</button>
+				</div>
+			</div>
+		);
+	}
 
 
 	return (
@@ -325,7 +325,7 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 									</div>
 									<div className="flex justify-end mt-4">
 										<button type="button" onClick={() => handleRemoveMeal(index)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-											Eliminar Comida
+											Borrar Comida
 										</button>
 									</div>
 								</div>
