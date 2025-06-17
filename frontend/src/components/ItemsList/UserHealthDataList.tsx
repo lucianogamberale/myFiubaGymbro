@@ -108,7 +108,10 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
                     </div>
 
                     {historicalUserHealthData.length > 0 && (
-                        <WeightChart data={historicalUserHealthData} />
+                        <div className="flex flex-col gap-4 p-4">
+                            <WeightChart data={historicalUserHealthData} />
+                        </div>
+
                     )}
                 </div>
             )}
