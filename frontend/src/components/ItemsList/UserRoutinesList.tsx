@@ -318,7 +318,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                     )}
                 </>
             ) : (
-                <div className="flex-grow overflow-auto p-2 ml-2 mr-2 bg-white border rounded-lg shadow-sm">
+                <div className="flex-grow overflow-auto p-4 ml-2 mr-2 bg-white border rounded-lg shadow-sm">
                     <div className="flex justify-between items-center mb-4">
                         <button onClick={handleBackToList} className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded focus:outline-none">
                             ← Volver a la lista
@@ -342,37 +342,43 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                     {selectedRoutine.description && <p className="text-slate-600 mb-4">Descripción: {selectedRoutine.description}</p>}
 
                     <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg shadow-sm bg-white">
+                        <table className="min-w-full table-fixed divide-y divide-gray-200 border border-gray-300 rounded-lg shadow-sm bg-white">
                             <thead className="bg-gray-100 text-gray-700 text-sm font-semibold">
                                 <tr>
                                     {/* Mapear solo los días que tienen ejercicios */}
                                     {daysWithExercises.map(day => (
-                                        <th key={day} className="px-4 py-3 text-left min-w-[150px]">{dayDisplayNames[day]}</th>
+                                        <th key={day} className="w-[150px] px-4 py-3 text-center">{dayDisplayNames[day]}</th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-gray-200">
-                                <tr>
+                                <tr className='hover:bg-gray-50 transition'>
                                     {/* Mapear solo los días que tienen ejercicios para las celdas */}
                                     {daysWithExercises.map(day => {
                                         const exercisesForDay = getExerciseSchedule(selectedRoutine.exercises)[day];
                                         return (
-                                            <td key={day} className="px-4 py-2 align-top">
+                                            <td key={day} className="ww-[150px] h-[120px] px-1 py-2 align-top text-center">
                                                 {exercisesForDay && exercisesForDay.length > 0 ? (
                                                     exercisesForDay.map((exercise, idx) => (
-                                                        <div key={idx} className="mb-1 last:mb-0 p-1 border-b border-gray-100 last:border-b-0">
-                                                            <div className="flex justify-between items-start">
+                                                        <div key={idx} className="-full h-full flex flex-col justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm hover:shadow-md transition-shadow duration-300">
+                                                            <div className="flex-1 overflow-hidden text-ellipsis">
                                                                 <div>
-                                                                    <strong className="text-slate-700">{exercise.exercise_name}</strong>
-                                                                    <br />
-                                                                    <span className="text-gray-500">({exercise.duration} min, {exercise.calories_burned} cal)</span>
+                                                                    <div className="text-slate-700 text-center text-sm break-words leading-tight">
+                                                                        {exercise.exercise_name}
+                                                                    </div>
+                                                                    <div className="text-gray-500 text-center text-xs mt-1">
+                                                                        ({exercise.duration} min, {exercise.calories_burned} cal)
+                                                                    </div>
                                                                 </div>
-                                                                <button
-                                                                    onClick={() => handleMarkExerciseAsCompleted(exercise)}
-                                                                    className="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
-                                                                >
-                                                                    Completar
-                                                                </button>
+                                                                <div className="mt-1">
+                                                                    <button
+                                                                        onClick={() => handleMarkExerciseAsCompleted(exercise)}
+                                                                        className="ml-2 bg-green-700 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
+                                                                    >
+                                                                        Completar
+                                                                    </button>
+                                                                </div>
+
                                                             </div>
                                                         </div>
                                                     ))

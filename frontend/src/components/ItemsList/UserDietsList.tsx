@@ -251,9 +251,9 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                 throw new Error('Error al marcar la comida como consumida.');
             }
 
-            setSuccessMessage({ 
-                title: '¡Comida consumida!', 
-                description: 'La comida ha sido marcada como consumida y agregada a tus comidas realizadas.' 
+            setSuccessMessage({
+                title: '¡Comida consumida!',
+                description: 'La comida ha sido marcada como consumida y agregada a tus comidas realizadas.'
             });
             setShowSuccessModal(true);
         } catch (err: any) {
@@ -334,7 +334,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                     )}
                 </>
             ) : (
-                <div className="flex-grow overflow-auto p-2 ml-2 mr-2 bg-white border rounded-lg shadow-sm">
+                <div className="flex-grow overflow-auto p-4 ml-2 mr-2 bg-white border rounded-lg shadow-sm">
                     <div className="flex justify-between items-center mb-4">
                         <button onClick={handleBackToList} className="bg-slate-200 hover:bg-slate-300 text-slate-700 font-semibold py-2 px-4 rounded focus:outline-none">
                             ← Volver a la lista
@@ -358,39 +358,52 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                     {selectedDiet.description && <p className="text-slate-600 mb-4">Descripción: {selectedDiet.description}</p>}
 
                     <div className="overflow-x-auto">
-                        <table className="min-w-full divide-y divide-gray-200 border border-gray-300 rounded-lg shadow-sm bg-white">
+                        <table className="min-w-full table-fixed divide-y divide-gray-200 border border-gray-300 rounded-lg shadow-sm bg-white">
                             <thead className="bg-gray-100 text-gray-700 text-sm font-semibold">
                                 <tr>
-                                    <th className="px-4 py-3 text-left min-w-[80px]">Hora</th>
+                                    <th className="w-[100px] px-4 py-3 text-center">Hora</th>
                                     {orderedDays.map(day => (
-                                        <th key={day} className="px-4 py-3 text-left min-w-[150px]">{dayDisplayNames[day]}</th>
+                                        <th key={day} className="w-[150px] px-4 py-3 text-center">
+                                            {dayDisplayNames[day]}
+                                        </th>
                                     ))}
                                 </tr>
                             </thead>
                             <tbody className="text-sm divide-y divide-gray-200">
                                 {getUniqueTimes(getMealSchedule(selectedDiet.meals)).map(time => (
                                     <tr key={time} className="hover:bg-gray-50 transition">
-                                        <td className="px-4 py-2 font-semibold">{time}</td>
+                                        <td className="w-[100px] h-[100px] px-4 py-2 text-center font-semibold align-middle">
+                                            {time}
+                                        </td>
                                         {orderedDays.map(day => (
-                                            <td key={`${day}-${time}`} className="px-4 py-2">
-                                                {getMealSchedule(selectedDiet.meals)[day]?.[time]?.map((meal, idx) => (
-                                                    <div key={idx} className="mb-1 last:mb-0 p-1 border-b border-gray-100 last:border-b-0">
-                                                        <div className="flex justify-between items-start">
-                                                            <div>
-                                                                <strong className="text-slate-700">{meal.food_name}</strong>
-                                                                <br />
-                                                                <span className="text-gray-500">({meal.calories} cal)</span>
+                                            <td key={`${day}-${time}`} className="w-[150px] h-[120px] px-1 py-2 align-top text-center">
+                                                <div className="h-full w-full flex flex-col justify-center items-center">
+                                                    {(getMealSchedule(selectedDiet.meals)[day]?.[time] || []).map((meal, idx) => (
+                                                        <div
+                                                            key={idx}
+                                                            className="w-full h-full flex flex-col justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm hover:shadow-md transition-shadow duration-300"
+                                                        >
+                                                            <div className="flex-1 overflow-hidden text-ellipsis">
+                                                                <div className="text-slate-700 text-center text-sm break-words leading-tight">
+                                                                    {meal.food_name}
+                                                                </div>
+                                                                <div className="text-gray-500 text-center text-xs mt-1">
+                                                                    ({meal.calories} cal)
+                                                                </div>
                                                             </div>
-                                                            <button
-                                                                onClick={() => handleMarkMealAsConsumed(meal)}
-                                                                className="ml-2 bg-green-500 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
-                                                            >
-                                                                Consumir
-                                                            </button>
+                                                            <div className="mt-1">
+                                                                <button
+                                                                    onClick={() => handleMarkMealAsConsumed(meal)}
+                                                                    className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
+                                                                >
+                                                                    Consumir
+                                                                </button>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                ))}
+                                                    ))}
+                                                </div>
                                             </td>
+
                                         ))}
                                     </tr>
                                 ))}
@@ -404,6 +417,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                             </tbody>
                         </table>
                     </div>
+
                 </div>
             )}
 
