@@ -37,6 +37,13 @@ class UserObjectiveRepository(BaseRepository):
             .order_by(sa.desc(UserObjective.id))
         ).scalars().all()
 
+    def get_last_user_objective(self, user_id: float) -> Optional[UserObjective]:
+        return self.db_session.execute(
+            sa.select(UserObjective)
+            .where(UserObjective.user_id == user_id)
+            .order_by(sa.desc(UserObjective.id))
+        ).scalar_one_or_none()
+
     def update_objective_data(
         self, user_id: float, user_objective_id: float, user_objective_data: UserObjectiveUpdateDTO
     ) -> None:
