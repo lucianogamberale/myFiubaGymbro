@@ -42,7 +42,12 @@ const getRandomCategory = (): CategoryKey => {
     return keys[randomIndex];
 };
 
-export const UserHome = () => {
+export interface UserHomeProps {
+    updateHome: boolean;
+    onUpdateHome: (value: boolean) => void;
+}
+
+export const UserHome = ({ updateHome, onUpdateHome }: UserHomeProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
     const user_id = auth.getUserId();

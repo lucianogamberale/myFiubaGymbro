@@ -40,7 +40,12 @@ interface RoutineForm {
     exercises: ExerciseEntryForm[];
 }
 
-export const UserExerciseDetailList = () => {
+interface UserExerciseDetailListProps {
+    updateUserExerciseDetail: boolean;
+    onUpdateUserExerciseDetail: (value: boolean) => void;
+}
+
+export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserExerciseDetail }: UserExerciseDetailListProps) => {
     const auth = useAuth();
     const user_id = auth.getUserId();
     const navigate = useNavigate();
@@ -76,8 +81,8 @@ export const UserExerciseDetailList = () => {
                 else setSelectedType('1.0');
 
                 // Set diet based on activity
-                if (activity === 'Ganar peso') setSelectedType('2.0');
-                else if (activity === 'Perder peso') setSelectedType('3.0');
+                if (activity === 'Ganar peso') setSelectedType('3.0');
+                else if (activity === 'Perder peso') setSelectedType('2.0');
 
                 setLoading(false);
             })
