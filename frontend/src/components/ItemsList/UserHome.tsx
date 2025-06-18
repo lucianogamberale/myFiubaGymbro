@@ -166,7 +166,7 @@ export const UserHome = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
             <div className="bg-white text-black p-6 rounded-xl shadow-lg text-center">
                 <p className="text-lg font-semibold mb-2">Conectando con tu cuenta Garmin Connect</p>
-                <p className="text-lg font-semibold mb-2">Usuario:{auth.getUserEmail()}</p>
+                <p className="text-lg font-semibold mb-2">Usuario: {auth.getUserEmail()}</p>
                 <div className="animate-spin h-6 w-6 border-4 border-blue-500 border-t-transparent rounded-full mx-auto"></div>
                 <p className="mt-2 text-sm text-gray-600">Esto puede tardar unos segundos</p>
             </div>

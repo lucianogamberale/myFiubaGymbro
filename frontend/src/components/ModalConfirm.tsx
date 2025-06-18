@@ -8,7 +8,7 @@ interface Props {
 export const ModalConfirm = ({ title, description, onConfirm, onCancel }: Props) => {
     return (
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
-            <div className="bg-white rounded-lg p-8 shadow-lg w-96 h-auto flex flex-col items-center justify-center">
+            <div className="bg-white rounded-lg p-8 shadow-lg w-110 h-auto flex flex-col items-center justify-center">
                 <h1 className="text-2xl font-semibold text-slate-600 mb-4 text-center">{title}</h1>
                 <div className="text-gray-700 mb-6 text-center">
                     {description.split('\n').map((line, index) => (

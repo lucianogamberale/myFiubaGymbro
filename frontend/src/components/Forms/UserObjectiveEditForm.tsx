@@ -14,19 +14,14 @@ export const UserObjectiveEditForm = ({ setOpenForm, userObjective , onUserObjec
 	const user_id = auth.getUserId();
 
 	const availableObjectiveCategories = {
-		'Correr': 'Correr',
-		'Caminar': 'Caminar',
-		'Bicicleta': 'Bicicleta',
 		'Ganar peso': 'Ganar peso',
 		'Perder peso': 'Perder peso',
 	};
 
-	// Categories that use km as unit of measurement
-	const kmCategories = new Set(['Correr', 'Caminar', 'Bicicleta']);
 
 	// Function to get unit of measurement based on category
-	const getExampleValue = (category: string): string => {
-		return kmCategories.has(category) ? '10 km' : '1900 cal';
+	const getExampleValue = (): string => {
+		return '1900 cal';
 	};
 
 	const [objectiveCategory, setObjectiveCategory] = useState(userObjective.activity);
@@ -108,12 +103,12 @@ export const UserObjectiveEditForm = ({ setOpenForm, userObjective , onUserObjec
 									setObjectiveName(e.target.value);
 									// Update placeholder when category changes
 									const input = e.target;
-									input.placeholder = objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : '';
+									input.placeholder = objectiveCategory ? `ej. ${getExampleValue()}` : '';
 								}}
 								className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
 								id="name"
 								type="number"
-								placeholder={objectiveCategory ? `ej. ${getExampleValue(objectiveCategory)}` : ''}
+								placeholder={objectiveCategory ? `ej. ${getExampleValue()}` : ''}
 								required />
 						</div>
 						<div className="mb-4">

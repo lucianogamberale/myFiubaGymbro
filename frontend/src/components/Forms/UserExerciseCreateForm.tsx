@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ModalSuccess } from "../ModalSuccess";
 import { useAuth } from '../../auth/AuthProvider';
 
 
@@ -10,17 +9,7 @@ interface Props {
 
 export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props) => {
 	const auth = useAuth();
-	const user_id = auth.getUserId();
-
-	// STRENGTH = "Fuerza"
-	// CARDIO = "Cardio"
-	// FLEXIBILITY = "Flexibilidad"
-	// BALANCE = "Equilibrio"
-	// ENDURANCE = "Resistencia"
-	// SPEED = "Velocidad"
-	// AGILITY = "Agilidad"
-	// COORDINATION = "Coordinación"
-	// POWER = "Potencia"
+	const userId = auth.getUserId();
 
 	const availableExerciseCategories = {
 		"Fuerza": "Fuerza",
@@ -40,19 +29,13 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 	const [dateTime, setDatetime] = useState(new Date().toISOString().slice(0, 16));
 	const [exerciseDuration, setExerciseDuration] = useState('');
 
-	const [showSuccessModal, setShowSuccessModal] = useState(false);
-
 	function closeForm() {
 		setOpenForm(false);
 	}
-	function handleCloseAll() {
-		setShowSuccessModal(false);
-		closeForm();
-	}
 
-	async function createUserFood() {
+	async function createUserExercise() {
 		try {
-			const response = await fetch(`http://localhost:8000/api/user-exercises/${user_id}`, {
+			const response = await fetch(`http://localhost:8000/api/user-exercises/${userId}`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -67,7 +50,6 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 			});
 			if (response.ok) {
 				console.log("Creado con exito");
-				setShowSuccessModal(true);
 				onNewUserExercise();
 			}
 		} catch (error) {
@@ -77,7 +59,7 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 
 	function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		createUserFood();
+		createUserExercise();
 	}
 
 	return (
@@ -169,10 +151,6 @@ export const UserExerciseCreateForm = ({ setOpenForm, onNewUserExercise }: Props
 					</form>
 				</div>
 			</div>
-
-			{showSuccessModal &&
-				<ModalSuccess title="¡Creado con éxito!" description="El ejercicio ha sido creado con éxito" route="/user-exercises" button="Ir a mis ejercicios" onClose={handleCloseAll} />
-			}
 		</>
 	)
 }
