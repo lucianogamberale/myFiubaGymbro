@@ -25,9 +25,7 @@ export default function SidebarLayout() {
     { label: `Mi salud`, link: "/user-health-data", icon: FaHeartbeat },
     { label: "Mis objetivos", link: "/user-objectives", icon: FaTrophy },
     { label: "Mis comidas", link: "/user-diets", icon: FaHamburger },
-    // { label: "Mis comidas", link: "/user-foods", icon: FaHamburger },
     { label: "Mis ejercicios", link: "/user-routines", icon: FaRunning },
-    // { label: "Mis ejercicios", link: "/user-exercises", icon: FaRunning },
     { label: "Mis calorías diarias", link: "/user-daily-calories-goal", icon: FaClock },
     { label: "Cerrar Sesión", link: "/", icon: MdLogout, click: true }
   ];

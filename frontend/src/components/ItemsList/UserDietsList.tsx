@@ -292,7 +292,7 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
             {!selectedDiet ? (
                 <>
                     {userDiets.length === 0 && !loading ? (
-                        <div className="text-lg text-slate-400 text-center mt-3">Aún no tenés dietas cargadas.</div>
+                        <div className="text-lg text-slate-400 text-center mt-3">Aún no cargaste nada.</div>
                     ) : (
                         <div className="flex-grow overflow-auto">
                             <div className="grid grid-rows-* gap-4 p-2 ml-2 mr-2">
@@ -417,13 +417,23 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                             </tbody>
                         </table>
                     </div>
-
                 </div>
             )}
 
-            {/* crear y editar dietas */}
-            {openCreateForm && <DietCreateForm setOpenForm={setOpenCreateForm} onNewDiet={() => handleDietFormSuccess(false)} />}
-            {openEditForm && dietToEditId && <DietEditForm dietId={dietToEditId} setOpenForm={setOpenEditForm} onUpdateDiet={() => handleDietFormSuccess(true)} />}
+            {/* crear y editar */}
+            {openCreateForm && (
+                <DietCreateForm
+                    setOpenForm={setOpenCreateForm}
+                    onNewDiet={() => handleDietFormSuccess(false)}
+                ></DietCreateForm>
+            )}
+            {openEditForm && dietToEditId && (
+                <DietEditForm
+                    dietId={dietToEditId}
+                    setOpenForm={setOpenEditForm}
+                    onUpdateDiet={() => handleDietFormSuccess(true)}
+                ></DietEditForm>
+            )}
 
             {/* confirmación de eliminación */}
             {showConfirmDeleteModal && (
@@ -432,12 +442,18 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                     description="¿Estás seguro de que quieres eliminar esta dieta? Esta acción no se puede deshacer."
                     onConfirm={executeDeleteDiet}
                     onCancel={cancelDeleteDiet}
-                />
+                ></ModalConfirm>
             )}
 
-            {showSuccessModal &&
-                <ModalSuccess title={successMessage.title} description={successMessage.description} route="/user-diets" button="Ir a mis dietas" onClose={handleCloseAll} />
-            }
+            {showSuccessModal && (
+                <ModalSuccess
+                    title={successMessage.title}
+                    description={successMessage.description}
+                    route="/user-diets"
+                    button="Ir a mis dietas"
+                    onClose={handleCloseAll}
+                ></ModalSuccess>
+            )}
         </div>
     );
 };

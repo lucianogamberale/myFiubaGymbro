@@ -208,36 +208,40 @@ export const UserExercisesList = ({ updateUserExercises, onUpdateUserExercises }
             </>
             }
 
-            {openCreateForm &&
+            {/* crear y editar */}
+            {openCreateForm && (
                 <UserExerciseCreateForm
                     setOpenForm={setOpenCreateForm}
                     onNewUserExercise={handleUserExerciseCreateFormSuccess}
-                ></UserExerciseCreateForm>}
-            {openEditForm && userExerciseIdToEdit !== null &&
+                ></UserExerciseCreateForm>
+            )}
+            {openEditForm && userExerciseIdToEdit && (
                 <UserExerciseEditForm
                     userExerciseId={userExerciseIdToEdit}
                     setOpenForm={setOpenEditForm}
                     onEditUserExercise={handleUserExerciseEditFormSuccess}
-                ></UserExerciseEditForm>}
+                ></UserExerciseEditForm>
+            )}
 
+            {/* confirmación de eliminación */}
             {showConfirmDeleteModal && (
                 <ModalConfirm
                     title="Confirmar Eliminación"
                     description="¿Estás seguro de que quieres eliminar el ejercicio? Esta acción no se puede deshacer."
                     onConfirm={executeDeleteUserExercise}
                     onCancel={cancelDeleteUserExercise}
-                />
+                ></ModalConfirm>
             )}
 
-            {showSuccessModal &&
+            {showSuccessModal && (
                 <ModalSuccess
                     title={successMessage.title}
                     description={successMessage.description}
-                    route="/user-exercises"
-                    button="Ir a mis ejercicios"
+                    route="/user-routines"
+                    button="Ir a mis rutinas"
                     onClose={handleCloseAll}
-                />
-            }
+                ></ModalSuccess>
+            )}
         </div>
     );
 };

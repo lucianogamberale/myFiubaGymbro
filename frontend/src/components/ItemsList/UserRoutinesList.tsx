@@ -276,7 +276,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
             {!selectedRoutine ? (
                 <>
                     {userRoutines.length === 0 && !loading ? (
-                        <div className="text-lg text-slate-400 text-center mt-3">Aún no tenés rutinas cargadas.</div>
+                        <div className="text-lg text-slate-400 text-center mt-3">Aún no cargaste nada.</div>
                     ) : (
                         <div className="flex-grow overflow-auto">
                             <div className="grid grid-rows-* gap-4 p-2 ml-2 mr-2">
@@ -406,8 +406,19 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
             )}
 
             {/* crear y editar rutinas */}
-            {openCreateForm && <RoutineCreateForm setOpenForm={setOpenCreateForm} onNewRoutine={() => handleRoutineFormSuccess(false)} />}
-            {openEditForm && routineToEditId && <RoutineEditForm routineId={routineToEditId} setOpenForm={setOpenEditForm} onUpdateRoutine={() => handleRoutineFormSuccess(true)} />}
+            {openCreateForm && (
+                <RoutineCreateForm
+                    setOpenForm={setOpenCreateForm}
+                    onNewRoutine={() => handleRoutineFormSuccess(false)}
+                ></RoutineCreateForm>
+            )}
+            {openEditForm && routineToEditId && (
+                <RoutineEditForm
+                    routineId={routineToEditId}
+                    setOpenForm={setOpenEditForm}
+                    onUpdateRoutine={() => handleRoutineFormSuccess(true)}
+                ></RoutineEditForm>
+            )}
 
             {/* confirmación de eliminación */}
             {showConfirmDeleteModal && (
@@ -416,12 +427,18 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                     description="¿Estás seguro de que quieres eliminar esta rutina? Esta acción no se puede deshacer."
                     onConfirm={executeDeleteRoutine}
                     onCancel={cancelDeleteRoutine}
-                />
+                ></ModalConfirm>
             )}
 
-            {showSuccessModal &&
-                <ModalSuccess title={successMessage.title} description={successMessage.description} route="/user-routines" button="Ir a mis rutinas" onClose={handleCloseAll} />
-            }
+            {showSuccessModal && (
+                <ModalSuccess
+                    title={successMessage.title}
+                    description={successMessage.description}
+                    route="/user-routines"
+                    button="Ir a mis rutinas"
+                    onClose={handleCloseAll}
+                ></ModalSuccess>
+            )}
         </div>
     );
 };
