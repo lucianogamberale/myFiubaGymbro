@@ -59,7 +59,6 @@ class UserObjectiveRepository(BaseRepository):
         user_objective = self.db_session.query(UserObjective).filter(sa.and_(UserObjective.user_id == user_id, UserObjective.id == user_objective_id)).first()
         if not user_objective:
             raise HTTPException(status_code=404, detail="User objective not found")
-        self._add_to_history(user_objective, "failed")
         self.db_session.delete(user_objective)
         self.db_session.commit()
 
