@@ -40,7 +40,12 @@ interface RoutineForm {
     exercises: ExerciseEntryForm[];
 }
 
-export const UserExerciseDetailList = () => {
+interface UserExerciseDetailListProps {
+    updateUserExerciseDetail: boolean;
+    onUpdateUserExerciseDetail: (value: boolean) => void;
+}
+
+export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserExerciseDetail }: UserExerciseDetailListProps) => {
     const auth = useAuth();
     const user_id = auth.getUserId();
     const navigate = useNavigate();
@@ -51,33 +56,41 @@ export const UserExerciseDetailList = () => {
     const [error, setError] = useState<string | null>(null);
     const [success, setShowSuccessModal] = useState(false);
 
+
     useEffect(() => {
         if (type === '0') {
-            fetch(`http://localhost:8000/api/user-health-data/${user_id}/last`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+            // Fetch health data and objectives in parallel
+            Promise.all([
+                fetch(`http://localhost:8000/api/user-health-data/${user_id}/last`).then(res => {
+                    if (!res.ok) throw new Error('Error al obtener datos de salud');
+                    return res.json();
+                }),
+                fetch(`http://localhost:8000/api/user-objectives/${user_id}/last`).then(res => {
+                    if (!res.ok) throw new Error('Error al obtener objetivos');
+                    return res.json();
+                }).catch(() => []) // Return empty array if objectives don't exist yet
+            ])
+            .then(([healthData, last_objective]) => {
+                const { weight, height } = healthData;
+                const { activity, current_progress, objective, unit_of_measurement, start_date, end_date } = last_objective;
+
+                // Set diet type based on weight/height ratio
+                if (weight > height) setSelectedType('2.0');
+                else if (weight === height) setSelectedType('2.1');
+                else if (weight < height) setSelectedType('3.0');
+                else setSelectedType('1.0');
+
+                // Set diet based on activity
+                if (activity === 'Ganar peso') setSelectedType('3.0');
+                else if (activity === 'Perder peso') setSelectedType('2.0');
+
+                setLoading(false);
             })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then((data: UserHealthDataEntry) => {
-                    const { weight, height } = data;
-
-                    if (weight > height) setSelectedType('2.0');
-                    else if (weight === height) setSelectedType('2.1');
-                    else if (weight < height) setSelectedType('3.0');
-                    else setSelectedType('1.0');
-
-                    setLoading(false);
-                })
-                .catch(error => {
-                    console.error('Error fetching data:', error);
-                    setError('Error al obtener los datos del usuario.');
-                    setLoading(false);
-                });
+            .catch(error => {
+                console.error('Error:', error);
+                setError(error.message || 'Error al obtener los datos del usuario');
+                setLoading(false);
+            });
         }
     }, [type, user_id]);
 
