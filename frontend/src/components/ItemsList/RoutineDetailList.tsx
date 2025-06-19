@@ -54,7 +54,7 @@ export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserE
     const [selectedType, setSelectedType] = useState<string | null>(type !== '0' ? type! : null);
     const [loading, setLoading] = useState(type === '0');
     const [error, setError] = useState<string | null>(null);
-    const [success, setShowSuccessModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
 
     useEffect(() => {
@@ -70,27 +70,27 @@ export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserE
                     return res.json();
                 }).catch(() => []) // Return empty array if objectives don't exist yet
             ])
-            .then(([healthData, last_objective]) => {
-                const { weight, height } = healthData;
-                const { activity, current_progress, objective, unit_of_measurement, start_date, end_date } = last_objective;
+                .then(([healthData, last_objective]) => {
+                    const { weight, height } = healthData;
+                    const { activity, current_progress, objective, unit_of_measurement, start_date, end_date } = last_objective;
 
-                // Set diet type based on weight/height ratio
-                if (weight > height) setSelectedType('2.0');
-                else if (weight === height) setSelectedType('2.1');
-                else if (weight < height) setSelectedType('3.0');
-                else setSelectedType('1.0');
+                    // Set diet type based on weight/height ratio
+                    if (weight > height) setSelectedType('2.0');
+                    else if (weight === height) setSelectedType('2.1');
+                    else if (weight < height) setSelectedType('3.0');
+                    else setSelectedType('1.0');
 
-                // Set diet based on activity
-                if (activity === 'Ganar peso') setSelectedType('3.0');
-                else if (activity === 'Perder peso') setSelectedType('2.0');
+                    // Set diet based on activity
+                    if (activity === 'Ganar peso') setSelectedType('3.0');
+                    else if (activity === 'Perder peso') setSelectedType('2.0');
 
-                setLoading(false);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                setError(error.message || 'Error al obtener los datos del usuario');
-                setLoading(false);
-            });
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    setError(error.message || 'Error al obtener los datos del usuario');
+                    setLoading(false);
+                });
         }
     }, [type, user_id]);
 
@@ -121,15 +121,19 @@ export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserE
 
             if (response.ok) {
                 setShowSuccessModal(true);
-                alert('✅ Rutina añadida exitosamente');
+                setTimeout(() => {
+                    setShowSuccessModal(false);
+                    onUpdateUserExerciseDetail(true);
+                }, 1000);
+                console.log('✅ Rutina añadida exitosamente');
             } else {
                 const errorData = await response.json();
                 console.error('Error creating routine:', errorData);
-                alert(`Error al crear la rutina: ${errorData.detail || response.statusText}`);
+                console.log(`Error al crear la rutina: ${errorData.detail || response.statusText}`);
             }
         } catch (error) {
             console.error('Error creating routine:', error);
-            alert('Error al crear la rutina. Intente de nuevo más tarde.');
+            console.log('Error al crear la rutina. Intente de nuevo más tarde.');
         }
     };
 
@@ -146,6 +150,14 @@ export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserE
         }
         return 'from-emerald-500 to-lime-400';
     };
+
+    const SuccessModal = () => (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white text-black p-6 rounded-xl shadow-lg text-center">
+                <p className="text-lg font-semibold mb-2">✅ Rutina añadida exitosamente</p>
+            </div>
+        </div>
+    );
 
     return (
         <div className="p-6 max-w-4xl mx-auto">
@@ -221,7 +233,7 @@ export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserE
                     </div>
                 ))}
             </div>
-
+            {showSuccessModal && <SuccessModal />}
         </div>
     );
 };
