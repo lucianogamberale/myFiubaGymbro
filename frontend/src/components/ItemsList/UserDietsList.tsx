@@ -390,14 +390,14 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
                                                                 <div className="text-slate-700 text-center text-sm break-words leading-tight">
                                                                     {meal.food_name}
                                                                 </div>
-                                                                <div className="text-gray-500 text-center text-xs mt-1">
-                                                                    ({meal.calories} cal)
-                                                                </div>
                                                             </div>
                                                             <div className="mt-1">
+                                                                <div className="text-gray-500 text-center text-xs">
+                                                                    ({meal.calories} cal)
+                                                                </div>
                                                                 <button
                                                                     onClick={() => handleMarkMealAsConsumed(meal)}
-                                                                    className="w-full bg-green-700 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
+                                                                    className="mt-1 w-full bg-green-700 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
                                                                 >
                                                                     Consumir
                                                                 </button>
