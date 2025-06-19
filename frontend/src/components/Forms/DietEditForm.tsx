@@ -198,8 +198,7 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 				<div className="fixed inset-0 z-50 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 				<div className="fixed inset-0 z-50 w-screen overflow-y-auto flex justify-center items-center p-4">
 					<form onSubmit={handleSubmit(onSubmit)} className="bg-white shadow-md rounded-lg xl:w-2/4 p-10 max-h-[90vh] overflow-y-auto">
-						<h2 className="text-2xl font-bold text-slate-800 mb-6 text-center">Editar Dieta</h2>
-
+						<h2 className="text-3xl font-bold text-slate-800 mb-6 text-center">Editar Dieta</h2>
 						<div className="mb-4">
 							<label className="text-start block text-gray-700 text-lg font-bold mb-2" htmlFor="dietName">
 								Nombre de la Dieta:
@@ -333,18 +332,19 @@ export const DietEditForm = ({ dietId, setOpenForm, onUpdateDiet }: Props) => {
 						</div>
 
 						<div className="flex justify-center mt-6">
-							<button type="button" onClick={handleAddMeal} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
+							<button type="button" onClick={handleAddMeal} className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
 								Añadir Comida
 							</button>
 						</div>
-
-						<div className="flex items-center justify-end mt-8">
-							<button onClick={closeForm} className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-center font-semibold mr-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-								Cerrar
-							</button>
-							<button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-								Guardar Cambios
-							</button>
+						<div className="mt-8 border-t pt-6 border-gray-200">
+							<div className="flex items-center justify-end mt-8">
+								<button onClick={closeForm} className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-center font-semibold mr-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+									Cerrar
+								</button>
+								<button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+									Guardar Cambios
+								</button>
+							</div>
 						</div>
 					</form>
 				</div>

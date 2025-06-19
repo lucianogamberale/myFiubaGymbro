@@ -215,12 +215,15 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
 
         try {
             const now = new Date();
+            const argentinaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Argentina/Buenos_Aires' }));
+            argentinaTime.setHours(argentinaTime.getHours() - 3);
+
             const userExerciseData = {
                 exercise_name: exercise.exercise_name,
                 exercise_category: exercise.exercise_category,
                 duration: exercise.duration,
                 calories: exercise.calories_burned,
-                date: now.toISOString()
+                date: argentinaTime.toISOString()
             };
 
             const response = await fetch(`http://localhost:8000/api/user-exercises/${user_id}`, {
@@ -276,7 +279,7 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
             {!selectedRoutine ? (
                 <>
                     {userRoutines.length === 0 && !loading ? (
-                        <div className="text-lg text-slate-400 text-center mt-3">Aún no tenés rutinas cargadas.</div>
+                        <div className="text-lg text-slate-400 text-center mt-3">Aún no cargaste nada.</div>
                     ) : (
                         <div className="flex-grow overflow-auto">
                             <div className="grid grid-rows-* gap-4 p-2 ml-2 mr-2">
@@ -360,20 +363,22 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                                             <td key={day} className="ww-[150px] h-[120px] px-1 py-2 align-top text-center">
                                                 {exercisesForDay && exercisesForDay.length > 0 ? (
                                                     exercisesForDay.map((exercise, idx) => (
-                                                        <div key={idx} className="-full h-full flex flex-col justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm hover:shadow-md transition-shadow duration-300">
-                                                            <div className="flex-1 overflow-hidden text-ellipsis">
+                                                        <div key={idx} className="h-full w-full flex flex-col justify-center items-center">
+                                                            <div className="w-full h-full flex flex-col justify-between bg-gray-50 border border-gray-200 rounded-lg p-2 shadow-sm hover:shadow-md transition-shadow duration-300">
                                                                 <div>
-                                                                    <div className="text-slate-700 text-center text-sm break-words leading-tight">
-                                                                        {exercise.exercise_name}
-                                                                    </div>
-                                                                    <div className="text-gray-500 text-center text-xs mt-1">
-                                                                        ({exercise.duration} min, {exercise.calories_burned} cal)
+                                                                    <div className="flex-1 overflow-hidden text-ellipsis">
+                                                                        <div className="text-slate-700 text-center text-sm break-words leading-tight">
+                                                                            {exercise.exercise_name}
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                                 <div className="mt-1">
+                                                                    <div className="text-gray-500 text-center text-xs">
+                                                                        ({exercise.duration} min, {exercise.calories_burned} cal)
+                                                                    </div>
                                                                     <button
                                                                         onClick={() => handleMarkExerciseAsCompleted(exercise)}
-                                                                        className="ml-2 bg-green-700 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
+                                                                        className="mt-1 w-full bg-green-700 hover:bg-green-600 text-white font-bold py-1 px-2 rounded text-xs"
                                                                     >
                                                                         Completar
                                                                     </button>
@@ -406,8 +411,19 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
             )}
 
             {/* crear y editar rutinas */}
-            {openCreateForm && <RoutineCreateForm setOpenForm={setOpenCreateForm} onNewRoutine={() => handleRoutineFormSuccess(false)} />}
-            {openEditForm && routineToEditId && <RoutineEditForm routineId={routineToEditId} setOpenForm={setOpenEditForm} onUpdateRoutine={() => handleRoutineFormSuccess(true)} />}
+            {openCreateForm && (
+                <RoutineCreateForm
+                    setOpenForm={setOpenCreateForm}
+                    onNewRoutine={() => handleRoutineFormSuccess(false)}
+                ></RoutineCreateForm>
+            )}
+            {openEditForm && routineToEditId && (
+                <RoutineEditForm
+                    routineId={routineToEditId}
+                    setOpenForm={setOpenEditForm}
+                    onUpdateRoutine={() => handleRoutineFormSuccess(true)}
+                ></RoutineEditForm>
+            )}
 
             {/* confirmación de eliminación */}
             {showConfirmDeleteModal && (
@@ -416,12 +432,18 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
                     description="¿Estás seguro de que quieres eliminar esta rutina? Esta acción no se puede deshacer."
                     onConfirm={executeDeleteRoutine}
                     onCancel={cancelDeleteRoutine}
-                />
+                ></ModalConfirm>
             )}
 
-            {showSuccessModal &&
-                <ModalSuccess title={successMessage.title} description={successMessage.description} route="/user-routines" button="Ir a mis rutinas" onClose={handleCloseAll} />
-            }
+            {showSuccessModal && (
+                <ModalSuccess
+                    title={successMessage.title}
+                    description={successMessage.description}
+                    route="/user-routines"
+                    button="Ir a mis rutinas"
+                    onClose={handleCloseAll}
+                ></ModalSuccess>
+            )}
         </div>
     );
 };

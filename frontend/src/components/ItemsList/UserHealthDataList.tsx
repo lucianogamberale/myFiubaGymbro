@@ -148,6 +148,7 @@ export const UserHealthDataList = ({ updateUserHealthData, onUpdateUserHealthDat
                                                                 day: '2-digit',
                                                                 month: '2-digit',
                                                                 year: 'numeric',
+                                                                timeZone: 'America/Argentina/Buenos_Aires'
                                                             })}
                                                         </td>
                                                         {/* <td className="px-4 py-2 text-right">{userHealthData.height}</td> */}

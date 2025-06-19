@@ -178,6 +178,7 @@ export const UserFoodsList = ({ updateUserFoods, onUpdateUserFoods }: Props) => 
                                                     year: 'numeric',
                                                     hour: '2-digit',
                                                     minute: '2-digit',
+                                                    timeZone: 'America/Argentina/Buenos_Aires'
                                                 })}
                                             </td>
                                             <td className="px-4 py-2 text-right">
@@ -205,36 +206,40 @@ export const UserFoodsList = ({ updateUserFoods, onUpdateUserFoods }: Props) => 
             </>
             }
 
-            {openCreateForm &&
+            {/* crear y editar */}
+            {openCreateForm && (
                 <UserFoodCreateForm
                     setOpenForm={setOpenCreateForm}
                     onNewUserFood={handleUserFoodCreateFormSuccess}
-                ></UserFoodCreateForm>}
-            {openEditForm && userFoodIdToEdit !== null &&
+                ></UserFoodCreateForm>
+            )}
+            {openEditForm && userFoodIdToEdit && (
                 <UserFoodEditForm
                     userFoodId={userFoodIdToEdit}
                     setOpenForm={setOpenEditForm}
                     onEditUserFood={handleUserFoodEditFormSuccess}
-                ></UserFoodEditForm>}
+                ></UserFoodEditForm>
+            )}
 
+            {/* confirmación de eliminación */}
             {showConfirmDeleteModal && (
                 <ModalConfirm
                     title="Confirmar Eliminación"
                     description="¿Estás seguro de que quieres eliminar la comida? Esta acción no se puede deshacer."
                     onConfirm={executeDeleteUserFood}
                     onCancel={cancelDeleteUserFood}
-                />
+                ></ModalConfirm>
             )}
 
-            {showSuccessModal &&
+            {showSuccessModal && (
                 <ModalSuccess
                     title={successMessage.title}
                     description={successMessage.description}
-                    route="/user-foods"
-                    button="Ir a mis comidas"
+                    route="/user-diets"
+                    button="Ir a mis dietas"
                     onClose={handleCloseAll}
-                />
-            }
+                ></ModalSuccess>
+            )}
         </div>
     );
 };
