@@ -49,33 +49,40 @@ export const UserExerciseDetailList = () => {
     const [selectedType, setSelectedType] = useState<string | null>(type !== '0' ? type! : null);
     const [loading, setLoading] = useState(type === '0');
     const [error, setError] = useState<string | null>(null);
-    const [success, setShowSuccessModal] = useState(false);
+    const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     useEffect(() => {
         if (type === '0') {
-            fetch(`http://localhost:8000/api/user-health-data/${user_id}/last`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-                .then(response => {
-                    if (!response.ok) throw new Error('Network response was not ok');
-                    return response.json();
-                })
-                .then((data: UserHealthDataEntry) => {
-                    const { weight, height } = data;
+            // Fetch health data and objectives in parallel
+            Promise.all([
+                fetch(`http://localhost:8000/api/user-health-data/${user_id}/last`).then(res => {
+                    if (!res.ok) throw new Error('Error al obtener datos de salud');
+                    return res.json();
+                }),
+                fetch(`http://localhost:8000/api/user-objectives/${user_id}/last`).then(res => {
+                    if (!res.ok) throw new Error('Error al obtener objetivos');
+                    return res.json();
+                }).catch(() => []) // Return empty array if objectives don't exist yet
+            ])
+                .then(([healthData, last_objective]) => {
+                    const { weight, height } = healthData;
+                    const { activity, current_progress, objective, unit_of_measurement, start_date, end_date } = last_objective;
 
+                    // Set diet type based on weight/height ratio
                     if (weight > height) setSelectedType('2.0');
                     else if (weight === height) setSelectedType('2.1');
                     else if (weight < height) setSelectedType('3.0');
                     else setSelectedType('1.0');
 
+                    // Set diet based on activity
+                    if (activity === 'Ganar peso') setSelectedType('3.0');
+                    else if (activity === 'Perder peso') setSelectedType('2.0');
+
                     setLoading(false);
                 })
                 .catch(error => {
-                    console.error('Error fetching data:', error);
-                    setError('Error al obtener los datos del usuario.');
+                    console.error('Error:', error);
+                    setError(error.message || 'Error al obtener los datos del usuario');
                     setLoading(false);
                 });
         }
@@ -108,15 +115,19 @@ export const UserExerciseDetailList = () => {
 
             if (response.ok) {
                 setShowSuccessModal(true);
-                alert('✅ Rutina añadida exitosamente');
+                setTimeout(() => {
+                    setShowSuccessModal(false);
+                    onUpdateUserExerciseDetail(true);
+                }, 1000);
+                console.log('✅ Rutina añadida exitosamente');
             } else {
                 const errorData = await response.json();
                 console.error('Error creating routine:', errorData);
-                alert(`Error al crear la rutina: ${errorData.detail || response.statusText}`);
+                console.log(`Error al crear la rutina: ${errorData.detail || response.statusText}`);
             }
         } catch (error) {
             console.error('Error creating routine:', error);
-            alert('Error al crear la rutina. Intente de nuevo más tarde.');
+            console.log('Error al crear la rutina. Intente de nuevo más tarde.');
         }
     };
 
@@ -133,6 +144,14 @@ export const UserExerciseDetailList = () => {
         }
         return 'from-emerald-500 to-lime-400';
     };
+
+    const SuccessModal = () => (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white text-black p-6 rounded-xl shadow-lg text-center">
+                <p className="text-lg font-semibold mb-2">✅ Rutina añadida exitosamente</p>
+            </div>
+        </div>
+    );
 
     return (
         <div className="p-6 max-w-4xl mx-auto">
@@ -208,7 +227,7 @@ export const UserExerciseDetailList = () => {
                     </div>
                 ))}
             </div>
-
+            {showSuccessModal && <SuccessModal />}
         </div>
     );
 };
