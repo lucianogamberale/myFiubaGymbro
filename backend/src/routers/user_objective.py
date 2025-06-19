@@ -35,6 +35,15 @@ def get_all_user_objectives(user_id: float, db: DBSessionDependency) -> List[Use
 def get_user_objective_history(user_id: float, db: DBSessionDependency) -> List[UserObjectiveHistoryResponseDTO]:
     return UserObjectiveService(db).get_user_objective_history(user_id)
 
+@router.get(
+    "/{user_id}/last",
+    response_model=UserObjectiveResponseDTO,
+    status_code=status.HTTP_200_OK
+)
+
+def get_last_user_objective(user_id: float, db: DBSessionDependency) -> UserObjectiveResponseDTO:
+    return UserObjectiveService(db).get_last_user_objective(user_id)
+
 
 @router.put("/{user_id}/{user_objective_id}", status_code=status.HTTP_204_NO_CONTENT)
 def update_user_objective(user_id: float, user_objective_id: float, user_objective_data: UserObjectiveUpdateDTO, db: DBSessionDependency) -> None:

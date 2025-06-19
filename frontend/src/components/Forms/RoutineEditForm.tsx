@@ -332,18 +332,19 @@ export const RoutineEditForm = ({ routineId, setOpenForm, onUpdateRoutine }: Pro
                         </div>
 
                         <div className="flex justify-center mt-6">
-                            <button type="button" onClick={handleAddExercise} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
+                            <button type="button" onClick={handleAddExercise} className="bg-slate-500 hover:bg-slate-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4">
                                 Añadir Ejercicio
                             </button>
                         </div>
-
-                        <div className="flex items-center justify-end mt-8">
-                            <button onClick={closeForm} className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-center font-semibold mr-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                Cerrar
-                            </button>
-                            <button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                                Guardar Cambios
-                            </button>
+                        <div className="mt-8 border-t pt-6 border-gray-200">
+                            <div className="flex items-center justify-end mt-8">
+                                <button onClick={closeForm} className="bg-slate-200 hover:bg-slate-300 text-slate-700 text-center font-semibold mr-4 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                    Cerrar
+                                </button>
+                                <button type="submit" className="bg-slate-700 hover:bg-slate-800 text-white text-center font-semibold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                                    Guardar Cambios
+                                </button>
+                            </div>
                         </div>
                     </form>
                 </div>

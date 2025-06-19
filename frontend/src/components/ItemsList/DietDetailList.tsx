@@ -38,7 +38,12 @@ interface DietForm {
     meals: DietMealEntryForm[];
 }
 
-export const UserDietsDetail = () => {
+interface UserDietsDetailProps {
+    updateUserDietsDetail: boolean;
+    onUpdateUserDietsDetail: (value: boolean) => void;
+}
+
+export const UserDietsDetail = ({ updateUserDietsDetail, onUpdateUserDietsDetail }: UserDietsDetailProps) => {
     const auth = useAuth();
     const user_id = auth.getUserId();
     const navigate = useNavigate();
@@ -231,3 +236,4 @@ export const UserDietsDetail = () => {
         </div>
     );
 };
+

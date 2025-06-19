@@ -6,7 +6,12 @@ import runningNivelMedio from '../../../images/routines/running_nivel_medio.webp
 import runningNivelAvanzado from '../../../images/routines/running_nivel_avanzado.jpg';
 import trialRunning from '../../../images/routines/trail_running.jpg';
 
-export const UserExerciseRunningList = () => {
+interface UserExerciseRunningListProps {
+    updateUserExerciseRunning: boolean;
+    onUpdateUserExerciseRunning: (value: boolean) => void;
+}
+
+export const UserExerciseRunningList = ({ updateUserExerciseRunning, onUpdateUserExerciseRunning }: UserExerciseRunningListProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
 

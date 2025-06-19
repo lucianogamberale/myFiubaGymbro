@@ -6,7 +6,12 @@ import yogaNivelMedio from '../../../images/routines/yoga_nivel_medio.jpg';
 import yogaNivelAvanzado from '../../../images/routines/yoga_nivel_avanzado.jpg';
 import yogaRestaurativo from '../../../images/routines/yoga_restaurativo.jpg';
 
-export const UserExerciseYogaList = () => {
+interface UserExerciseYogaListProps {
+    updateUserExerciseYoga: boolean;
+    onUpdateUserExerciseYoga: (value: boolean) => void;
+}
+
+export const UserExerciseYogaList = ({ updateUserExerciseYoga, onUpdateUserExerciseYoga }: UserExerciseYogaListProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
 

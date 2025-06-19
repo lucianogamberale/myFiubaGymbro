@@ -13,7 +13,12 @@ interface Category {
     description?: string;
 }
 
-export const UserDietsMusculaturaList = () => {
+interface UserDietsMusculaturaListProps {
+    updateUserMusculaturaDiets: boolean;
+    onUpdateUserMusculaturaDiets: (value: boolean) => void;
+}
+
+export const UserDietsMusculaturaList = ({ updateUserMusculaturaDiets, onUpdateUserMusculaturaDiets }: UserDietsMusculaturaListProps) => {
     const auth = useAuth();
     const user_id = auth.getUserId();
     console.log("hola ", user_id);

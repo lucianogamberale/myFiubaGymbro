@@ -42,7 +42,12 @@ const getRandomCategory = (): CategoryKey => {
     return keys[randomIndex];
 };
 
-export const UserHome = () => {
+export interface UserHomeProps {
+    updateHome: boolean;
+    onUpdateHome: (value: boolean) => void;
+}
+
+export const UserHome = ({ updateHome, onUpdateHome }: UserHomeProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
     const user_id = auth.getUserId();
@@ -76,15 +81,17 @@ export const UserHome = () => {
             const exerciseName = exerciseActivitiesByCategory[randomCategory];
 
             const now = new Date();
+            const argentinaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Argentina/Buenos_Aires' }));
+            argentinaTime.setHours(argentinaTime.getHours() - 3);
             let date: string;
 
             if (isSync) {
                 const daysAgo = Math.floor(Math.random() * 30); // hasta 30 días atrás
-                const randomDate = new Date(now);
-                randomDate.setDate(now.getDate() - daysAgo);
+                const randomDate = new Date(argentinaTime);
+                randomDate.setDate(argentinaTime.getDate() - daysAgo);
                 date = randomDate.toISOString();
             } else {
-                date = now.toISOString();
+                date = argentinaTime.toISOString();
             }
 
             const response = await fetch(`http://localhost:8000/api/user-exercises/${user_id}`, {

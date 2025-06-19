@@ -40,7 +40,12 @@ interface RoutineForm {
     exercises: ExerciseEntryForm[];
 }
 
-export const UserExerciseDetailList = () => {
+interface UserExerciseDetailListProps {
+    updateUserExerciseDetail: boolean;
+    onUpdateUserExerciseDetail: (value: boolean) => void;
+}
+
+export const UserExerciseDetailList = ({ updateUserExerciseDetail, onUpdateUserExerciseDetail }: UserExerciseDetailListProps) => {
     const auth = useAuth();
     const user_id = auth.getUserId();
     const navigate = useNavigate();
@@ -50,6 +55,7 @@ export const UserExerciseDetailList = () => {
     const [loading, setLoading] = useState(type === '0');
     const [error, setError] = useState<string | null>(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
+
 
     useEffect(() => {
         if (type === '0') {

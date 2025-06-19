@@ -14,7 +14,15 @@ interface Category {
     description?: string;
 }
 
-export const UserExerciseRecomendationList = () => {
+interface UserExerciseRecomendationListProps {
+    updateRoutineRecomendations: boolean;
+    onUpdateRoutineRecomendations: (value: boolean) => void;
+}
+
+export const UserExerciseRecomendationList = ({
+    updateRoutineRecomendations,
+    onUpdateRoutineRecomendations
+}: UserExerciseRecomendationListProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
 
