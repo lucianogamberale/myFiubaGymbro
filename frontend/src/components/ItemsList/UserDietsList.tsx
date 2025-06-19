@@ -232,11 +232,14 @@ export const UserDietsList = ({ updateUserDiets, onUpdateUserDiets }: Props) => 
 
         try {
             const now = new Date();
+            const argentinaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Argentina/Buenos_Aires' }));
+            argentinaTime.setHours(argentinaTime.getHours() - 3);
+
             const userMealData = {
                 food_name: meal.food_name,
                 food_category: meal.food_category,
                 calories: meal.calories,
-                date: now.toISOString()
+                date: argentinaTime.toISOString()
             };
 
             const response = await fetch(`http://localhost:8000/api/user-foods/${user_id}`, {

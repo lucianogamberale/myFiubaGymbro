@@ -181,6 +181,7 @@ export const UserExercisesList = ({ updateUserExercises, onUpdateUserExercises }
                                                     year: 'numeric',
                                                     hour: '2-digit',
                                                     minute: '2-digit',
+                                                    timeZone: 'America/Argentina/Buenos_Aires'
                                                 })}
                                             </td>
                                             <td className="px-4 py-2 text-right">

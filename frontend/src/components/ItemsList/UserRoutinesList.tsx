@@ -215,12 +215,15 @@ export const UserRoutinesList = ({ updateUserRoutines, onUpdateUserRoutines }: P
 
         try {
             const now = new Date();
+            const argentinaTime = new Date(now.toLocaleString('en-US', { timeZone: 'America/Argentina/Buenos_Aires' }));
+            argentinaTime.setHours(argentinaTime.getHours() - 3);
+
             const userExerciseData = {
                 exercise_name: exercise.exercise_name,
                 exercise_category: exercise.exercise_category,
                 duration: exercise.duration,
                 calories: exercise.calories_burned,
-                date: now.toISOString()
+                date: argentinaTime.toISOString()
             };
 
             const response = await fetch(`http://localhost:8000/api/user-exercises/${user_id}`, {
