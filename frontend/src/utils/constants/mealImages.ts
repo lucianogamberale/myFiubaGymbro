@@ -17,6 +17,13 @@ import yogurGriego from '../../images/diets/meals/yogur_griego.jpeg';
 import ensaladaAtun from '../../images/diets/meals/ensalada_atun.jpg';
 import huevosEspinaca from '../../images/diets/meals/huevos_espinaca_tocino.jpg';
 import tortilla from '../../images/diets/meals/tortilla.jpeg';
+import tortillaVerduras from '../../images/diets/meals/tortilla_verduras.jpg';
+import tostadasPaltaTomate from '../../images/diets/meals/tostadas_palta_tomate.avif';
+import filetePescadoVerduras from '../../images/diets/meals/filete_pescado_verduras.webp';
+import ensalada from '../../images/diets/meals/ensalada.jpeg';
+import milanesa from '../../images/diets/meals/milanesa.jpg';
+import carneVerduras from '../../images/diets/meals/carne_verduras.jpeg';
+import panIntegral from '../../images/diets/meals/pan_integral.avif';
 
 export const mealImages = {
     ejemplo,
@@ -38,4 +45,11 @@ export const mealImages = {
     ensaladaAtun,
     huevosEspinaca,
     tortilla,
+    tortillaVerduras,
+    tostadasPaltaTomate,
+    filetePescadoVerduras,
+    ensalada,
+    milanesa,
+    carneVerduras,
+    panIntegral,
 };
