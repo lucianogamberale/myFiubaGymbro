@@ -6,7 +6,12 @@ import musculaturaNivelMedio from '../../../images/routines/musculatura_medio.jp
 import musculaturaNivelAvanzado from '../../../images/routines/musculatura_avanzado.webp';
 import tonificacion from '../../../images/routines/tonificacion.webp';
 
-export const UserExerciseMusculaturaList = () => {
+interface UserExerciseMusculaturaListProps {
+    updateUserExerciseMusculatura: boolean;
+    onUpdateUserExerciseMusculatura: (value: boolean) => void;
+}
+
+export const UserExerciseMusculaturaList = ({ updateUserExerciseMusculatura, onUpdateUserExerciseMusculatura }: UserExerciseMusculaturaListProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
 

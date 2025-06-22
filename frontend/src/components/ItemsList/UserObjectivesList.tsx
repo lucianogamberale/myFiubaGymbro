@@ -89,7 +89,7 @@ export const UserObjectivesList = ({ updateUserObjectives, onUpdateUserObjective
                 ) :
                     <>
                         {userObjectives.length === 0 && !loading ? (
-                            <div className="text-lg text-slate-400 text-center mt-3">Aún no tenés objetivos cargados.</div>
+                            <div className="text-lg text-slate-400 text-center mt-3">Aún no cargaste nada.</div>
                         ) : (
                             <div className="flex-grow overflow-auto">
                                 <div className="grid grid-rows-* gap-4 p-2 ml-2 mr-2">

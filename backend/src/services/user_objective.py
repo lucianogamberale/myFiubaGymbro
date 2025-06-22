@@ -62,6 +62,10 @@ class UserObjectiveService:
             for entry in history_data
         ]
 
+    def get_last_user_objective(self, user_id: float) -> UserObjectiveResponseDTO:
+        return self.objectives_repo.get_last_user_objective(user_id)
+
+
     def update_user_objective(
         self,
         user_id: float,

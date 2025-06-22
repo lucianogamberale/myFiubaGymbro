@@ -21,7 +21,15 @@ interface Category {
     description?: string;
 }
 
-export const UserDietsRecomendations = () => {
+interface UserDietsRecomendationsProps {
+    updateDietRecomendations: boolean;
+    onUpdateDietRecomendations: (value: boolean) => void;
+}
+
+export const UserDietsRecomendations = ({ 
+    updateDietRecomendations, 
+    onUpdateDietRecomendations 
+}: UserDietsRecomendationsProps) => {
     const auth = useAuth();
     const navigate = useNavigate();
 
