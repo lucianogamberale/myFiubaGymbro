@@ -1,4 +1,3 @@
-import ejemplo from '../../images/diets/dietas.avif';
 import avenaConManzanaCanela from '../../images/diets/meals/avena_con_manzana_y_canela.jpeg';
 import ensaladaPolloVegetales from '../../images/diets/meals/ensalada_pollo_vegetales_quinoa.jpg';
 import sopaVerdurasPescado from '../../images/diets/meals/sopa_verduras_pescado.jpeg';
@@ -26,7 +25,6 @@ import carneVerduras from '../../images/diets/meals/carne_verduras.jpeg';
 import panIntegral from '../../images/diets/meals/pan_integral.avif';
 
 export const mealImages = {
-    ejemplo,
     avenaConManzanaCanela,
     ensaladaPolloVegetales,
     sopaVerdurasPescado,
